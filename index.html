@@ -1,335 +1,332 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fr-CA">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Répit — Votre assistant personnel, sans le stress</title>
-<meta name="description" content="Répit trie vos courriels, prépare vos réponses et garde vos tâches à jour. Prototype.">
+<title>Agendo — ton assistant IA personnel (prototype)</title>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="Agendo trie tes courriels, planifie ton agenda et protège ton temps de concentration. Prototype avec données d'exemple.">
+<meta name="theme-color" content="#0f1222">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<link rel="manifest" href='data:application/manifest+json,{"name":"Agendo","short_name":"Agendo","display":"standalone","start_url":".","background_color":"#0f1222","theme_color":"#6c5ce7","lang":"fr-CA"}'>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%236c5ce7'/%3E%3Cpath d='M9 23l7-14 7 14M12 18h8' stroke='white' stroke-width='3' fill='none' stroke-linecap='round'/%3E%3C/svg%3E">
 <style>
-:root{--bg:#faf8f4;--ink:#1f2a30;--mute:#5d6b73;--brand:#2f7d6d;--brand-d:#245f53;--soft:#e6f2ee;--card:#fff;--line:#e4e0d8;--warn:#fff4d6;--r:16px}
+:root{--bg:#0f1222;--bg2:#161a30;--card:#1c2140;--line:#2b3160;--tx:#eef0ff;--mut:#9aa1cc;--ac:#7c6cf0;--ac2:#3ee0c5;--warn:#ffb54a;--bad:#ff6b81;--ok:#46d39a;--r:16px}
+[data-theme=light]{--bg:#f5f6fc;--bg2:#fff;--card:#fff;--line:#dfe2f3;--tx:#171a33;--mut:#5e6591;--ac:#5b4be0;--ac2:#0aa58c;--warn:#c47a00;--bad:#d6334f;--ok:#12915f}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--ink);background:var(--bg);line-height:1.55}
-h1,h2,h3{line-height:1.2;margin:0 0 .5em}
-h1{font-size:clamp(2rem,5vw,3.4rem);letter-spacing:-.02em}
-h2{font-size:clamp(1.5rem,3.5vw,2.2rem)}
-p{margin:0 0 1em}
-a{color:var(--brand-d)}
-.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
-section{padding:64px 0}
-.banner{background:var(--warn);text-align:center;font-size:.9rem;padding:8px 12px;border-bottom:1px solid #ecd9a0}
-header.nav{position:sticky;top:0;background:rgba(250,248,244,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);z-index:10}
-.nav .wrap{display:flex;align-items:center;justify-content:space-between;height:60px;gap:12px}
-.logo{font-weight:800;font-size:1.3rem;color:var(--brand-d);text-decoration:none}
-.nav nav{display:flex;gap:18px;align-items:center}
-.nav nav a{text-decoration:none;color:var(--ink);font-size:.95rem}
-@media(max-width:640px){.nav nav a.l{display:none}}
-.btn{display:inline-block;background:var(--brand);color:#fff;border:0;border-radius:999px;padding:12px 24px;font-size:1rem;font-weight:600;cursor:pointer;text-decoration:none;font-family:inherit}
-.btn:hover{background:var(--brand-d)}
-.btn.sec{background:transparent;color:var(--brand-d);border:2px solid var(--brand)}
-.btn.sec:hover{background:var(--soft)}
-.btn.sm{padding:7px 16px;font-size:.9rem}
-.hero{padding:72px 0 56px;text-align:center}
-.hero p.lead{font-size:1.2rem;color:var(--mute);max-width:700px;margin:0 auto 1.5em}
-.small{font-size:.85rem;color:var(--mute)}
-.grid{display:grid;gap:20px}
-.g3{grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
-.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:24px}
-.card h3{font-size:1.1rem}
-.pain li{margin-bottom:.5em}
-.alt{background:#fff;border-block:1px solid var(--line)}
-.center{text-align:center}
-.steps{counter-reset:s;list-style:none;padding:0}
-.steps li{counter-increment:s;position:relative;padding-left:52px;margin-bottom:18px}
-.steps li:before{content:counter(s);position:absolute;left:0;top:0;width:36px;height:36px;border-radius:50%;background:var(--brand);color:#fff;display:grid;place-items:center;font-weight:700}
-.price{display:flex;flex-direction:column}
-.price ul{padding-left:1.2em;flex:1}
-.price .amt{font-size:2.2rem;font-weight:800}
-.price .amt span{font-size:1rem;font-weight:400;color:var(--mute)}
-.price.feat{border:2px solid var(--brand);position:relative}
-.tag{position:absolute;top:-13px;left:20px;background:var(--brand);color:#fff;border-radius:99px;font-size:.78rem;padding:3px 12px}
-.toggle{display:inline-flex;background:var(--soft);border-radius:99px;padding:4px;margin-bottom:28px}
-.toggle button{border:0;background:transparent;padding:8px 20px;border-radius:99px;cursor:pointer;font:inherit;color:var(--ink)}
-.toggle button[aria-pressed=true]{background:var(--brand);color:#fff}
-details{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 18px;margin-bottom:10px}
-summary{cursor:pointer;font-weight:600}
-details p{margin:.7em 0 0;color:var(--mute)}
-/* demo */
-.demo{background:#fff;border:1px solid var(--line);border-radius:20px;box-shadow:0 10px 40px rgba(31,42,48,.08);overflow:hidden}
-.demo-top{background:var(--warn);padding:8px 16px;font-size:.85rem;border-bottom:1px solid #ecd9a0;display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap}
-.tabs{display:flex;border-bottom:1px solid var(--line);overflow-x:auto}
-.tabs button{flex:1;min-width:120px;padding:14px 10px;border:0;background:none;cursor:pointer;font:inherit;font-weight:600;color:var(--mute);border-bottom:3px solid transparent}
-.tabs button[aria-selected=true]{color:var(--brand-d);border-color:var(--brand);background:var(--soft)}
-.panel{padding:24px;min-height:360px}
-.panel[hidden]{display:none}
-.chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
-.chip{border:1px solid var(--line);background:#fff;border-radius:99px;padding:6px 14px;cursor:pointer;font:inherit;font-size:.9rem}
-.chip[aria-pressed=true]{background:var(--brand);color:#fff;border-color:var(--brand)}
-.mail{display:flex;gap:12px;align-items:flex-start;padding:12px;border:1px solid var(--line);border-radius:12px;margin-bottom:10px}
-.mail .b{flex:1;min-width:0}
-.mail .s{font-weight:600}
-.mail .p{color:var(--mute);font-size:.9rem}
-.badge{font-size:.75rem;border-radius:99px;padding:3px 10px;background:var(--soft);color:var(--brand-d);white-space:nowrap}
-.badge.a{background:#fde2dc;color:#a33a24}
-.badge.l{background:#e8e8f7;color:#4a4a99}
-.badge.n{background:#eee;color:#555}
-.sum{background:var(--soft);border-radius:12px;padding:18px;margin-bottom:14px}
-.sum h3{font-size:1rem}
-.draft{border:1px solid var(--line);border-radius:12px;padding:16px}
-.draft textarea{width:100%;min-height:150px;border:1px solid var(--line);border-radius:8px;padding:10px;font:inherit;resize:vertical;margin:8px 0}
-.actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
-.status{margin-top:12px;padding:10px 14px;border-radius:10px;background:var(--soft);font-size:.92rem}
-.task{display:flex;gap:12px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line)}
-.task input{width:20px;height:20px;accent-color:var(--brand)}
-.task.done label{text-decoration:line-through;color:var(--mute)}
-.task .t{color:var(--mute);font-size:.85rem;min-width:56px}
-.task.ev .t{color:var(--brand-d);font-weight:600}
-.log{font-size:.85rem;color:var(--mute);margin-top:14px;border-top:1px dashed var(--line);padding-top:10px}
-footer{padding:36px 0;text-align:center;color:var(--mute);font-size:.9rem}
-dialog{border:0;border-radius:var(--r);padding:28px;max-width:420px;box-shadow:0 20px 60px rgba(0,0,0,.3)}
-dialog::backdrop{background:rgba(0,0,0,.45)}
+body{margin:0;font:15px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--tx);transition:background .3s,color .3s;padding-bottom:70px}
+body:before{content:"";position:fixed;inset:0;background:radial-gradient(600px 300px at 80% -5%,color-mix(in srgb,var(--ac) 25%,transparent),transparent),radial-gradient(500px 300px at 0% 10%,color-mix(in srgb,var(--ac2) 14%,transparent),transparent);pointer-events:none;z-index:-1}
+button{font:inherit;color:inherit;cursor:pointer}
+.btn{background:var(--ac);color:#fff;border:0;padding:8px 14px;border-radius:10px;font-weight:600;transition:transform .15s,filter .15s}
+.btn:hover{filter:brightness(1.1);transform:translateY(-1px)}.btn:active{transform:none}
+.btn.ghost{background:transparent;color:var(--tx);border:1px solid var(--line)}
+.btn.ok{background:var(--ok)}.btn.sm{padding:4px 10px;font-size:13px}
+.btn:focus-visible,input:focus-visible,.tab:focus-visible{outline:2px solid var(--ac2);outline-offset:2px}
+header{position:sticky;top:0;z-index:20;backdrop-filter:blur(14px);background:color-mix(in srgb,var(--bg) 80%,transparent);border-bottom:1px solid var(--line)}
+.bar{max-width:1100px;margin:auto;display:flex;align-items:center;gap:14px;padding:10px 16px}
+.logo{display:flex;align-items:center;gap:8px;font-weight:800;font-size:19px;letter-spacing:-.3px}
+.logo i{width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,var(--ac),var(--ac2));display:grid;place-items:center;color:#fff;font-style:normal;font-size:15px}
+.sp{flex:1}
+.pill{font-size:12px;padding:3px 9px;border-radius:99px;border:1px solid var(--line);color:var(--mut);white-space:nowrap}
+.pill.demo{color:var(--warn);border-color:color-mix(in srgb,var(--warn) 50%,transparent)}
+nav{display:flex;gap:4px;max-width:1100px;margin:auto;padding:0 16px 8px;overflow-x:auto}
+.tab{background:none;border:0;padding:7px 13px;border-radius:99px;color:var(--mut);white-space:nowrap;font-weight:600}
+.tab[aria-selected=true]{background:var(--card);color:var(--tx);box-shadow:inset 0 0 0 1px var(--line)}
+.tab kbd{opacity:.5;margin-left:4px}
+main{max-width:1100px;margin:auto;padding:18px 16px}
+section{display:none;animation:in .35s ease}section.on{display:block}
+@keyframes in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+h1{font-size:clamp(26px,5vw,40px);letter-spacing:-1px;margin:6px 0}
+h2{font-size:18px;margin:0 0 10px}
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:16px;box-shadow:0 6px 24px rgba(0,0,0,.12)}
+.mut{color:var(--mut)}.small{font-size:13px}
+.hero{padding:22px;border-radius:22px;background:linear-gradient(135deg,color-mix(in srgb,var(--ac) 30%,var(--card)),var(--card));border:1px solid var(--line);margin-bottom:14px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-top:14px}
+.stat{background:color-mix(in srgb,var(--bg) 50%,transparent);border:1px solid var(--line);border-radius:12px;padding:10px 12px}
+.stat b{display:block;font-size:24px;letter-spacing:-.5px}
+.row{display:flex;gap:10px;align-items:flex-start;padding:10px 0;border-top:1px solid var(--line)}
+.row:first-of-type{border-top:0}
+.tag{font-size:11px;padding:2px 8px;border-radius:99px;font-weight:700;white-space:nowrap}
+.t-urgent{background:color-mix(in srgb,var(--bad) 22%,transparent);color:var(--bad)}
+.t-repondre{background:color-mix(in srgb,var(--warn) 22%,transparent);color:var(--warn)}
+.t-info{background:color-mix(in srgb,var(--ac) 22%,transparent);color:var(--ac)}
+.t-infolettre{background:color-mix(in srgb,var(--mut) 22%,transparent);color:var(--mut)}
+.t-new{background:var(--line);color:var(--mut)}
+.draft{margin:6px 0 0;padding:8px 10px;border-left:3px solid var(--ac2);background:color-mix(in srgb,var(--ac2) 8%,transparent);border-radius:0 8px 8px 0;font-size:13px}
+.done{opacity:.55;text-decoration:line-through}
+/* agenda */
+.wk{display:grid;grid-template-columns:44px repeat(5,minmax(110px,1fr));overflow-x:auto;border:1px solid var(--line);border-radius:var(--r);background:var(--card)}
+.wk .hd{padding:8px;text-align:center;font-weight:700;border-bottom:1px solid var(--line);font-size:13px;position:sticky;top:0;background:var(--card)}
+.wk .hd.today{color:var(--ac2)}
+.col{position:relative;border-left:1px solid var(--line);height:540px;background:repeating-linear-gradient(var(--card) 0 59px,var(--line) 59px 60px)}
+.col.hrs{border-left:0;font-size:11px;color:var(--mut);background:none}
+.col.hrs span{position:absolute;right:6px;transform:translateY(-7px)}
+.ev{position:absolute;left:3px;right:3px;border-radius:9px;padding:4px 7px;font-size:12px;line-height:1.25;overflow:hidden;border:1px solid transparent;cursor:pointer;animation:pop .3s ease;text-align:left;background:color-mix(in srgb,var(--ac) 30%,var(--card));color:var(--tx)}
+.ev.focus{background:color-mix(in srgb,var(--ac2) 28%,var(--card));border:1px dashed var(--ac2)}
+.ev.perso{background:color-mix(in srgb,var(--warn) 25%,var(--card))}
+.ev.conflict{border:2px solid var(--bad);box-shadow:0 0 0 3px color-mix(in srgb,var(--bad) 25%,transparent)}
+.ev.half{right:50%}.ev.half2{left:50%}
+@keyframes pop{from{transform:scale(.92);opacity:0}to{transform:none;opacity:1}}
+.legend{display:flex;gap:12px;flex-wrap:wrap;margin:10px 0}
+.dot{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:5px}
+/* chat */
+.chat{display:flex;flex-direction:column;height:min(70vh,640px)}
+.msgs{flex:1;overflow:auto;display:flex;flex-direction:column;gap:10px;padding:4px 2px}
+.m{max-width:88%;padding:10px 13px;border-radius:14px;animation:in .25s ease;white-space:pre-wrap}
+.m.u{align-self:flex-end;background:var(--ac);color:#fff;border-bottom-right-radius:4px}
+.m.a{align-self:flex-start;background:color-mix(in srgb,var(--bg) 40%,var(--card));border:1px solid var(--line);border-bottom-left-radius:4px}
+.prop{margin-top:8px;padding:10px;border:1px dashed var(--ac2);border-radius:10px;background:color-mix(in srgb,var(--ac2) 7%,transparent)}
+.prop ul{margin:4px 0 8px;padding-left:18px}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0}
+.chip{border:1px solid var(--line);background:none;border-radius:99px;padding:4px 11px;font-size:13px;color:var(--mut)}
+.chip:hover{color:var(--tx);border-color:var(--ac)}
+form.in{display:flex;gap:8px;margin-top:8px}
+input[type=text]{flex:1;background:var(--bg2);color:var(--tx);border:1px solid var(--line);border-radius:12px;padding:11px 13px;font:inherit}
+.typing{display:inline-flex;gap:4px}.typing i{width:6px;height:6px;border-radius:50%;background:var(--mut);animation:b 1s infinite}.typing i:nth-child(2){animation-delay:.15s}.typing i:nth-child(3){animation-delay:.3s}
+@keyframes b{50%{transform:translateY(-4px)}}
+table{width:100%;border-collapse:collapse;font-size:14px}td,th{padding:6px 4px;border-top:1px solid var(--line);text-align:left}th{color:var(--mut);font-weight:600;border-top:0}
+td.n,th.n{text-align:right}
+.bar2{height:10px;border-radius:9px;background:var(--line);overflow:hidden}.bar2 i{display:block;height:100%;background:linear-gradient(90deg,var(--ac),var(--ac2));transition:width .6s}
+#toast{position:fixed;left:50%;bottom:84px;transform:translate(-50%,20px);background:var(--ok);color:#fff;padding:9px 16px;border-radius:12px;opacity:0;transition:.3s;pointer-events:none;z-index:50;font-weight:600;max-width:90vw}
+#toast.show{opacity:1;transform:translate(-50%,0)}
+dialog{background:var(--card);color:var(--tx);border:1px solid var(--line);border-radius:var(--r);max-width:440px}
+dialog::backdrop{background:rgba(0,0,0,.5)}
+kbd{background:var(--line);border-radius:5px;padding:0 6px;font:12px monospace}
+footer{max-width:1100px;margin:20px auto;padding:0 16px;color:var(--mut);font-size:12px}
+.price{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));margin-top:10px}
+.price .card b{font-size:26px}
+@media(max-width:600px){.hide-s{display:none}.m{max-width:96%}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
 <body>
-<div class="banner">🧪 <strong>Prototype</strong> : aucune inscription, aucun paiement et aucune vraie donnée. Tout le contenu est un exemple.</div>
-<header class="nav"><div class="wrap">
-<a class="logo" href="#top">Répit</a>
-<nav><a class="l" href="#demo">Démo</a><a class="l" href="#prix">Prix</a><a class="l" href="#faq">FAQ</a><button class="btn sm" data-cta>Essai gratuit</button></nav>
-</div></header>
-
-<main id="top">
-<section class="hero"><div class="wrap">
-<h1>Votre boîte de réception, votre agenda et vos tâches. Enfin sous contrôle.</h1>
-<p class="lead">Répit est votre assistant IA personnel. Il trie vos courriels, prépare vos réponses, fixe vos rendez-vous et garde vos tâches à jour, pour que vous puissiez vous concentrer sur ce qui compte vraiment.</p>
-<button class="btn" data-cta>Essayer gratuitement pendant 14 jours</button>
-<a class="btn sec" href="#demo" style="margin-left:8px">Voir la démo</a>
-<p class="small" style="margin-top:14px">Aucune carte de crédit requise. Annulation en tout temps.</p>
-</div></section>
-
-<section class="alt"><div class="wrap">
-<h2 class="center">Vous vous reconnaissez?</h2>
-<ul class="pain" style="max-width:700px;margin:0 auto 1em">
-<li>Vous commencez votre journée par 45 minutes de courriels… et vous n'avez toujours rien accompli.</li>
-<li>Fixer un simple café demande cinq messages de va-et-vient.</li>
-<li>Vous avez oublié de relancer un client, encore.</li>
-<li>Votre liste de tâches est éparpillée entre des courriels, des post-it et votre tête.</li>
-</ul>
-<p class="center"><strong>Vous n'avez pas besoin d'une autre application à gérer. Vous avez besoin de quelqu'un qui s'en occupe.</strong></p>
-</div></section>
-
-<section><div class="wrap">
-<h2 class="center">Le bras droit que vous n'aviez pas les moyens d'embaucher</h2>
-<div class="grid g3" style="margin-top:28px">
-<div class="card"><h3>📬 Une boîte qui se trie toute seule</h3><p>Les infolettres et notifications attendent leur tour; les messages importants remontent en haut.</p></div>
-<div class="card"><h3>☀️ Un résumé chaque matin</h3><p>Qui attend une réponse, vos rendez-vous du jour et les tâches prioritaires, avant votre premier café.</p></div>
-<div class="card"><h3>✍️ Des réponses prêtes à envoyer</h3><p>Des brouillons dans votre ton. Vous relisez, vous ajustez, vous envoyez. Rien ne part sans votre accord.</p></div>
-<div class="card"><h3>📅 Des rendez-vous sans va-et-vient</h3><p>« Trouve-moi une heure avec Sophie la semaine prochaine, pas le vendredi. » Répit propose les bonnes plages.</p></div>
-<div class="card"><h3>✅ Aucune tâche oubliée</h3><p>Une soumission pour jeudi? Elle devient une tâche avec échéance, rappelée au bon moment.</p></div>
-<div class="card"><h3>🔁 Des relances au bon moment</h3><p>Pas de réponse depuis quelques jours? Répit vous le signale et propose un petit mot de relance.</p></div>
-</div>
-</div></section>
-
-<section class="alt" id="demo"><div class="wrap">
-<h2 class="center">Essayez la démo</h2>
-<p class="center small" style="margin-bottom:24px">Une journée type pour Julie, consultante à son compte. Données fictives, rien n'est lu ni envoyé.</p>
-<div class="demo">
-<div class="demo-top"><span>⚠️ <strong>DONNÉES D'EXEMPLE</strong> — démonstration fictive</span><button class="chip" id="reset">↺ Réinitialiser</button></div>
-<div class="tabs" role="tablist" id="tabs">
-<button role="tab" aria-selected="true" data-p="p1">☀️ Résumé du matin</button>
-<button role="tab" aria-selected="false" data-p="p2">📬 Tri des courriels</button>
-<button role="tab" aria-selected="false" data-p="p3">✍️ Brouillon</button>
-<button role="tab" aria-selected="false" data-p="p4">✅ Liste du jour</button>
-</div>
-
-<div class="panel" id="p1" role="tabpanel">
-<h3>Bonjour Julie 👋 <span class="small" id="today"></span></h3>
-<div class="sum"><h3>Ce qui demande votre attention</h3>
-<ul id="sumList" style="margin:0;padding-left:1.2em"></ul></div>
-<div class="sum" style="background:#f3f0ea"><h3>Aujourd'hui</h3>
-<p style="margin:0">3 rendez-vous, 4 tâches. Un bloc de concentration est réservé de 13 h à 15 h.</p></div>
-<button class="btn sm" id="goDraft">Préparer la réponse à Marc →</button>
-</div>
-
-<div class="panel" id="p2" role="tabpanel" hidden>
-<div class="chips" id="filters"></div>
-<div id="mails"></div>
-<p class="small">Cliquez sur une catégorie pour filtrer, ou sur « Changer » pour corriger Répit : il apprend de vos ajustements.</p>
-</div>
-
-<div class="panel" id="p3" role="tabpanel" hidden>
-<div class="mail" style="background:#faf8f4"><div class="b"><div class="s">Marc Tremblay — Soumission révisée?</div><div class="p">« Bonjour Julie, as-tu pu jeter un œil à ma demande de soumission? J'en aurais besoin d'ici jeudi. Merci! »</div></div><span class="badge a">Sans réponse depuis 3 jours</span></div>
-<div class="draft">
-<strong>Brouillon proposé par Répit</strong> <span class="small">(modifiable)</span>
-<textarea id="draftText" aria-label="Brouillon de réponse"></textarea>
-<div class="actions">
-<button class="btn sm" id="approve">✓ Approuver et « envoyer »</button>
-<button class="btn sec sm" id="regen">↻ Autre ton</button>
-<button class="btn sec sm" id="discard">Rejeter</button>
-</div>
-<div class="status" id="draftStatus" role="status">En attente de votre approbation. Rien n'est envoyé tant que vous n'approuvez pas.</div>
-</div></div>
-
-<div class="panel" id="p4" role="tabpanel" hidden>
-<div id="tasks"></div>
-<p class="small" id="progress" style="margin-top:12px"></p>
-<div class="actions" style="margin-top:8px"><input id="newTask" placeholder="Ajouter une tâche (ex. Appeler Sophie)" style="flex:1;min-width:200px;padding:10px;border:1px solid var(--line);border-radius:8px;font:inherit"><button class="btn sm" id="addTask">Ajouter</button></div>
-</div>
-<div style="padding:0 24px 20px"><div class="log"><strong>Journal des actions</strong> (exemple)<div id="log">Aucune action pour l'instant.</div></div></div>
-</div>
-</div></section>
-
-<section><div class="wrap">
-<h2 class="center">Comment ça fonctionne</h2>
-<ol class="steps" style="max-width:640px;margin:24px auto 0">
-<li><strong>Connectez votre compte</strong> Gmail et Google Agenda en quelques clics. <em>(Outlook bientôt offert.)</em></li>
-<li><strong>Dites à Répit vos préférences</strong> : vos heures de travail, vos priorités, votre façon d'écrire.</li>
-<li><strong>Laissez-le travailler.</strong> Vous gardez le contrôle et approuvez chaque action importante.</li>
-</ol>
-</div></section>
-
-<section class="alt"><div class="wrap">
-<h2 class="center">Vos données restent les vôtres</h2>
-<div class="grid g3" style="margin-top:24px">
-<div class="card"><strong>Vous choisissez</strong> ce que Répit peut lire et faire.</div>
-<div class="card"><strong>Rien n'est envoyé</strong> sans votre approbation.</div>
-<div class="card"><strong>Pas d'entraînement</strong> de modèles d'IA avec vos données sans votre consentement explicite.</div>
-<div class="card"><strong>Un journal clair</strong> montre chaque action effectuée.</div>
-<div class="card"><strong>Tout supprimer</strong> en un clic, à tout moment.</div>
-<div class="card">Conçu pour respecter la LPRPDE et la Loi 25 du Québec <span class="small">(avis juridique à obtenir avant le lancement)</span>.</div>
-</div></div></section>
-
-<section id="prix"><div class="wrap center">
-<h2>Un prix simple, sans surprise</h2>
-<div class="toggle" role="group" aria-label="Facturation"><button id="mo" aria-pressed="true">Mensuel</button><button id="yr" aria-pressed="false">Annuel (2 mois gratuits)</button></div>
-<div class="grid g3" style="text-align:left">
-<div class="card price feat"><span class="tag">Le plus populaire</span><h3>Essentiel</h3>
-<div class="amt"><b data-m="15 $" data-y="150 $">15 $</b><span data-m="/mois" data-y="/an">/mois</span></div>
-<ul><li>1 compte courriel et 1 agenda</li><li>Tri intelligent de la boîte de réception</li><li>Résumé quotidien</li><li>Brouillons de réponse</li><li>Rendez-vous en langage naturel</li><li>Suivi des tâches et des relances</li></ul>
-<button class="btn" data-cta>Commencer l'essai gratuit</button></div>
-<div class="card price"><h3>Pro</h3>
-<div class="amt"><b data-m="29 $" data-y="290 $">29 $</b><span data-m="/mois" data-y="/an">/mois</span></div>
-<ul><li>Tout ce qu'offre Essentiel</li><li>Jusqu'à 3 comptes courriel et agendas</li><li>Règles personnalisées</li><li>Ton d'écriture adapté à vos messages</li><li>Support prioritaire</li></ul>
-<button class="btn sec" data-cta>Commencer l'essai gratuit</button></div>
-<div class="card price"><h3>🌟 Fondateurs</h3>
-<div class="amt">10 $<span>/mois</span></div>
-<ul><li>Palier Essentiel</li><li>Prix garanti tant que l'abonnement est actif</li><li>Accès anticipé aux nouvelles fonctions</li><li>Réservé aux 100 premiers abonnés</li></ul>
-<button class="btn sec" data-cta>Réserver ma place</button></div>
-</div>
-<p class="small" style="margin-top:18px">Prix en dollars canadiens, taxes en sus; prix proposés, à valider. Annulation en tout temps, sans frais. Essai gratuit de 14 jours.</p>
-</div></section>
-
-<section class="alt" id="faq"><div class="wrap" style="max-width:760px">
-<h2 class="center">Questions fréquentes</h2>
-<details><summary>Est-ce que Répit envoie des courriels à ma place?</summary><p>Non, pas sans votre accord. Répit prépare des brouillons et des propositions; c'est toujours vous qui appuyez sur « Envoyer ».</p></details>
-<details><summary>Avec quels services Répit fonctionne-t-il?</summary><p>Au lancement, Gmail et Google Agenda. Outlook et Microsoft 365 sont en préparation.</p></details>
-<details><summary>Répit comprend-il le français?</summary><p>Oui. Répit fonctionne en français et en anglais, et s'adapte à la langue de chacun de vos courriels.</p></details>
-<details><summary>Puis-je annuler quand je veux?</summary><p>Oui, en deux clics, sans frais. Vos données sont supprimées sur demande.</p></details>
-<details><summary>Que se passe-t-il à la fin de l'essai gratuit?</summary><p>Nous vous écrivons avant la fin. Sans choix de forfait, votre compte est simplement mis en pause. Aucun frais surprise.</p></details>
-<details><summary>Est-ce que l'IA peut se tromper?</summary><p>Oui, comme tout assistant. C'est pourquoi vous approuvez les actions importantes et pouvez corriger Répit.</p></details>
-</div></section>
-
-<section class="center"><div class="wrap">
-<h2>Reprenez le contrôle de votre journée</h2>
-<p>Moins de temps dans vos courriels. Plus de temps pour votre travail, vos clients et vos proches.</p>
-<button class="btn" data-cta>Essayer Répit gratuitement pendant 14 jours</button>
-</div></section>
+<header>
+ <div class="bar">
+  <div class="logo"><i>A</i>Agendo</div>
+  <span class="pill demo" title="Aucune vraie donnée, aucun vrai paiement">Mode démo · données d'exemple</span>
+  <span class="sp"></span>
+  <span class="pill hide-s" id="hdrSaved">⏱ 0 min gagnées</span>
+  <button class="btn ghost sm" id="themeBtn" aria-label="Changer de thème (T)">🌙</button>
+  <button class="btn ghost sm" id="helpBtn" aria-label="Raccourcis clavier (?)">?</button>
+ </div>
+ <nav role="tablist" id="tabs"></nav>
+</header>
+<main>
+<section id="v-today" class="on"></section>
+<section id="v-agenda"></section>
+<section id="v-chat"></section>
+<section id="v-follow"></section>
+<section id="v-time"></section>
+<section id="v-plans"></section>
 </main>
-
-<footer><div class="wrap">Répit — Votre assistant personnel, sans le stress.<br>Prototype de démonstration · Politique de confidentialité · Conditions d'utilisation · Nous joindre (liens à venir)</div></footer>
-
-<dialog id="dlg"><h3>Ceci est un prototype 🧪</h3><p>Aucune inscription ni aucun paiement n'est possible pour l'instant. Ce bouton montre seulement où se trouverait l'appel à l'action.</p><button class="btn" onclick="document.getElementById('dlg').close()">Compris</button></dialog>
+<footer>Agendo — prototype de démonstration. Tous les courriels, événements et contacts sont fictifs. Aucune connexion à Gmail ou à un agenda, aucun paiement réel. Les données restent dans ton navigateur (localStorage).</footer>
+<div id="toast" role="status" aria-live="polite"></div>
+<dialog id="help"><h2>Raccourcis clavier</h2>
+<p><kbd>1</kbd>–<kbd>6</kbd> changer de vue · <kbd>/</kbd> parler à Agendo · <kbd>T</kbd> thème · <kbd>F</kbd> planifier le focus · <kbd>?</kbd> cette aide · <kbd>Échap</kbd> fermer</p>
+<p class="small mut">Commandes à essayer : « planifie une réunion jeudi à 14h », « résume mes courriels », « protège mon temps de focus », « détecte les conflits », « prépare ma réunion », « fais les relances ».</p>
+<button class="btn" onclick="document.getElementById('help').close()">Fermer</button></dialog>
 
 <script>
 (function(){
-"use strict";
-var $=function(s,r){return (r||document).querySelector(s)};
-var $$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
-var CATS={todo:["À traiter","a"],later:["À lire plus tard","l"],news:["Infolettres","n"],wait:["Peut attendre",""]};
-var MAILS0=[
-{id:1,from:"Marc Tremblay",subj:"Soumission révisée?",prev:"As-tu pu jeter un œil à ma demande? J'en aurais besoin d'ici jeudi.",cat:"todo"},
-{id:2,from:"Sophie Gagnon",subj:"Café la semaine prochaine?",prev:"Je suis libre mardi ou mercredi, qu'est-ce qui te convient?",cat:"todo"},
-{id:3,from:"Cabinet Roy CPA",subj:"Documents pour votre déclaration",prev:"Merci de nous transmettre vos relevés avant le 30.",cat:"later"},
-{id:4,from:"L'Infolettre Pigiste",subj:"10 conseils pour fixer vos tarifs",prev:"Cette semaine : comment augmenter ses prix sans perdre de clients…",cat:"news"},
-{id:5,from:"Boutique Papeterie Plus",subj:"-20 % sur tout ce week-end",prev:"Profitez de nos rabais d'automne.",cat:"wait"},
-{id:6,from:"Banque Exemple",subj:"Votre relevé est disponible",prev:"Connectez-vous pour consulter votre relevé mensuel.",cat:"later"},
-{id:7,from:"Karim Benali",subj:"Relance : proposition de formation",prev:"Je me permets de revenir vers vous, des nouvelles?",cat:"todo"}];
-var TASKS0=[
-{t:"08:30",x:"Revoir le résumé du matin",d:0},
-{t:"09:30",x:"Appel avec Karim Benali (30 min)",d:0,ev:1},
-{t:"11:00",x:"Envoyer la soumission à Marc (échéance jeudi)",d:0},
-{t:"13:00",x:"Bloc de concentration : rapport RH",d:0,ev:1},
-{t:"15:30",x:"Café avec Sophie (à confirmer)",d:0,ev:1},
-{t:"16:30",x:"Relancer Karim pour la proposition",d:0}];
-var DRAFTS=[
-"Bonjour Marc,\n\nMerci de ta patience! Je t'envoie la soumission révisée aujourd'hui avant midi. N'hésite pas si tu veux ajuster quoi que ce soit.\n\nBonne journée,\nJulie",
-"Salut Marc,\n\nTu as bien fait de relancer. La soumission est presque prête et je te la fais parvenir ce matin. On se reparle ensuite pour les détails?\n\nJulie",
-"Bonjour Monsieur Tremblay,\n\nJe vous remercie de votre message. Je vous transmettrai la soumission révisée aujourd'hui, avant jeudi comme convenu.\n\nCordialement,\nJulie Lavoie"];
-var mails,tasks,filter="all",di=0,sent=false,logs;
+'use strict';
+var KEY='agendo.v1';
+var DAYS=['Lun','Mar','Mer','Jeu','Ven'],DAYF=['lundi','mardi','mercredi','jeudi','vendredi'];
+var H0=8,H1=17,PX=60;
+var MIN={triage:1,draft:4,meeting:6,focus:3,followup:3,prep:10,conflict:5,task:2};
+var LABEL={triage:'Courriel trié',draft:'Brouillon approuvé',meeting:'Réunion planifiée',focus:'Bloc de focus planifié',followup:'Relance préparée',prep:'Réunion préparée',conflict:'Conflit résolu',task:'Tâche complétée'};
+function seed(){return{
+ theme:'dark',
+ emails:[
+  {id:1,from:'Marie Tremblay (client fictif)',subj:'Soumission du projet web',body:'Peux-tu confirmer le prix avant jeudi?',cat:null,real:'urgent',draft:'Bonjour Marie, je confirme la soumission à 4 200 $ taxes en sus. Je t\'envoie le contrat demain matin.',sent:false},
+  {id:2,from:'Fiscalité Express (exemple)',subj:'Rappel : acomptes provisionnels',body:'Prochain versement le 15 du mois.',cat:null,real:'info',draft:null,sent:false},
+  {id:3,from:'Luc Gagnon (exemple)',subj:'Disponible pour un café cette semaine?',body:'On pourrait jaser de la collaboration.',cat:null,real:'repondre',draft:'Salut Luc, avec plaisir! Je suis libre jeudi à 15 h, ça te convient?',sent:false},
+  {id:4,from:'Infolettre Techno (exemple)',subj:'10 outils à connaître en 2026',body:'Votre résumé hebdomadaire…',cat:null,real:'infolettre',draft:null,sent:false},
+  {id:5,from:'Sophie Bélanger (cliente fictive)',subj:'Facture #112 en retard',body:'Pouvez-vous me renvoyer la facture?',cat:null,real:'urgent',draft:'Bonjour Sophie, voici la facture #112 en pièce jointe. Désolé du délai!',sent:false},
+  {id:6,from:'Équipe Co-working (exemple)',subj:'Réservation de salle confirmée',body:'Mercredi 13 h, salle Saint-Laurent.',cat:null,real:'info',draft:null,sent:false}],
+ tasks:[{id:1,t:'Envoyer la soumission à Marie',d:false},{id:2,t:'Payer les acomptes provisionnels',d:false},{id:3,t:'Rédiger le plan de la semaine',d:false}],
+ events:[
+  {id:1,day:0,s:9,d:1,t:'Stand-up équipe (exemple)',k:'rdv'},
+  {id:2,day:1,s:10,d:1.5,t:'Appel Marie – soumission',k:'rdv'},
+  {id:3,day:1,s:11,d:1,t:'Revue de projet',k:'rdv'},
+  {id:4,day:2,s:13,d:1,t:'Co-working salle Saint-Laurent',k:'perso'},
+  {id:5,day:2,s:13.5,d:1,t:'Webinaire fournisseur',k:'rdv'},
+  {id:6,day:3,s:9,d:1,t:'Démo client (exemple)',k:'rdv'},
+  {id:7,day:4,s:14,d:1,t:'Bilan de la semaine',k:'rdv'}],
+ follow:[
+  {id:1,who:'Marie Tremblay',what:'Soumission envoyée',days:4,st:'attente',txt:'Bonjour Marie, je me permets de relancer au sujet de la soumission envoyée lundi. As-tu eu le temps d\'y jeter un œil?'},
+  {id:2,who:'Distributions Roy',what:'Facture #108 impayée',days:9,st:'attente',txt:'Bonjour, un petit rappel concernant la facture #108 échue depuis 9 jours. Merci de confirmer le paiement.'},
+  {id:3,who:'Julie Côté',what:'Proposition de partenariat',days:6,st:'attente',txt:'Bonjour Julie, as-tu pu réfléchir à notre proposition de partenariat? Je reste disponible pour en discuter.'}],
+ log:[],chat:[],nid:100,prepared:{}
+};}
+var S;
+try{S=JSON.parse(localStorage.getItem(KEY))}catch(e){}
+if(!S||!S.emails)S=seed();
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
+function $(s,r){return (r||document).querySelector(s)}
+function esc(x){return String(x).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
+function fh(h){var hh=Math.floor(h),m=Math.round((h-hh)*60);return hh+'h'+(m?(m<10?'0':'')+m:'')}
+function toast(m){var t=$('#toast');t.textContent=m;t.className='show';clearTimeout(toast.t);toast.t=setTimeout(function(){t.className=''},2200)}
+function award(type,detail){S.log.push({type:type,min:MIN[type],detail:detail||'',at:Date.now()});toast('+'+MIN[type]+' min gagnées · '+LABEL[type])}
+function totalMin(){return S.log.reduce(function(a,l){return a+l.min},0)}
+function todayIdx(){var d=new Date().getDay();return d>=1&&d<=5?d-1:0}
 
-function log(m){logs.unshift(new Date().toLocaleTimeString("fr-CA",{hour:"2-digit",minute:"2-digit"})+" — "+m);logs=logs.slice(0,5);$("#log").innerHTML=logs.map(function(l){return "<div></div>"}).join("");$$("#log div").forEach(function(d,i){d.textContent=logs[i]})}
-function esc(s){var d=document.createElement("div");d.textContent=s;return d.innerHTML}
+/* ---- calendrier ---- */
+function overlap(a,b){return a.day===b.day&&a.s<b.s+b.d&&b.s<a.s+a.d}
+function conflicts(){var out=[];for(var i=0;i<S.events.length;i++)for(var j=i+1;j<S.events.length;j++){var a=S.events[i],b=S.events[j];if(a.k!=='focus'&&b.k!=='focus'&&overlap(a,b))out.push([a,b])}return out}
+function freeAt(day,s,d,ign){return S.events.every(function(e){return e===ign||!overlap({day:day,s:s,d:d},e)})&&s>=H0&&s+d<=H1&&!(s<12.5&&s+d>12)}
+function findSlot(day,d,from){for(var s=from||9;s+d<=H1;s+=.5)if(freeAt(day,s,d))return s;return null}
+function planFocus(){var out=[];for(var day=0;day<5;day++){var has=S.events.some(function(e){return e.day===day&&e.k==='focus'});if(has)continue;
+  for(var s=H0;s+2<=H1;s+=.5){if(freeAt(day,s,2)&&!pendingFocusClash(out,day,s)){out.push({day:day,s:s,d:2,t:'Focus : travail profond',k:'focus'});break}}}
+  return out.slice(0,3)}
+function pendingFocusClash(arr,day,s){return arr.some(function(e){return overlap(e,{day:day,s:s,d:2})})}
+function addEvent(e){e.id=S.nid++;S.events.push(e)}
 
-function renderSummary(){
- var n=mails.filter(function(m){return m.cat==="todo"}).length;
- $("#sumList").innerHTML="<li>"+n+" courriels à traiter (sur "+mails.length+" reçus)</li><li>Marc attend votre soumission depuis 3 jours</li><li>Sophie propose mardi ou mercredi pour un café</li><li>Karim vous relance : proposition de formation</li>";
-}
-function renderFilters(){
- var f=[["all","Tous ("+mails.length+")"]];
- Object.keys(CATS).forEach(function(k){f.push([k,CATS[k][0]+" ("+mails.filter(function(m){return m.cat===k}).length+")"])});
- var box=$("#filters");box.innerHTML="";
- f.forEach(function(p){var b=document.createElement("button");b.className="chip";b.textContent=p[1];b.setAttribute("aria-pressed",filter===p[0]);b.onclick=function(){filter=p[0];renderFilters();renderMails()};box.appendChild(b)});
-}
-function renderMails(){
- var box=$("#mails");box.innerHTML="";
- mails.filter(function(m){return filter==="all"||m.cat===filter}).forEach(function(m){
-  var e=document.createElement("div");e.className="mail";
-  e.innerHTML='<div class="b"><div class="s"></div><div class="p"></div></div><span class="badge"></span><button class="chip">Changer</button>';
-  $(".s",e).textContent=m.from+" — "+m.subj;$(".p",e).textContent=m.prev;
-  var bd=$(".badge",e);bd.textContent=CATS[m.cat][0];bd.className="badge "+CATS[m.cat][1];
-  $(".chip",e).onclick=function(){var ks=Object.keys(CATS);m.cat=ks[(ks.indexOf(m.cat)+1)%ks.length];log("Vous avez reclassé « "+m.subj+" » dans « "+CATS[m.cat][0]+" ».");renderFilters();renderMails();renderSummary()};
-  box.appendChild(e)});
-}
-function renderTasks(){
- var box=$("#tasks");box.innerHTML="";
- tasks.forEach(function(k,i){
-  var e=document.createElement("div");e.className="task"+(k.d?" done":"")+(k.ev?" ev":"");
-  var id="tk"+i;
-  e.innerHTML='<input type="checkbox" id="'+id+'"><span class="t"></span><label for="'+id+'"></label>';
-  $("input",e).checked=!!k.d;$(".t",e).textContent=k.t||"—";$("label",e).textContent=(k.ev?"📅 ":"")+k.x;
-  $("input",e).onchange=function(){k.d=this.checked;if(k.d)log("Tâche terminée : "+k.x);renderTasks()};
-  box.appendChild(e)});
- var d=tasks.filter(function(k){return k.d}).length;
- $("#progress").textContent=d+" sur "+tasks.length+" terminées";
-}
-function setDraft(){$("#draftText").value=DRAFTS[di%DRAFTS.length];$("#draftText").disabled=false;sent=false;$("#draftStatus").textContent="En attente de votre approbation. Rien n'est envoyé tant que vous n'approuvez pas."}
-function show(id){$$(".panel").forEach(function(p){p.hidden=p.id!==id});$$("#tabs button").forEach(function(b){b.setAttribute("aria-selected",b.dataset.p===id)})}
+/* ---- rendu ---- */
+var TABS=[['today','Aujourd\'hui'],['agenda','Agenda'],['chat','Assistant'],['follow','Relances'],['time','Temps gagné'],['plans','Forfaits']];
+var cur='today';
+function renderTabs(){$('#tabs').innerHTML=TABS.map(function(t,i){return '<button class="tab" role="tab" aria-selected="'+(t[0]===cur)+'" data-tab="'+t[0]+'">'+t[1]+'<kbd class="hide-s">'+(i+1)+'</kbd></button>'}).join('')}
+function show(v){cur=v;document.querySelectorAll('main section').forEach(function(s){s.classList.toggle('on',s.id==='v-'+v)});renderTabs();render();if(v==='chat')setTimeout(function(){var i=$('#cin');if(i)i.focus()},50)}
+function render(){
+ $('#themeBtn').textContent=S.theme==='dark'?'🌙':'☀️';document.documentElement.dataset.theme=S.theme;
+ $('#hdrSaved').textContent='⏱ '+totalMin()+' min gagnées';
+ ({today:rToday,agenda:rAgenda,chat:rChat,follow:rFollow,time:rTime,plans:rPlans})[cur]();save()}
+function catTag(e){return e.cat?'<span class="tag t-'+e.cat+'">'+({urgent:'Urgent',repondre:'À répondre',info:'Info',infolettre:'Infolettre'})[e.cat]+'</span>':'<span class="tag t-new">Non trié</span>'}
+function rToday(){
+ var un=S.emails.filter(function(e){return!e.cat}).length,urg=S.emails.filter(function(e){return e.cat==='urgent'&&!e.sent}).length;
+ var cf=conflicts().length,td=todayIdx(),ev=S.events.filter(function(e){return e.day===td}).sort(function(a,b){return a.s-b.s});
+ var h='<div class="hero"><span class="pill demo">Données d\'exemple</span><h1>Bonjour! Voici ta journée.</h1><p class="mut">Agendo a lu ta boîte fictive, vérifié ton agenda et prépare le terrain. Rien ne part sans ton accord.</p>'+
+ '<div class="stats"><div class="stat"><b>'+un+'</b><span class="small mut">courriels à trier</span></div><div class="stat"><b>'+urg+'</b><span class="small mut">urgents en attente</span></div><div class="stat"><b style="color:'+(cf?'var(--bad)':'var(--ok)')+'">'+cf+'</b><span class="small mut">conflits d\'agenda</span></div><div class="stat"><b>'+totalMin()+' min</b><span class="small mut">gagnées (démo)</span></div></div>'+
+ '<p style="margin:14px 0 0"><button class="btn" data-a="triage">✨ Trier ma boîte</button> <button class="btn ghost" data-go="chat">💬 Parler à Agendo</button> <button class="btn ghost" data-a="plan-focus">🎯 Protéger mon focus</button></p></div>';
+ h+='<div class="grid"><div class="card"><h2>📬 Boîte de réception <span class="small mut">(fictive)</span></h2>'+S.emails.map(function(e){
+  return '<div class="row"><div style="flex:1"><div>'+catTag(e)+' <b>'+esc(e.subj)+'</b></div><div class="small mut">'+esc(e.from)+' — '+esc(e.body)+'</div>'+
+  (e.cat&&e.draft&&!e.sent?'<div class="draft">Brouillon proposé : « '+esc(e.draft)+' »<br><button class="btn ok sm" data-a="send" data-id="'+e.id+'" style="margin-top:6px">Approuver et envoyer (simulé)</button></div>':'')+
+  (e.sent?'<div class="small" style="color:var(--ok)">✔ Réponse envoyée (simulation)</div>':'')+'</div></div>'}).join('')+'</div>'+
+ '<div><div class="card"><h2>📅 Aujourd\'hui · '+DAYF[td]+'</h2>'+(ev.length?ev.map(function(e){return '<div class="row"><b style="min-width:70px">'+fh(e.s)+'</b><span>'+esc(e.t)+'</span></div>'}).join(''):'<p class="mut">Rien d\'inscrit.</p>')+
+ '</div><div class="card" style="margin-top:14px"><h2>✅ Liste du jour</h2>'+S.tasks.map(function(t){return '<label class="row" style="cursor:pointer;align-items:center"><input type="checkbox" data-a="task" data-id="'+t.id+'" '+(t.d?'checked':'')+'><span class="'+(t.d?'done':'')+'">'+esc(t.t)+'</span></label>'}).join('')+'</div></div></div>'
+ $('#v-today').innerHTML=h}
+function rAgenda(){
+ var cf=conflicts(),cs=new Set();cf.forEach(function(p){cs.add(p[0].id);cs.add(p[1].id)});
+ var h='<h1>Agenda de la semaine</h1><p class="mut">Semaine fictive. Agendo repère les conflits et réserve du temps de concentration.</p>'+
+ '<p><button class="btn" data-a="plan-focus">🎯 Planifier mes blocs de focus</button> <button class="btn ghost" data-a="resolve">⚠️ Résoudre les conflits ('+cf.length+')</button> <button class="btn ghost" data-a="clear-focus">Retirer le focus</button></p>';
+ if(cf.length)h+='<div class="card" style="border-color:var(--bad);margin-bottom:12px">⚠️ '+cf.map(function(p){return '<b>'+esc(p[0].t)+'</b> chevauche <b>'+esc(p[1].t)+'</b> ('+DAYF[p[0].day]+')'}).join('<br>⚠️ ')+'</div>';
+ var hrs='';for(var x=H0;x<=H1;x++)hrs+='<span style="top:'+(x-H0)*PX+'px">'+x+'h</span>';
+ h+='<div class="wk"><div class="hd"></div>'+DAYS.map(function(d,i){return '<div class="hd'+(i===todayIdx()?' today':'')+'">'+d+'</div>'}).join('')+'<div class="col hrs">'+hrs+'</div>';
+ for(var d=0;d<5;d++){h+='<div class="col">'+S.events.filter(function(e){return e.day===d}).map(function(e){
+  var half='';if(cs.has(e.id)){var mate=cf.filter(function(p){return p[0]===e||p[1]===e})[0];half=mate[0]===e?' half':' half2'}
+  return '<button class="ev '+e.k+(cs.has(e.id)?' conflict':'')+half+'" style="top:'+(e.s-H0)*PX+'px;height:'+(e.d*PX-2)+'px" data-a="ev" data-id="'+e.id+'" title="'+esc(e.t)+'"><b>'+fh(e.s)+'</b> '+esc(e.t)+'</button>'}).join('')+'</div>'}
+ h+='</div><div class="legend small mut"><span><i class="dot" style="background:var(--ac)"></i>Réunion</span><span><i class="dot" style="background:var(--ac2)"></i>Focus (Agendo)</span><span><i class="dot" style="background:var(--warn)"></i>Perso</span><span><i class="dot" style="border:2px solid var(--bad)"></i>Conflit</span><span>Clique un événement pour préparer la réunion.</span></div>';
+ $('#v-agenda').innerHTML=h}
+function rChat(){
+ var el=$('#v-chat');
+ if(!el.dataset.built){el.dataset.built=1;el.innerHTML='<h1>Parle à Agendo</h1><p class="mut">Écris une commande en langage naturel. Agendo propose des actions; tu approuves. (Simulation locale, sans IA réelle.)</p><div class="card chat"><div class="msgs" id="msgs" aria-live="polite"></div><div class="chips" id="chips"></div><form class="in" id="cform"><input type="text" id="cin" autocomplete="off" placeholder="Ex. : planifie une réunion jeudi à 14h" aria-label="Commande"><button class="btn">Envoyer</button></form></div>';
+  $('#chips').innerHTML=['Planifie une réunion jeudi à 14h','Résume mes courriels','Protège mon temps de focus','Détecte les conflits','Prépare ma réunion de mardi','Fais les relances','Combien de temps ai-je gagné?'].map(function(c){return '<button class="chip" type="button" data-chip="'+esc(c)+'">'+esc(c)+'</button>'}).join('');
+  $('#cform').addEventListener('submit',function(e){e.preventDefault();var i=$('#cin'),v=i.value.trim();if(!v)return;i.value='';ask(v)})}
+ if(!S.chat.length)S.chat.push({r:'a',h:'Salut! Je suis Agendo. Je peux trier tes courriels, planifier des réunions, protéger ton focus, détecter les conflits, préparer tes rencontres et relancer tes contacts. Essaie une suggestion ci-dessous.'});
+ drawMsgs()}
+function drawMsgs(){var box=$('#msgs');if(!box)return;box.innerHTML=S.chat.map(function(m,i){return '<div class="m '+m.r+'">'+(m.r==='u'?esc(m.h):m.h)+(m.prop&&m.prop.st==='open'?propHtml(m.prop,i):'')+(m.prop&&m.prop.st==='ok'?'<div class="small" style="color:var(--ok);margin-top:6px">✔ Approuvé</div>':'')+(m.prop&&m.prop.st==='no'?'<div class="small mut" style="margin-top:6px">Refusé</div>':'')+'</div>'}).join('');box.scrollTop=box.scrollHeight}
+function propHtml(p,i){return '<div class="prop"><b>Actions proposées</b><ul>'+p.items.map(function(x){return '<li>'+esc(x)+'</li>'}).join('')+'</ul><button class="btn ok sm" data-a="approve" data-i="'+i+'">Approuver</button> <button class="btn ghost sm" data-a="refuse" data-i="'+i+'">Refuser</button></div>'}
+function say(h,prop){S.chat.push({r:'a',h:h,prop:prop||null});save();drawMsgs()}
+function norm(s){return s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'')}
+function ask(text){
+ S.chat.push({r:'u',h:text});drawMsgs();
+ var box=$('#msgs');var tp=document.createElement('div');tp.className='m a';tp.innerHTML='<span class="typing"><i></i><i></i><i></i></span>';box.appendChild(tp);box.scrollTop=box.scrollHeight;
+ setTimeout(function(){reply(text)},ask.fast?0:550)}
+function reply(text){
+ var q=norm(text),m;
+ if(/plan|reunion|rencontre|rdv|rendez|cafe|appel|bloque/.test(q)&&!/focus|concentration|relance|conflit/.test(q)){
+  var day=null;DAYF.forEach(function(d,i){if(q.indexOf(d)>=0)day=i});if(/demain/.test(q))day=Math.min(4,todayIdx()+1);if(day===null)day=todayIdx();
+  var tm=q.match(/(\d{1,2})\s*(?:h|:)\s*(\d{2})?/),s=tm?parseInt(tm[1],10)+(tm[2]?parseInt(tm[2],10)/60:0):null;
+  var dur=1,dm=q.match(/(\d{2,3})\s*min/);if(dm)dur=parseInt(dm[1],10)/60;
+  var title=(q.match(/(?:avec|:)\s+([a-z ]{2,30})$/)||[])[1];title=title?'Réunion avec '+title.trim().replace(/^./,function(c){return c.toUpperCase()}):/cafe/.test(q)?'Café':/appel/.test(q)?'Appel':'Réunion';
+  var items=[],ev;
+  if(s===null){s=findSlot(day,dur,9);if(s===null){return say('Je ne trouve aucune plage libre '+DAYF[day]+'. Veux-tu essayer un autre jour?')}items.push('Meilleure plage libre trouvée : '+fh(s))}
+  else if(!freeAt(day,s,dur)){var alt=findSlot(day,dur,9);var msg='Tu as déjà quelque chose '+DAYF[day]+' à '+fh(s)+' (ou c\'est hors des heures de bureau).';if(alt===null)return say(msg+' Aucune autre plage libre ce jour-là.');s=alt;items.push('Conflit évité : je propose plutôt '+fh(s));say(msg);}
+  ev={day:day,s:s,d:dur,t:title,k:'rdv'};items.push('Ajouter « '+title+' » '+DAYF[day]+' de '+fh(s)+' à '+fh(s+dur));items.push('Préparer un ordre du jour (simulé)');
+  return say('Voici ce que je propose :',{st:'open',kind:'meeting',ev:ev,items:items})}
+ if(/resume|courriel|mail|boite|inbox/.test(q)){
+  var u=S.emails.filter(function(e){return!e.cat}),urg=S.emails.filter(function(e){return e.real==='urgent'&&!e.sent});
+  var h='Tu as '+S.emails.length+' courriels (fictifs), dont '+u.length+' non triés. Points clés :\n• '+S.emails.filter(function(e){return e.real==='urgent'||e.real==='repondre'}).map(function(e){return esc(e.subj)}).join('\n• ');
+  if(!u.length&&!S.emails.some(function(e){return e.draft&&!e.sent}))return say(h+'\n\nTout est déjà trié et traité. 🎉');
+  var items=[];if(u.length)items.push('Trier les '+u.length+' courriels non triés');var dr=S.emails.filter(function(e){return e.draft&&!e.sent});if(dr.length)items.push('Marquer '+dr.length+' brouillons de réponse comme prêts à approuver (rien ne s\'envoie sans ton clic dans « Aujourd\'hui »)');
+  return say(h,{st:'open',kind:'triage',items:items})}
+ if(/focus|concentration|travail profond|deep/.test(q)){var f=planFocus();if(!f.length)return say('Ton focus est déjà protégé, ou ton agenda est trop plein pour ajouter des blocs de 2 h.');
+  return say('J\'ai trouvé des plages calmes pour protéger ton travail profond :',{st:'open',kind:'focus',evs:f,items:f.map(function(e){return DAYF[e.day]+' de '+fh(e.s)+' à '+fh(e.s+e.d)})})}
+ if(/conflit|chevauch|double/.test(q)){var cf=conflicts();if(!cf.length)return say('Aucun conflit dans ton agenda. ✅');
+  return say('J\'ai détecté '+cf.length+' conflit(s) :',{st:'open',kind:'resolve',items:cf.map(function(p){return '« '+p[1].t+' » ('+DAYF[p[1].day]+') déplacé à la prochaine plage libre'})})}
+ if(/prepare|preparation|briefing|brief/.test(q)){var day=null;DAYF.forEach(function(d,i){if(q.indexOf(d)>=0)day=i});var evs=S.events.filter(function(e){return e.k==='rdv'&&(day===null||e.day===day)}).sort(function(a,b){return a.day-b.day||a.s-b.s});
+  var e=evs[0];if(!e)return say('Je ne vois aucune réunion à préparer.');prep(e.id);return}
+ if(/relance|suivi|relancer/.test(q)){var p=S.follow.filter(function(f){return f.st==='attente'});if(!p.length)return say('Toutes les relances sont déjà traitées. 👌');
+  return say('Ces contacts n\'ont pas répondu. Je prépare des relances polies :',{st:'open',kind:'follow',items:p.map(function(f){return f.who+' — '+f.what+' ('+f.days+' j)'})})}
+ if(/temps|gagne|economi/.test(q)){return say('Selon les actions que tu as approuvées dans cette démo, tu as gagné environ '+totalMin()+' minutes. Détail dans l\'onglet « Temps gagné » (estimations modifiables, pas des statistiques réelles).')}
+ if(/merci/.test(q))return say('Avec plaisir! 😊');
+ if(/aide|help|quoi faire|peux-tu/.test(q))return say('Essaie : « planifie une réunion jeudi à 14h », « résume mes courriels », « protège mon focus », « détecte les conflits », « prépare ma réunion de mardi » ou « fais les relances ».');
+ say('Je n\'ai pas compris cette commande dans cette démo (je ne suis pas une vraie IA ici). Essaie : « planifie une réunion jeudi à 14h », « résume mes courriels », « protège mon focus », « détecte les conflits », « prépare ma réunion » ou « fais les relances ».')}
+function prep(id){var e=S.events.filter(function(x){return x.id===id})[0];if(!e)return;
+ var rel=S.emails.filter(function(m){return norm(e.t).split(/\W+/).some(function(w){return w.length>4&&norm(m.subj+m.from).indexOf(w)>=0})}).slice(0,2);
+ var h='📋 Préparation : <b>'+esc(e.t)+'</b> ('+DAYF[e.day]+' '+fh(e.s)+')\n• Contexte : '+(rel.length?rel.map(function(m){return esc(m.subj)}).join('; '):'aucun échange récent trouvé (données fictives)')+'\n• Ordre du jour suggéré : 1) Objectifs (5 min) 2) Points clés (20 min) 3) Décisions et prochaines étapes (10 min)\n• Question à poser : « Quelle est la prochaine décision à prendre? »';
+ if(S.prepared[id]){say(h+'\n\n(Déjà préparée.)');return}
+ say(h,{st:'open',kind:'prep',id:id,items:['Joindre la note de préparation à l\'événement (simulé)']})}
+function approve(i){var m=S.chat[i];if(!m||!m.prop||m.prop.st!=='open')return;var p=m.prop;p.st='ok';
+ if(p.kind==='meeting'){addEvent(Object.assign({},p.ev));award('meeting',p.ev.t)}
+ else if(p.kind==='triage')triage();
+ else if(p.kind==='focus'){p.evs.forEach(function(e){addEvent(Object.assign({},e));award('focus',DAYF[e.day])})}
+ else if(p.kind==='resolve')resolve();
+ else if(p.kind==='follow')S.follow.forEach(function(f){if(f.st==='attente'){f.st='prepare';award('followup',f.who)}});
+ else if(p.kind==='prep'){S.prepared[p.id]=1;award('prep',String(p.id))}
+ save();drawMsgs();updHdr()}
+function updHdr(){$('#hdrSaved').textContent='⏱ '+totalMin()+' min gagnées'}
+function triage(){var n=0;S.emails.forEach(function(e){if(!e.cat){e.cat=e.real;n++;S.log.push({type:'triage',min:MIN.triage,detail:e.subj,at:Date.now()})}});if(n)toast('+'+n*MIN.triage+' min · '+n+' courriels triés');else toast('Tout est déjà trié')}
+function resolve(){var n=0;conflicts().forEach(function(p){var b=p[1],s=findSlot(b.day,b.d,9);var day=b.day;if(s===null){for(var d=0;d<5&&s===null;d++){s=findSlot(d,b.d,9);day=d}}if(s!==null){b.day=day;b.s=s;n++;award('conflict',b.t)}});if(!n)toast('Aucun conflit résolu')}
+function rFollow(){
+ $('#v-follow').innerHTML='<h1>Relances automatiques</h1><p class="mut">Agendo surveille les messages restés sans réponse et prépare une relance polie. Contacts fictifs.</p><div class="grid">'+S.follow.map(function(f){
+ return '<div class="card"><b>'+esc(f.who)+'</b> <span class="tag t-'+(f.st==='attente'?'repondre':'info')+'">'+({attente:'Sans réponse '+f.days+' j',prepare:'Relance prête',envoye:'Relance envoyée (simulé)'})[f.st]+'</span><div class="small mut">'+esc(f.what)+'</div>'+
+ (f.st!=='attente'?'<div class="draft">'+esc(f.txt)+'</div>':'')+
+ '<p>'+(f.st==='attente'?'<button class="btn sm" data-a="fprep" data-id="'+f.id+'">Préparer la relance</button>':f.st==='prepare'?'<button class="btn ok sm" data-a="fsend" data-id="'+f.id+'">Approuver et envoyer (simulé)</button>':'<span style="color:var(--ok)">✔ Terminé</span>')+'</p></div>'}).join('')+'</div>'}
+function rTime(){
+ var by={};S.log.forEach(function(l){by[l.type]=by[l.type]||{n:0,m:0};by[l.type].n++;by[l.type].m+=l.min});var tot=totalMin();
+ var rows=Object.keys(MIN).map(function(k){var b=by[k]||{n:0,m:0};return '<tr><td>'+LABEL[k]+'</td><td class="n">'+b.n+'</td><td class="n">× '+MIN[k]+' min</td><td class="n"><b>'+b.m+' min</b></td></tr>'}).join('');
+ var goal=120;
+ $('#v-time').innerHTML='<h1>Temps gagné</h1><p class="mut">Calculé uniquement à partir des actions que tu approuves dans cette démo. Les durées par action sont des <b>hypothèses de démonstration</b>, pas des statistiques mesurées.</p><div class="grid"><div class="card"><div class="stat"><b style="font-size:40px">'+(tot>=60?Math.floor(tot/60)+' h '+(tot%60):tot+' min')+'</b><span class="mut small">gagnées dans cette session démo</span></div><p class="small mut" style="margin-bottom:4px">Objectif démo : 2 h</p><div class="bar2"><i style="width:'+Math.min(100,tot/goal*100)+'%"></i></div><p class="small mut">Actions approuvées : '+S.log.length+'</p><button class="btn ghost sm" data-a="reset">Réinitialiser la démo</button></div>'+
+ '<div class="card"><h2>Détail du calcul</h2><table><tr><th>Action</th><th class="n">Nb</th><th class="n">Hypothèse</th><th class="n">Total</th></tr>'+rows+'</table></div></div>'}
+function rPlans(){$('#v-plans').innerHTML='<h1>Forfaits (aperçu)</h1><p class="mut">Prix proposés à valider. Aucun paiement n\'est possible dans ce prototype.</p><div class="price"><div class="card"><h2>Essentiel</h2><b>15 $</b><span class="mut"> /mois</span><p class="small">Tri des courriels, résumé du matin, agenda et focus.</p></div><div class="card" style="border-color:var(--ac)"><h2>Pro</h2><b>29 $</b><span class="mut"> /mois</span><p class="small">Tout Essentiel + relances automatiques, préparation de réunions, assistant illimité.</p></div><div class="card"><h2>Fondateurs</h2><b>10 $</b><span class="mut"> /mois</span><p class="small">Tarif réservé aux premiers utilisateurs. Essai de 14 jours.</p></div></div><p><button class="btn" data-a="waitlist">Me joindre à la liste d\'attente (simulé)</button></p>'}
 
-function init(){
- mails=MAILS0.map(function(m){return Object.assign({},m)});
- tasks=TASKS0.map(function(t){return Object.assign({},t)});
- logs=[];filter="all";di=0;
- $("#log").textContent="Aucune action pour l'instant.";
- $("#today").textContent="— exemple de résumé";
- renderSummary();renderFilters();renderMails();renderTasks();setDraft();
-}
-$$("#tabs button").forEach(function(b){b.onclick=function(){show(b.dataset.p)}});
-$("#goDraft").onclick=function(){show("p3")};
-$("#regen").onclick=function(){if(sent)return;di++;setDraft();log("Nouveau ton proposé pour la réponse à Marc.")};
-$("#discard").onclick=function(){$("#draftText").value="";$("#draftStatus").textContent="Brouillon rejeté. Répit ne l'a pas envoyé.";log("Brouillon rejeté.")};
-$("#approve").onclick=function(){
- if(sent)return;if(!$("#draftText").value.trim()){$("#draftStatus").textContent="Le brouillon est vide.";return}
- sent=true;$("#draftText").disabled=true;
- $("#draftStatus").textContent="✓ Approuvé (simulation). Dans le vrai produit, le courriel partirait maintenant. Ici, rien n'a été envoyé.";
- log("Réponse à Marc approuvée par vous (simulation).");
- var t=tasks[2];if(t&&!t.d){t.d=1;renderTasks()}
-};
-$("#addTask").onclick=function(){var v=$("#newTask").value.trim();if(!v)return;tasks.push({t:"",x:v,d:0});$("#newTask").value="";log("Tâche ajoutée : "+v);renderTasks()};
-$("#newTask").onkeydown=function(e){if(e.key==="Enter")$("#addTask").click()};
-$("#reset").onclick=init;
-$$("[data-cta]").forEach(function(b){b.onclick=function(){$("#dlg").showModal()}});
-function price(y){$$("[data-m]").forEach(function(e){e.textContent=y?e.dataset.y:e.dataset.m});$("#mo").setAttribute("aria-pressed",!y);$("#yr").setAttribute("aria-pressed",y)}
-$("#mo").onclick=function(){price(false)};$("#yr").onclick=function(){price(true)};
-init();
+/* ---- événements ---- */
+document.addEventListener('click',function(ev){
+ var t=ev.target.closest('[data-a],[data-go],[data-tab],[data-chip]');if(!t)return;
+ if(t.dataset.tab)return show(t.dataset.tab);
+ if(t.dataset.go)return show(t.dataset.go);
+ if(t.dataset.chip){return ask(t.dataset.chip)}
+ var a=t.dataset.a,id=+t.dataset.id;
+ if(a==='triage'){triage();render()}
+ else if(a==='send'){var e=S.emails.filter(function(x){return x.id===id})[0];if(e){e.sent=true;award('draft',e.subj)}render()}
+ else if(a==='task'){var k=S.tasks.filter(function(x){return x.id===id})[0];k.d=t.checked;if(k.d)award('task',k.t);else{for(var i=S.log.length-1;i>=0;i--)if(S.log[i].type==='task'&&S.log[i].detail===k.t){S.log.splice(i,1);break}}render()}
+ else if(a==='plan-focus')planFocusUI();
+ else if(a==='clear-focus'){S.events=S.events.filter(function(e){return e.k!=='focus'});render()}
+ else if(a==='resolve'){resolve();render()}
+ else if(a==='ev'){show('chat');prep(id)}
+ else if(a==='approve')approve(+t.dataset.i);
+ else if(a==='refuse'){S.chat[+t.dataset.i].prop.st='no';save();drawMsgs()}
+ else if(a==='fprep'){var f=S.follow.filter(function(x){return x.id===id})[0];f.st='prepare';award('followup',f.who);render()}
+ else if(a==='fsend'){var f2=S.follow.filter(function(x){return x.id===id})[0];f2.st='envoye';toast('Relance envoyée (simulation)');render()}
+ else if(a==='reset'){if(confirm('Réinitialiser la démo?')){S=seed();var c=$('#v-chat');c.dataset.built='';c.innerHTML='';render()}}
+ else if(a==='waitlist')toast('Merci! (simulation, rien n\'a été enregistré)');
+});
+function planFocusUI(){var f=planFocus();if(!f.length){toast('Focus déjà protégé ou agenda plein');return}f.forEach(function(e){addEvent(e);award('focus',DAYF[e.day])});if(cur!=='agenda')show('agenda');else render()}
+document.addEventListener('keydown',function(e){
+ if(e.metaKey||e.ctrlKey||e.altKey)return;var tg=e.target.tagName;
+ if(e.key==='Escape'){var d=$('#help');if(d.open)d.close();return}
+ if(tg==='INPUT'&&e.target.type==='text')return;
+ var k=e.key;
+ if(/^[1-6]$/.test(k))show(TABS[+k-1][0]);
+ else if(k==='/'){e.preventDefault();show('chat')}
+ else if(k==='t'||k==='T'){S.theme=S.theme==='dark'?'light':'dark';render()}
+ else if(k==='f'||k==='F')planFocusUI();
+ else if(k==='?')$('#help').showModal()});
+$('#themeBtn').onclick=function(){S.theme=S.theme==='dark'?'light':'dark';render()};
+$('#helpBtn').onclick=function(){$('#help').showModal()};
+window.__agendo={ask:function(t){ask.fast=true;ask(t);ask.fast=false},state:function(){return S}};
+show('today');
 })();
 </script>
 </body>
