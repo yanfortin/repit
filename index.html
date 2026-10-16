@@ -5,10 +5,11 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#0b0d14">
 <link rel="manifest" href="manifest.webmanifest">
+<link rel="stylesheet" href="epic.css">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="icon-192.png">
-<title>Agendo — Ton assistant IA personnel (prototype)</title>
-<meta name="description" content="Agendo : prototype d'assistant IA personnel pour courriels, agenda, déplacements, réunions, abonnements, habitudes et finances. Fonctionne hors ligne. Données d'exemple seulement.">
+<title>Agendo Épique — Ton assistant IA personnel (prototype)</title>
+<meta name="description" content="Agendo Épique : centre de commande, jumeau numérique, coach IA, machine à remonter le temps, éditeur de flux, marché d'extensions et plus.  prototype d'assistant IA personnel pour courriels, agenda, déplacements, réunions, abonnements, habitudes et finances. Fonctionne hors ligne. Données d'exemple seulement.">
 <style>
 :root{--bg:#0b0d14;--bg2:#121624;--card:#171c2e;--line:#262d47;--tx:#eef1fb;--mut:#a3adc9;--ac:#7c6cff;--ac2:#2ee6c5;--ok:#38d98a;--warn:#ffb547;--bad:#ff5d73;--r:14px}
 [data-theme=light]{--bg:#f5f6fb;--bg2:#fff;--card:#fff;--line:#dfe3f0;--tx:#161a2b;--mut:#566080;--ac:#5b49f0;--ac2:#0aa58c}
@@ -67,7 +68,7 @@ table{width:100%;border-collapse:collapse;font-size:14px}th,td{padding:9px 8px;b
 .timer{font-size:clamp(56px,14vw,110px);font-weight:800;letter-spacing:-3px;text-align:center;font-variant-numeric:tabular-nums}
 .sw{display:inline-flex;border:1px solid var(--line);border-radius:99px;padding:3px;background:var(--bg2)}
 .sw button{border:0;background:none;padding:6px 16px;border-radius:99px;cursor:pointer;color:var(--mut)}.sw button[aria-pressed=true]{background:var(--ac);color:#fff}
-.plans{display:grid;gap:14px;grid-template-columns:repeat(4,minmax(0,1fr))}
+.plans{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(215px,1fr))}
 .plan{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;display:flex;flex-direction:column;gap:8px;position:relative}
 .plan.hot{border-color:var(--ac);box-shadow:0 0 0 1px var(--ac),0 20px 50px -20px var(--ac)}
 .plan .pr{font-size:34px;font-weight:800;letter-spacing:-1px}.plan ul{padding-left:18px;margin:0;color:var(--mut);font-size:14px;flex:1}
@@ -202,10 +203,29 @@ canvas{max-width:100%;display:block}
 </div></header>
 
 <section class="hero wrap">
+<div class="ep-kick"><span>✨ Nouveau : l'édition Épique</span></div>
 <h1>Ton assistant IA qui <span>s'occupe de tout</span>, pour que tu fasses ce qui compte.</h1>
 <p>Replanifie ta journée en un clic, parle-lui en français, trouve des plages horaires entre fuseaux horaires, planifie tes déplacements, vide ta boîte courriel en quelques balayages et laisse un copilote prendre ton compte rendu. Fonctionne même hors ligne. Toi seul approuves chaque action.</p>
 <div class="row" style="justify-content:center"><button class="btn p" id="tryBtn">Essayer la démo</button><button class="btn" id="tourBtn">🧭 Visite guidée</button><button class="btn" id="goPlans2">Voir les forfaits</button></div>
 <div class="badges"><span class="tag s">Données d'exemple</span><span class="tag">Rien ne part sans ton accord</span><span class="tag">Pensé pour la Loi 25</span><span class="tag">Tout reste dans ton navigateur</span><span class="tag s">Installable · hors ligne</span></div>
+</section>
+
+
+<section class="wrap ep-show" id="epicShow" aria-labelledby="epH">
+<h2 id="epH">L'édition <span class="ep-grad">Épique</span> : un cockpit pour ta vie</h2>
+<p class="sub" style="text-align:center;max-width:720px;margin:0 auto 20px">Un centre de commande déplaçable, un jumeau numérique qui prédit ton épuisement, un coach IA, une machine à remonter le temps et bien plus. Tout est simulé, rien ne quitte ton navigateur.</p>
+<div class="ep-stats" id="epStats"><div><b data-n="47">47</b><span>outils</span></div><div><b data-n="13">13</b><span>nouveautés épiques</span></div><div><b data-n="8">8</b><span>sons ambiants générés</span></div><div><b data-n="365">365</b><span>jours de chaleur</span></div></div>
+<div class="ep-tiles">
+<button class="ep-tile" data-go="cmd"><i>🛰️</i><b>Centre de commande</b><span>Widgets déplaçables et redimensionnables, style cockpit.</span></button>
+<button class="ep-tile" data-go="twin"><i>🧬</i><b>Jumeau numérique</b><span>Simule ta semaine et prédit la surcharge et l'épuisement.</span></button>
+<button class="ep-tile" data-go="coach"><i>🧠</i><b>Coach IA</b><span>Bilans quotidiens et défis personnalisés.</span></button>
+<button class="ep-tile" data-go="zen"><i>🌌</i><b>Concentration immersive</b><span>Sons ambiants générés et particules.</span></button>
+<button class="ep-tile" data-go="tl"><i>⏳</i><b>Machine à remonter le temps</b><span>Chronologie de tes actions, retour en arrière en un clic.</span></button>
+<button class="ep-tile" data-go="flow"><i>🧩</i><b>Éditeur de flux</b><span>Automatisations par blocs, glisser-déposer.</span></button>
+<button class="ep-tile" data-go="sem"><i>🔭</i><b>Recherche sémantique</b><span>Trouve par le sens, pas juste par les mots.</span></button>
+<button class="ep-tile" data-go="collab"><i>👥</i><b>Mode équipe en direct</b><span>Curseurs, commentaires et présence simulés.</span></button>
+</div>
+<div class="row" style="justify-content:center;margin-top:16px"><button class="btn" id="introAgain">🎬 Revoir l'intro</button><button class="btn p" data-go="prog">🏆 Voir ma progression</button></div>
 </section>
 
 <div class="wrap app" id="demo">
@@ -222,7 +242,7 @@ canvas{max-width:100%;display:block}
 <p class="sub" style="margin-top:12px">Les limites et inclusions ci-dessus sont une proposition de travail. Les fonctions « bientôt » ne sont pas encore disponibles. Taxes en sus, s'il y a lieu.</p>
 </section>
 
-<footer><div class="wrap">Agendo — prototype de démonstration. Aucune donnée réelle collectée : tout reste dans ton navigateur (localStorage). Raccourcis : Ctrl/Cmd+K commandes, Ctrl+Z annuler, T thème, ? aide. Fait au Québec, en français d'ici.</div></footer>
+<footer><div class="wrap">Agendo — prototype de démonstration. Aucune donnée réelle collectée : tout reste dans ton navigateur (localStorage). Raccourcis : Ctrl/Cmd+K commandes, Ctrl+Z annuler, T thème, ? aide. Fait au Québec, en français d'ici. Mode vim : Alt+V · aide : ?</div></footer>
 
 <dialog id="gsd" aria-label="Palette de commandes"><input id="gs" type="search" placeholder="Tape une commande, une recherche ou une phrase pour l'assistant…" aria-label="Palette de commandes" autocomplete="off"><div class="res" id="gres" role="listbox" aria-label="Résultats"></div><div class="row b" style="margin-top:10px"><span class="sub" style="margin:0">↑↓ naviguer · Entrée choisir · &gt; pour les actions · Échap fermer</span><button class="btn sm" id="gsx">Fermer</button></div></dialog>
 <dialog id="nd" aria-label="Notifications"><div class="row b"><h3 style="margin:0">🔔 Notifications <span class="tag s">simulées</span></h3><span class="row"><button class="btn sm" id="ndRead">Tout marquer comme lu</button><button class="btn sm" id="ndSim">Simuler une notification</button><button class="btn sm" id="ndx">Fermer</button></span></div><div id="nlist" style="margin-top:10px;max-height:60vh;overflow:auto"></div></dialog>
@@ -315,7 +335,7 @@ const DK=["cal","tasks","todo","inv","exp","contacts","habits","goals","notes","
 const HS={u:[],r:[]};
 const pick=()=>JSON.stringify(DK.reduce((a,k)=>(a[k]=S[k],a),{}));
 function syncUR(){const u=$("#undoBtn"),r=$("#redoBtn");if(u)u.disabled=!HS.u.length;if(r)r.disabled=!HS.r.length}
-function snap(l){HS.u.push({s:pick(),l:l||""});if(HS.u.length>60)HS.u.shift();HS.r=[];syncUR()}
+function snap(l){const sj=pick();HS.u.push({s:sj,l:l||""});window.__AGH&&window.__AGH(l||"",sj);if(HS.u.length>60)HS.u.shift();HS.r=[];syncUR()}
 function undo(){const x=HS.u.pop();if(!x){toast("Rien à annuler");return}HS.r.push({s:pick(),l:x.l});Object.assign(S,JSON.parse(x.s));save();render();syncUR();toast("↶ Annulé"+(x.l?" : "+x.l:""))}
 function redo(){const x=HS.r.pop();if(!x){toast("Rien à rétablir");return}HS.u.push({s:pick(),l:x.l});Object.assign(S,JSON.parse(x.s));save();render();syncUR();toast("↷ Rétabli"+(x.l?" : "+x.l:""))}
 /* confettis */
@@ -767,7 +787,7 @@ const TABS=[["home","🏠","Accueil","Aperçu"],["day","✨","Ma journée parfai
  ["proj","🗂️","Projets","Piloter"],["crm","🕸️","Contacts et réseau"],["fin","💰","Budget et finances"],["time","📊","Analyse du temps"],["habits","🔥","Objectifs et séries"],["quests","🎯","Défis de la semaine"],["health","💤","Santé et énergie"],["subs","✂️","Abonnements"],["report","🖨️","Rapport hebdomadaire"],["team","👥","Tableau d'équipe"],["focus","⏱️","Concentration"],
  ["auto","🤖","Automatisations et modèles","Automatiser"],["integ","🔌","Intégrations"],["look","🎨","Apparence","Réglages"],["widget","📱","Widget d'accueil"],["pwa","📲","Hors ligne et installation"],["priv","🔒","Données et vie privée"]];
 const tabs=$("#tabs");
-tabs.innerHTML=TABS.map(t=>(t[3]?`<div class="gh" role="presentation">${t[3]}</div>`:"")+`<button role="tab" data-t="${t[0]}" id="tab-${t[0]}">${t[1]} <span>${t[2]}</span></button>`).join("");
+function buildTabs(){tabs.innerHTML=TABS.map(t=>(t[3]?`<div class="gh" role="presentation">${t[3]}</div>`:"")+`<button role="tab" data-t="${t[0]}" id="tab-${t[0]}">${t[1]} <span>${t[2]}</span></button>`).join("");$$("#tabs button").forEach(b=>b.setAttribute("aria-selected",b.dataset.t===S.tab))}buildTabs();
 tabs.addEventListener("click",e=>{const b=e.target.closest("button");if(b)go(b.dataset.t)});
 tabs.addEventListener("keydown",e=>{const bs=$$("button",tabs),i=bs.indexOf(document.activeElement);if(i<0)return;let n=-1;if(e.key==="ArrowDown"||e.key==="ArrowRight")n=(i+1)%bs.length;if(e.key==="ArrowUp"||e.key==="ArrowLeft")n=(i-1+bs.length)%bs.length;if(n>=0){e.preventDefault();bs[n].focus()}});
 function go(t,noscroll){if(t!==S.tab&&S.tab==="brief")stopBrief();S.tab=t;if(!S.vis)S.vis=[];if(!S.vis.includes(t))S.vis.push(t);save();render();if(!noscroll)$("#demo").scrollIntoView({block:"start"})}
@@ -878,6 +898,7 @@ priv(){return `<h2>Données et vie privée</h2><p class="sub">Pensé en tenant c
 };
 function applyLook(){const r=document.documentElement;r.dataset.theme=S.theme;r.dataset.pal=S.pal;r.style.fontSize=S.fs+"%";if(S.reduce)r.dataset.reduce="1";else delete r.dataset.reduce}
 function render(){
+ if(!V[S.tab]){window.__pendTab=S.tab;S.tab="home"}
  $$("#tabs button").forEach(b=>{const on=b.dataset.t===S.tab;b.setAttribute("aria-selected",on);b.tabIndex=on?0:-1});
  const m=$("#main");m.setAttribute("role","tabpanel");m.setAttribute("aria-labelledby","tab-"+S.tab);
  m.innerHTML=V[S.tab]();applyLook();bell();syncUR();INIT[S.tab]&&INIT[S.tab]();vacTag();netTag()}
@@ -1389,13 +1410,15 @@ function plans(){$("#bm").setAttribute("aria-pressed",!annual);$("#ba").setAttri
 document.addEventListener("click",e=>{const b=e.target.closest("[data-plan]");if(b)toast("Démo : aucun paiement ni inscription réels. Forfait « "+b.dataset.plan+" » non disponible.")});
 $("#bm").onclick=()=>{annual=false;plans()};$("#ba").onclick=()=>{annual=true;plans()};
 const CM=[["Liste du jour, agenda, projets","y","y","y","y"],["Habitudes, séries, objectifs et défis de la semaine","y","y","y","y"],["Thèmes de couleurs, mode sombre, accessibilité","y","y","y","y"],["Mode hors ligne et installation (PWA)","y","y","y","y"],["Widget d'écran d'accueil","Aperçu","y","y","y"],["Export des données","y","y","y","y"],["Assistant en français","Base","y","y","y"],["Commandes enchaînées, annuler et rétablir","n","y","y","y"],["Boîte zéro (balayage)","Limité","y","y","y"],["Ma journée parfaite et « et si »","n","y","y","y"],["Rédacteur de courriels (tons)","n","y","y","y"],["Réponses rapides","5","y","Illimitées","Illimitées"],["Récap audio","n","y","y","y"],["Notes de réunion et tâches","n","y","y","y"],["Rappels intelligents contextuels","n","10 actifs","Illimités","Illimités"],["Mode vacances et réponse automatique","n","y","y","y"],["Santé, sommeil et énergie","n","y","y","y"],["Rapport hebdomadaire imprimable","n","y","y","y"],["Page de réservation publique","n","1 type","Personnalisable","Personnalisable"],["Copilote de réunion (transcription en direct)","n","n","y","y"],["Déplacements, trajets et arrêts","n","n","y","y"],["Abonnements et détection de doublons","n","n","y","y"],["Réunion en direct (minuteur d'ordre du jour)","n","n","y","y"],["Trouveur de plages horaires multi-fuseaux","n","n","y","y"],["Carte du réseau et relances","n","n","y","y"],["Budget, factures et graphiques","n","n","y","y"],["Analyse du temps et énergie","n","n","y","y"],["Automatisations configurables","n","Limité","y","y"],["Tableau de bord d'équipe et coût des réunions","n","n","n","y"],["Comptes courriel connectés","Aucun","1 (bientôt)","3 (bientôt)","Illimité (bientôt)"],["Projets, contacts et plages partagés","n","n","n","bientôt"],["Rôles, audit, Slack","n","n","n","bientôt"],["Soutien","Communauté","Courriel","Prioritaire","Dédié (à valider)"]];
-$("#cmp").innerHTML=`<tr><th>Fonction</th>${PL.map(p=>`<th>${p.n}</th>`).join("")}</tr>`+CM.map(r=>`<tr><td>${r[0]}</td>${r.slice(1).map(v=>v==="y"?'<td class="y" aria-label="inclus">✓</td>':v==="n"?'<td class="n" aria-label="non inclus">—</td>':`<td>${v}</td>`).join("")}</tr>`).join("");
+function cmpBuild(){$("#cmp").innerHTML=`<tr><th>Fonction</th>${PL.map(p=>`<th>${p.n}</th>`).join("")}</tr>`+CM.map(r=>`<tr><td>${r[0]}</td>${r.slice(1).map(v=>v==="y"?'<td class="y" aria-label="inclus">✓</td>':v==="n"?'<td class="n" aria-label="non inclus">—</td>':`<td>${v}</td>`).join("")}</tr>`).join("")}cmpBuild();
 let rz;window.addEventListener("resize",()=>{clearTimeout(rz);rz=setTimeout(()=>{if(S.tab==="time")timeInit();else if(S.tab==="fin")finInit();else if(S.tab==="crm")graphInit();else if(["subs","health","report","team","trip"].includes(S.tab)&&INIT[S.tab])INIT[S.tab]()},200)});
 plans();applyLook();(()=>{const h=location.hash.slice(1);if(h&&TABS.some(t=>t[0]===h))S.tab=h})();render();bell();
 setTimeout(()=>{if(!S.tour&&tourI<0)toast("Nouveau ici? Clique « 🧭 Visite guidée » en haut de page.")},2500);
 let nt=0;const ntm=setInterval(()=>{if(document.hidden)return;if(++nt>3){clearInterval(ntm);return}simNotif();},60000);
+window.AG={get S(){return S},set S(v){S=v},save,go,render,toast,confetti,gain,notify,badge,esc,$,$$,V,INIT,ACT,CHG,INP,FORMS,TABS,buildTabs,CMDS,dayEv,findFree,snap,undo,redo,HS,lvl,BADGES,applyLook,fmt,H,DUR,dateOf,dlabel,DAYS,MONTHS,flat,id,MAILS,TRG,PL,CM,FEAT,plans,cmpBuild,metrics,cap,clamp,optS,clip,pick,TM0,ofFull,odl,openSearch,getAnnual:()=>annual};
 window.__agendo={chat,runCmd,S:()=>S,go,doPerfect,dbg:{zoned,parts,localOf,slotCalc,comfort}};
 })();
 </script>
+<script src="epic.js"></script>
 </body>
 </html>
