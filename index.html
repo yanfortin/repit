@@ -1,332 +1,313 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="fr-CA">
 <head>
 <meta charset="utf-8">
-<title>Agendo — ton assistant IA personnel (prototype)</title>
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="description" content="Agendo trie tes courriels, planifie ton agenda et protège ton temps de concentration. Prototype avec données d'exemple.">
-<meta name="theme-color" content="#0f1222">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<link rel="manifest" href='data:application/manifest+json,{"name":"Agendo","short_name":"Agendo","display":"standalone","start_url":".","background_color":"#0f1222","theme_color":"#6c5ce7","lang":"fr-CA"}'>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%236c5ce7'/%3E%3Cpath d='M9 23l7-14 7 14M12 18h8' stroke='white' stroke-width='3' fill='none' stroke-linecap='round'/%3E%3C/svg%3E">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Agendo — Ton assistant IA personnel (prototype)</title>
+<meta name="description" content="Agendo : prototype d'assistant IA personnel pour courriels, agenda, projets, réunions, habitudes et finances. Données d'exemple seulement.">
 <style>
-:root{--bg:#0f1222;--bg2:#161a30;--card:#1c2140;--line:#2b3160;--tx:#eef0ff;--mut:#9aa1cc;--ac:#7c6cf0;--ac2:#3ee0c5;--warn:#ffb54a;--bad:#ff6b81;--ok:#46d39a;--r:16px}
-[data-theme=light]{--bg:#f5f6fc;--bg2:#fff;--card:#fff;--line:#dfe2f3;--tx:#171a33;--mut:#5e6591;--ac:#5b4be0;--ac2:#0aa58c;--warn:#c47a00;--bad:#d6334f;--ok:#12915f}
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{margin:0;font:15px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--tx);transition:background .3s,color .3s;padding-bottom:70px}
-body:before{content:"";position:fixed;inset:0;background:radial-gradient(600px 300px at 80% -5%,color-mix(in srgb,var(--ac) 25%,transparent),transparent),radial-gradient(500px 300px at 0% 10%,color-mix(in srgb,var(--ac2) 14%,transparent),transparent);pointer-events:none;z-index:-1}
-button{font:inherit;color:inherit;cursor:pointer}
-.btn{background:var(--ac);color:#fff;border:0;padding:8px 14px;border-radius:10px;font-weight:600;transition:transform .15s,filter .15s}
-.btn:hover{filter:brightness(1.1);transform:translateY(-1px)}.btn:active{transform:none}
-.btn.ghost{background:transparent;color:var(--tx);border:1px solid var(--line)}
-.btn.ok{background:var(--ok)}.btn.sm{padding:4px 10px;font-size:13px}
-.btn:focus-visible,input:focus-visible,.tab:focus-visible{outline:2px solid var(--ac2);outline-offset:2px}
-header{position:sticky;top:0;z-index:20;backdrop-filter:blur(14px);background:color-mix(in srgb,var(--bg) 80%,transparent);border-bottom:1px solid var(--line)}
-.bar{max-width:1100px;margin:auto;display:flex;align-items:center;gap:14px;padding:10px 16px}
-.logo{display:flex;align-items:center;gap:8px;font-weight:800;font-size:19px;letter-spacing:-.3px}
-.logo i{width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,var(--ac),var(--ac2));display:grid;place-items:center;color:#fff;font-style:normal;font-size:15px}
+:root{--bg:#0b0d14;--bg2:#121624;--card:#171c2e;--line:#262d47;--tx:#eef1fb;--mut:#a3adc9;--ac:#7c6cff;--ac2:#2ee6c5;--ok:#38d98a;--warn:#ffb547;--bad:#ff5d73;--r:14px}
+[data-theme=light]{--bg:#f5f6fb;--bg2:#fff;--card:#fff;--line:#dfe3f0;--tx:#161a2b;--mut:#566080;--ac:#5b49f0;--ac2:#0aa58c}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--tx)}
+a{color:var(--ac2)}button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--ac2);outline-offset:2px}
+.skip{position:absolute;left:-999px;top:0;background:var(--ac);color:#fff;padding:8px 12px;z-index:99}.skip:focus{left:8px}
+.wrap{max-width:1180px;margin:0 auto;padding:0 18px}
+header.top{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.bar{display:flex;align-items:center;gap:10px;height:58px}
+.logo{font-weight:800;font-size:20px;letter-spacing:-.5px;display:flex;gap:8px;align-items:center}
+.logo i{width:26px;height:26px;border-radius:8px;background:linear-gradient(135deg,var(--ac),var(--ac2));display:inline-block}
 .sp{flex:1}
-.pill{font-size:12px;padding:3px 9px;border-radius:99px;border:1px solid var(--line);color:var(--mut);white-space:nowrap}
-.pill.demo{color:var(--warn);border-color:color-mix(in srgb,var(--warn) 50%,transparent)}
-nav{display:flex;gap:4px;max-width:1100px;margin:auto;padding:0 16px 8px;overflow-x:auto}
-.tab{background:none;border:0;padding:7px 13px;border-radius:99px;color:var(--mut);white-space:nowrap;font-weight:600}
-.tab[aria-selected=true]{background:var(--card);color:var(--tx);box-shadow:inset 0 0 0 1px var(--line)}
-.tab kbd{opacity:.5;margin-left:4px}
-main{max-width:1100px;margin:auto;padding:18px 16px}
-section{display:none;animation:in .35s ease}section.on{display:block}
-@keyframes in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
-h1{font-size:clamp(26px,5vw,40px);letter-spacing:-1px;margin:6px 0}
-h2{font-size:18px;margin:0 0 10px}
-.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
-.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:16px;box-shadow:0 6px 24px rgba(0,0,0,.12)}
-.mut{color:var(--mut)}.small{font-size:13px}
-.hero{padding:22px;border-radius:22px;background:linear-gradient(135deg,color-mix(in srgb,var(--ac) 30%,var(--card)),var(--card));border:1px solid var(--line);margin-bottom:14px}
-.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-top:14px}
-.stat{background:color-mix(in srgb,var(--bg) 50%,transparent);border:1px solid var(--line);border-radius:12px;padding:10px 12px}
-.stat b{display:block;font-size:24px;letter-spacing:-.5px}
-.row{display:flex;gap:10px;align-items:flex-start;padding:10px 0;border-top:1px solid var(--line)}
-.row:first-of-type{border-top:0}
-.tag{font-size:11px;padding:2px 8px;border-radius:99px;font-weight:700;white-space:nowrap}
-.t-urgent{background:color-mix(in srgb,var(--bad) 22%,transparent);color:var(--bad)}
-.t-repondre{background:color-mix(in srgb,var(--warn) 22%,transparent);color:var(--warn)}
-.t-info{background:color-mix(in srgb,var(--ac) 22%,transparent);color:var(--ac)}
-.t-infolettre{background:color-mix(in srgb,var(--mut) 22%,transparent);color:var(--mut)}
-.t-new{background:var(--line);color:var(--mut)}
-.draft{margin:6px 0 0;padding:8px 10px;border-left:3px solid var(--ac2);background:color-mix(in srgb,var(--ac2) 8%,transparent);border-radius:0 8px 8px 0;font-size:13px}
-.done{opacity:.55;text-decoration:line-through}
-/* agenda */
-.wk{display:grid;grid-template-columns:44px repeat(5,minmax(110px,1fr));overflow-x:auto;border:1px solid var(--line);border-radius:var(--r);background:var(--card)}
-.wk .hd{padding:8px;text-align:center;font-weight:700;border-bottom:1px solid var(--line);font-size:13px;position:sticky;top:0;background:var(--card)}
-.wk .hd.today{color:var(--ac2)}
-.col{position:relative;border-left:1px solid var(--line);height:540px;background:repeating-linear-gradient(var(--card) 0 59px,var(--line) 59px 60px)}
-.col.hrs{border-left:0;font-size:11px;color:var(--mut);background:none}
-.col.hrs span{position:absolute;right:6px;transform:translateY(-7px)}
-.ev{position:absolute;left:3px;right:3px;border-radius:9px;padding:4px 7px;font-size:12px;line-height:1.25;overflow:hidden;border:1px solid transparent;cursor:pointer;animation:pop .3s ease;text-align:left;background:color-mix(in srgb,var(--ac) 30%,var(--card));color:var(--tx)}
-.ev.focus{background:color-mix(in srgb,var(--ac2) 28%,var(--card));border:1px dashed var(--ac2)}
-.ev.perso{background:color-mix(in srgb,var(--warn) 25%,var(--card))}
-.ev.conflict{border:2px solid var(--bad);box-shadow:0 0 0 3px color-mix(in srgb,var(--bad) 25%,transparent)}
-.ev.half{right:50%}.ev.half2{left:50%}
-@keyframes pop{from{transform:scale(.92);opacity:0}to{transform:none;opacity:1}}
-.legend{display:flex;gap:12px;flex-wrap:wrap;margin:10px 0}
-.dot{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:5px}
-/* chat */
-.chat{display:flex;flex-direction:column;height:min(70vh,640px)}
-.msgs{flex:1;overflow:auto;display:flex;flex-direction:column;gap:10px;padding:4px 2px}
-.m{max-width:88%;padding:10px 13px;border-radius:14px;animation:in .25s ease;white-space:pre-wrap}
-.m.u{align-self:flex-end;background:var(--ac);color:#fff;border-bottom-right-radius:4px}
-.m.a{align-self:flex-start;background:color-mix(in srgb,var(--bg) 40%,var(--card));border:1px solid var(--line);border-bottom-left-radius:4px}
-.prop{margin-top:8px;padding:10px;border:1px dashed var(--ac2);border-radius:10px;background:color-mix(in srgb,var(--ac2) 7%,transparent)}
-.prop ul{margin:4px 0 8px;padding-left:18px}
-.chips{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0}
-.chip{border:1px solid var(--line);background:none;border-radius:99px;padding:4px 11px;font-size:13px;color:var(--mut)}
-.chip:hover{color:var(--tx);border-color:var(--ac)}
-form.in{display:flex;gap:8px;margin-top:8px}
-input[type=text]{flex:1;background:var(--bg2);color:var(--tx);border:1px solid var(--line);border-radius:12px;padding:11px 13px;font:inherit}
-.typing{display:inline-flex;gap:4px}.typing i{width:6px;height:6px;border-radius:50%;background:var(--mut);animation:b 1s infinite}.typing i:nth-child(2){animation-delay:.15s}.typing i:nth-child(3){animation-delay:.3s}
-@keyframes b{50%{transform:translateY(-4px)}}
-table{width:100%;border-collapse:collapse;font-size:14px}td,th{padding:6px 4px;border-top:1px solid var(--line);text-align:left}th{color:var(--mut);font-weight:600;border-top:0}
-td.n,th.n{text-align:right}
-.bar2{height:10px;border-radius:9px;background:var(--line);overflow:hidden}.bar2 i{display:block;height:100%;background:linear-gradient(90deg,var(--ac),var(--ac2));transition:width .6s}
-#toast{position:fixed;left:50%;bottom:84px;transform:translate(-50%,20px);background:var(--ok);color:#fff;padding:9px 16px;border-radius:12px;opacity:0;transition:.3s;pointer-events:none;z-index:50;font-weight:600;max-width:90vw}
-#toast.show{opacity:1;transform:translate(-50%,0)}
-dialog{background:var(--card);color:var(--tx);border:1px solid var(--line);border-radius:var(--r);max-width:440px}
-dialog::backdrop{background:rgba(0,0,0,.5)}
-kbd{background:var(--line);border-radius:5px;padding:0 6px;font:12px monospace}
-footer{max-width:1100px;margin:20px auto;padding:0 16px;color:var(--mut);font-size:12px}
-.price{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));margin-top:10px}
-.price .card b{font-size:26px}
-@media(max-width:600px){.hide-s{display:none}.m{max-width:96%}}
-@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+.btn{border:1px solid var(--line);background:var(--card);padding:8px 14px;border-radius:10px;cursor:pointer;min-height:40px}
+.btn:hover{border-color:var(--ac)}.btn.p{background:linear-gradient(135deg,var(--ac),#9a5cff);border:0;color:#fff;font-weight:600}
+.btn.sm{padding:4px 10px;min-height:32px;font-size:14px}.btn.d{color:var(--bad)}
+.banner{background:var(--bg2);border-bottom:1px solid var(--line);text-align:center;font-size:13px;color:var(--mut);padding:6px 10px}
+.hero{padding:56px 0 30px;text-align:center}
+.hero h1{font-size:clamp(30px,6vw,56px);line-height:1.08;margin:0 0 14px;letter-spacing:-1.5px}
+.hero h1 span{background:linear-gradient(90deg,var(--ac),var(--ac2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{max-width:680px;margin:0 auto 22px;color:var(--mut);font-size:18px}
+.badges{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:16px}
+.tag{font-size:12px;border:1px solid var(--line);border-radius:99px;padding:2px 10px;color:var(--mut);background:var(--bg2);white-space:nowrap}
+.tag.ok{color:var(--ok)}.tag.w{color:var(--warn)}.tag.s{color:var(--ac2)}
+.app{display:grid;grid-template-columns:210px 1fr;gap:18px;margin:18px 0 40px;align-items:start}
+nav.side{position:sticky;top:74px;display:flex;flex-direction:column;gap:2px;background:var(--bg2);border:1px solid var(--line);border-radius:var(--r);padding:8px}
+nav.side button{text-align:left;background:none;border:0;padding:9px 12px;border-radius:9px;cursor:pointer;color:var(--mut);display:flex;gap:10px;align-items:center}
+nav.side button:hover{background:var(--card)}nav.side button[aria-selected=true]{background:var(--card);color:var(--tx);font-weight:600;box-shadow:inset 3px 0 var(--ac)}
+main.panel{background:var(--bg2);border:1px solid var(--line);border-radius:var(--r);padding:20px;min-height:520px;min-width:0}
+h2{margin:0 0 4px;font-size:24px;letter-spacing:-.4px}h3{margin:0 0 8px;font-size:16px}
+.sub{color:var(--mut);margin:0 0 16px;font-size:14px}
+.grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px}
+.stat{font-size:30px;font-weight:800;letter-spacing:-1px}
+.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.row.b{justify-content:space-between}
+.list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.list li{display:flex;gap:10px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:9px 12px}
+.list li.done .t{text-decoration:line-through;opacity:.55}.t{flex:1;min-width:0}
+input[type=text],input[type=number],input[type=search],select,textarea{width:100%;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:9px 12px}
+input[type=checkbox]{width:20px;height:20px;accent-color:var(--ac)}
+.kan{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.col{background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:10px;min-height:160px}
+.col h3{display:flex;justify-content:space-between}
+.k{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:9px;margin-bottom:8px;font-size:14px}
+.k .row{margin-top:6px}
+.bar2{height:8px;background:var(--line);border-radius:9px;overflow:hidden}.bar2>div{height:100%;background:linear-gradient(90deg,var(--ac),var(--ac2));transition:width .3s}
+table{width:100%;border-collapse:collapse;font-size:14px}th,td{padding:9px 8px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}th{color:var(--mut);font-weight:600}
+.scroll{overflow-x:auto}
+.week{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px}
+.day{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:8px;min-height:150px}
+.ev{font-size:12.5px;border-radius:8px;padding:5px 7px;margin-top:6px;background:color-mix(in srgb,var(--ac) 22%,transparent);border-left:3px solid var(--ac)}
+.ev.f{background:color-mix(in srgb,var(--ac2) 18%,transparent);border-color:var(--ac2)}.ev.c{background:color-mix(in srgb,var(--bad) 22%,transparent);border-color:var(--bad)}
+.chat{display:flex;flex-direction:column;gap:8px;max-height:340px;overflow:auto;padding:4px}
+.m{max-width:85%;padding:9px 13px;border-radius:14px;background:var(--card);border:1px solid var(--line)}.m.u{align-self:flex-end;background:var(--ac);color:#fff;border:0}
+.timer{font-size:clamp(56px,14vw,110px);font-weight:800;letter-spacing:-3px;text-align:center;font-variant-numeric:tabular-nums}
+.sw{display:inline-flex;border:1px solid var(--line);border-radius:99px;padding:3px;background:var(--bg2)}
+.sw button{border:0;background:none;padding:6px 16px;border-radius:99px;cursor:pointer;color:var(--mut)}.sw button[aria-pressed=true]{background:var(--ac);color:#fff}
+.plans{display:grid;gap:14px;grid-template-columns:repeat(4,minmax(0,1fr))}
+.plan{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;display:flex;flex-direction:column;gap:8px;position:relative}
+.plan.hot{border-color:var(--ac);box-shadow:0 0 0 1px var(--ac),0 20px 50px -20px var(--ac)}
+.plan .pr{font-size:34px;font-weight:800;letter-spacing:-1px}.plan ul{padding-left:18px;margin:0;color:var(--mut);font-size:14px;flex:1}
+.ribbon{position:absolute;top:-11px;right:14px;background:var(--ac);color:#fff;font-size:12px;border-radius:99px;padding:2px 10px}
+.cmpwrap{margin-top:24px}td.y{color:var(--ok);font-weight:700}td.n{color:var(--mut)}
+dialog{border:1px solid var(--line);border-radius:16px;background:var(--bg2);color:var(--tx);max-width:min(620px,94vw);padding:20px;width:100%}dialog::backdrop{background:#0009}
+#gs{width:100%}.res{margin-top:10px;display:flex;flex-direction:column;gap:4px;max-height:50vh;overflow:auto}
+.res button{text-align:left;background:var(--card);border:1px solid var(--line);border-radius:9px;padding:9px 12px;cursor:pointer}.res button:hover,.res button:focus{border-color:var(--ac)}
+#toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--card);border:1px solid var(--ac);padding:10px 16px;border-radius:12px;transition:.25s;z-index:60;max-width:92vw}#toast.on{transform:translateX(-50%)}
+footer{border-top:1px solid var(--line);padding:24px 0;color:var(--mut);font-size:13px}
+label.l{display:block;font-size:13px;color:var(--mut);margin:8px 0 3px}
+@media(max-width:900px){.app{grid-template-columns:1fr}nav.side{position:static;flex-direction:row;overflow-x:auto;white-space:nowrap}.plans{grid-template-columns:repeat(2,1fr)}.kan{grid-template-columns:1fr}.week{grid-template-columns:1fr}}
+@media(max-width:560px){.plans{grid-template-columns:1fr}.hide-m{display:none}main.panel{padding:14px}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
 </style>
 </head>
 <body>
-<header>
- <div class="bar">
-  <div class="logo"><i>A</i>Agendo</div>
-  <span class="pill demo" title="Aucune vraie donnée, aucun vrai paiement">Mode démo · données d'exemple</span>
-  <span class="sp"></span>
-  <span class="pill hide-s" id="hdrSaved">⏱ 0 min gagnées</span>
-  <button class="btn ghost sm" id="themeBtn" aria-label="Changer de thème (T)">🌙</button>
-  <button class="btn ghost sm" id="helpBtn" aria-label="Raccourcis clavier (?)">?</button>
- </div>
- <nav role="tablist" id="tabs"></nav>
-</header>
-<main>
-<section id="v-today" class="on"></section>
-<section id="v-agenda"></section>
-<section id="v-chat"></section>
-<section id="v-follow"></section>
-<section id="v-time"></section>
-<section id="v-plans"></section>
-</main>
-<footer>Agendo — prototype de démonstration. Tous les courriels, événements et contacts sont fictifs. Aucune connexion à Gmail ou à un agenda, aucun paiement réel. Les données restent dans ton navigateur (localStorage).</footer>
+<a class="skip" href="#main">Aller au contenu</a>
+<div class="banner" role="note">Prototype de démonstration : toutes les données sont des <b>exemples fictifs</b>. Aucun paiement réel, aucune connexion réelle à Gmail, Agenda ou Slack.</div>
+<header class="top"><div class="wrap bar">
+<div class="logo"><i></i>Agendo</div><span class="tag w hide-m">Prototype</span><span class="sp"></span>
+<button class="btn" id="gsBtn" aria-label="Recherche globale">🔍 <span class="hide-m">Rechercher</span> <kbd class="hide-m">Ctrl K</kbd></button>
+<button class="btn" id="themeBtn" aria-label="Changer le thème">🌓</button>
+<button class="btn p" id="goPlans">Forfaits</button>
+</div></header>
+
+<section class="hero wrap">
+<h1>Ton assistant IA qui <span>s'occupe de tout</span>, pour que tu fasses ce qui compte.</h1>
+<p>Courriels, agenda, réunions, projets, habitudes et factures : une seule application, et c'est toi qui approuves chaque action.</p>
+<div class="row" style="justify-content:center"><button class="btn p" id="tryBtn">Essayer la démo</button><button class="btn" id="goPlans2">Voir les forfaits</button></div>
+<div class="badges"><span class="tag s">Données d'exemple</span><span class="tag">Rien ne part sans ton accord</span><span class="tag">Pensé pour la Loi 25</span><span class="tag">Fonctionne dans ton navigateur</span></div>
+</section>
+
+<div class="wrap app" id="demo">
+<nav class="side" id="tabs" role="tablist" aria-label="Sections" aria-orientation="vertical"></nav>
+<main class="panel" id="main" tabindex="-1"></main>
+</div>
+
+<section class="wrap" id="plans" style="padding-bottom:40px">
+<h2 style="text-align:center;font-size:34px">Des forfaits pour chaque façon de travailler</h2>
+<p class="sub" style="text-align:center">Prix en $ CA, <b>à valider</b> : ils ne sont pas définitifs et aucun paiement n'est possible dans ce prototype.</p>
+<div style="text-align:center;margin-bottom:18px"><div class="sw" role="group" aria-label="Facturation"><button id="bm" aria-pressed="true">Mensuel</button><button id="ba" aria-pressed="false">Annuel <span class="tag s">économie à valider</span></button></div></div>
+<div class="plans" id="planCards"></div>
+<div class="cmpwrap card scroll"><h3>Comparatif détaillé</h3><table id="cmp"></table></div>
+<p class="sub" style="margin-top:12px">Les limites et inclusions ci-dessus sont une proposition de travail. Les fonctions « bientôt » ne sont pas encore disponibles. Taxes en sus, s'il y a lieu.</p>
+</section>
+
+<footer><div class="wrap">Agendo — prototype de démonstration. Aucune donnée réelle collectée : tout reste dans ton navigateur (localStorage). Raccourcis : Ctrl/Cmd+K recherche, T thème, ? aide.</div></footer>
+
+<dialog id="gsd" aria-label="Recherche globale"><input id="gs" type="search" placeholder="Rechercher tâches, contacts, notes, factures, sections…" aria-label="Recherche"><div class="res" id="gres"></div><div class="row b" style="margin-top:10px"><span class="sub" style="margin:0">Échap pour fermer</span><button class="btn sm" id="gsx">Fermer</button></div></dialog>
 <div id="toast" role="status" aria-live="polite"></div>
-<dialog id="help"><h2>Raccourcis clavier</h2>
-<p><kbd>1</kbd>–<kbd>6</kbd> changer de vue · <kbd>/</kbd> parler à Agendo · <kbd>T</kbd> thème · <kbd>F</kbd> planifier le focus · <kbd>?</kbd> cette aide · <kbd>Échap</kbd> fermer</p>
-<p class="small mut">Commandes à essayer : « planifie une réunion jeudi à 14h », « résume mes courriels », « protège mon temps de focus », « détecte les conflits », « prépare ma réunion », « fais les relances ».</p>
-<button class="btn" onclick="document.getElementById('help').close()">Fermer</button></dialog>
 
 <script>
-(function(){
-'use strict';
-var KEY='agendo.v1';
-var DAYS=['Lun','Mar','Mer','Jeu','Ven'],DAYF=['lundi','mardi','mercredi','jeudi','vendredi'];
-var H0=8,H1=17,PX=60;
-var MIN={triage:1,draft:4,meeting:6,focus:3,followup:3,prep:10,conflict:5,task:2};
-var LABEL={triage:'Courriel trié',draft:'Brouillon approuvé',meeting:'Réunion planifiée',focus:'Bloc de focus planifié',followup:'Relance préparée',prep:'Réunion préparée',conflict:'Conflit résolu',task:'Tâche complétée'};
-function seed(){return{
- theme:'dark',
- emails:[
-  {id:1,from:'Marie Tremblay (client fictif)',subj:'Soumission du projet web',body:'Peux-tu confirmer le prix avant jeudi?',cat:null,real:'urgent',draft:'Bonjour Marie, je confirme la soumission à 4 200 $ taxes en sus. Je t\'envoie le contrat demain matin.',sent:false},
-  {id:2,from:'Fiscalité Express (exemple)',subj:'Rappel : acomptes provisionnels',body:'Prochain versement le 15 du mois.',cat:null,real:'info',draft:null,sent:false},
-  {id:3,from:'Luc Gagnon (exemple)',subj:'Disponible pour un café cette semaine?',body:'On pourrait jaser de la collaboration.',cat:null,real:'repondre',draft:'Salut Luc, avec plaisir! Je suis libre jeudi à 15 h, ça te convient?',sent:false},
-  {id:4,from:'Infolettre Techno (exemple)',subj:'10 outils à connaître en 2026',body:'Votre résumé hebdomadaire…',cat:null,real:'infolettre',draft:null,sent:false},
-  {id:5,from:'Sophie Bélanger (cliente fictive)',subj:'Facture #112 en retard',body:'Pouvez-vous me renvoyer la facture?',cat:null,real:'urgent',draft:'Bonjour Sophie, voici la facture #112 en pièce jointe. Désolé du délai!',sent:false},
-  {id:6,from:'Équipe Co-working (exemple)',subj:'Réservation de salle confirmée',body:'Mercredi 13 h, salle Saint-Laurent.',cat:null,real:'info',draft:null,sent:false}],
- tasks:[{id:1,t:'Envoyer la soumission à Marie',d:false},{id:2,t:'Payer les acomptes provisionnels',d:false},{id:3,t:'Rédiger le plan de la semaine',d:false}],
- events:[
-  {id:1,day:0,s:9,d:1,t:'Stand-up équipe (exemple)',k:'rdv'},
-  {id:2,day:1,s:10,d:1.5,t:'Appel Marie – soumission',k:'rdv'},
-  {id:3,day:1,s:11,d:1,t:'Revue de projet',k:'rdv'},
-  {id:4,day:2,s:13,d:1,t:'Co-working salle Saint-Laurent',k:'perso'},
-  {id:5,day:2,s:13.5,d:1,t:'Webinaire fournisseur',k:'rdv'},
-  {id:6,day:3,s:9,d:1,t:'Démo client (exemple)',k:'rdv'},
-  {id:7,day:4,s:14,d:1,t:'Bilan de la semaine',k:'rdv'}],
- follow:[
-  {id:1,who:'Marie Tremblay',what:'Soumission envoyée',days:4,st:'attente',txt:'Bonjour Marie, je me permets de relancer au sujet de la soumission envoyée lundi. As-tu eu le temps d\'y jeter un œil?'},
-  {id:2,who:'Distributions Roy',what:'Facture #108 impayée',days:9,st:'attente',txt:'Bonjour, un petit rappel concernant la facture #108 échue depuis 9 jours. Merci de confirmer le paiement.'},
-  {id:3,who:'Julie Côté',what:'Proposition de partenariat',days:6,st:'attente',txt:'Bonjour Julie, as-tu pu réfléchir à notre proposition de partenariat? Je reste disponible pour en discuter.'}],
- log:[],chat:[],nid:100,prepared:{}
-};}
-var S;
-try{S=JSON.parse(localStorage.getItem(KEY))}catch(e){}
-if(!S||!S.emails)S=seed();
-function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
-function $(s,r){return (r||document).querySelector(s)}
-function esc(x){return String(x).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
-function fh(h){var hh=Math.floor(h),m=Math.round((h-hh)*60);return hh+'h'+(m?(m<10?'0':'')+m:'')}
-function toast(m){var t=$('#toast');t.textContent=m;t.className='show';clearTimeout(toast.t);toast.t=setTimeout(function(){t.className=''},2200)}
-function award(type,detail){S.log.push({type:type,min:MIN[type],detail:detail||'',at:Date.now()});toast('+'+MIN[type]+' min gagnées · '+LABEL[type])}
-function totalMin(){return S.log.reduce(function(a,l){return a+l.min},0)}
-function todayIdx(){var d=new Date().getDay();return d>=1&&d<=5?d-1:0}
+(()=>{
+"use strict";
+const $=(s,r=document)=>r.querySelector(s),$$=(s,r=document)=>[...r.querySelectorAll(s)];
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const KEY="agendo-v3";
+const seed=()=>({theme:"dark",tab:"home",
+ tasks:[{id:1,t:"Répondre à la soumission de Marie (exemple)",s:"todo",p:"Site Atelier Lune"},{id:2,t:"Préparer la maquette de la page d'accueil",s:"doing",p:"Site Atelier Lune"},{id:3,t:"Envoyer le plan de contenu",s:"done",p:"Infolettre"},{id:4,t:"Réviser le contrat type",s:"todo",p:"Administration"},{id:5,t:"Planifier le calendrier de publications",s:"doing",p:"Infolettre"}],
+ todo:[{id:1,t:"Trier la boîte de réception",d:false},{id:2,t:"Appeler le comptable (exemple)",d:false},{id:3,t:"Réserver un bloc de concentration",d:true}],
+ habits:[{id:1,n:"Marcher 20 minutes",days:[1,1,0,1,1,0,0]},{id:2,n:"Lire 15 minutes",days:[1,0,1,1,0,0,0]},{id:3,n:"Boire 2 L d'eau",days:[1,1,1,1,1,1,0]}],
+ goals:[{id:1,n:"Lancer le site vitrine",v:60},{id:2,n:"Mettre 5 000 $ de côté (exemple)",v:35}],
+ notes:[],
+ contacts:[{id:1,n:"Marie Tremblay",o:"Atelier Lune",e:"marie@exemple.invalid",st:"Client actif",last:"il y a 3 jours",nt:"Aime les rappels par courriel."},{id:2,n:"Samuel Gagnon",o:"Studio Nord",e:"samuel@exemple.invalid",st:"Prospect",last:"il y a 12 jours",nt:"À relancer cette semaine."},{id:3,n:"Inès Roy",o:"Coop Horizon",e:"ines@exemple.invalid",st:"Partenaire",last:"il y a 1 mois",nt:""}],
+ inv:[{id:1,c:"Atelier Lune",a:850,s:"payée",d:"2026-09-28"},{id:2,c:"Studio Nord",a:1200,s:"envoyée",d:"2026-10-05"},{id:3,c:"Coop Horizon",a:430,s:"en retard",d:"2026-09-10"}],
+ exp:[{id:1,n:"Abonnement logiciel (exemple)",a:29},{id:2,n:"Coworking (exemple)",a:120}],
+ integ:{gmail:false,gcal:false,outlook:false,slack:false},
+ chat:[{r:"a",t:"Bonjour! Je suis Agendo (démo). Essaie « résume ma journée », « ajoute une tâche : appeler Samuel » ou le micro 🎤."}],
+ focusMin:0,saved:0,nid:100});
+let S;try{S=Object.assign(seed(),JSON.parse(localStorage.getItem(KEY)||"{}"))}catch(e){S=seed()}
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}};
+const id=()=>++S.nid;
+let tt;const toast=m=>{const t=$("#toast");t.textContent=m;t.classList.add("on");clearTimeout(tt);tt=setTimeout(()=>t.classList.remove("on"),2600)};
+const fmt=n=>n.toLocaleString("fr-CA",{style:"currency",currency:"CAD"});
 
-/* ---- calendrier ---- */
-function overlap(a,b){return a.day===b.day&&a.s<b.s+b.d&&b.s<a.s+a.d}
-function conflicts(){var out=[];for(var i=0;i<S.events.length;i++)for(var j=i+1;j<S.events.length;j++){var a=S.events[i],b=S.events[j];if(a.k!=='focus'&&b.k!=='focus'&&overlap(a,b))out.push([a,b])}return out}
-function freeAt(day,s,d,ign){return S.events.every(function(e){return e===ign||!overlap({day:day,s:s,d:d},e)})&&s>=H0&&s+d<=H1&&!(s<12.5&&s+d>12)}
-function findSlot(day,d,from){for(var s=from||9;s+d<=H1;s+=.5)if(freeAt(day,s,d))return s;return null}
-function planFocus(){var out=[];for(var day=0;day<5;day++){var has=S.events.some(function(e){return e.day===day&&e.k==='focus'});if(has)continue;
-  for(var s=H0;s+2<=H1;s+=.5){if(freeAt(day,s,2)&&!pendingFocusClash(out,day,s)){out.push({day:day,s:s,d:2,t:'Focus : travail profond',k:'focus'});break}}}
-  return out.slice(0,3)}
-function pendingFocusClash(arr,day,s){return arr.some(function(e){return overlap(e,{day:day,s:s,d:2})})}
-function addEvent(e){e.id=S.nid++;S.events.push(e)}
+const TABS=[["home","🏠","Accueil"],["agenda","📅","Agenda"],["mail","✉️","Courriels"],["assist","💬","Assistant"],["notes","📝","Réunions"],["proj","🗂️","Projets"],["habits","🎯","Habitudes"],["crm","👥","Contacts"],["fin","🧾","Finances"],["focus","⏱️","Concentration"],["integ","🔌","Intégrations"],["priv","🔒","Données et vie privée"]];
+const tabs=$("#tabs");
+tabs.innerHTML=TABS.map(t=>`<button role="tab" data-t="${t[0]}" id="tab-${t[0]}">${t[1]} <span>${t[2]}</span></button>`).join("");
+tabs.addEventListener("click",e=>{const b=e.target.closest("button");if(b)go(b.dataset.t)});
+tabs.addEventListener("keydown",e=>{const bs=$$("button",tabs),i=bs.indexOf(document.activeElement);if(i<0)return;let n=-1;if(e.key==="ArrowDown"||e.key==="ArrowRight")n=(i+1)%bs.length;if(e.key==="ArrowUp"||e.key==="ArrowLeft")n=(i-1+bs.length)%bs.length;if(n>=0){e.preventDefault();bs[n].focus()}});
+function go(t,noscroll){S.tab=t;save();render();if(!noscroll)$("#demo").scrollIntoView({block:"start"})}
 
-/* ---- rendu ---- */
-var TABS=[['today','Aujourd\'hui'],['agenda','Agenda'],['chat','Assistant'],['follow','Relances'],['time','Temps gagné'],['plans','Forfaits']];
-var cur='today';
-function renderTabs(){$('#tabs').innerHTML=TABS.map(function(t,i){return '<button class="tab" role="tab" aria-selected="'+(t[0]===cur)+'" data-tab="'+t[0]+'">'+t[1]+'<kbd class="hide-s">'+(i+1)+'</kbd></button>'}).join('')}
-function show(v){cur=v;document.querySelectorAll('main section').forEach(function(s){s.classList.toggle('on',s.id==='v-'+v)});renderTabs();render();if(v==='chat')setTimeout(function(){var i=$('#cin');if(i)i.focus()},50)}
+const MAILS=[["Marie Tremblay","Soumission — questions","urgent","Brouillon prêt : confirmer le délai de 2 semaines."],["Infolettre Design Hebdo","10 outils à essayer","info","Archiver automatiquement."],["Banque (exemple)","Relevé disponible","info","Classer dans Finances."],["Samuel Gagnon","Rendez-vous jeudi?","action","Proposer jeudi 14 h (agenda libre)."]];
+const WEEK=[["Lun",[["9 h","Réunion d'équipe",""],["13 h","Bloc focus : maquette","f"]]],["Mar",[["10 h","Appel Studio Nord",""]]],["Mer",[["14 h","Démo client",""],["14 h","Dentiste (conflit)","c"]]],["Jeu",[["9 h","Bloc focus : rédaction","f"]]],["Ven",[["11 h","Bilan de la semaine",""]]]];
+
+const V={
+home(){const open=S.tasks.filter(t=>t.s!=="done").length,paid=S.inv.filter(i=>i.s==="payée").reduce((a,i)=>a+i.a,0),due=S.inv.filter(i=>i.s!=="payée").reduce((a,i)=>a+i.a,0);
+ const hd=S.habits.reduce((a,h)=>a+h.days.slice(0,5).filter(Boolean).length,0);
+ return `<h2>Bonjour 👋</h2><p class="sub">Voici ta journée en un coup d'œil. <span class="tag s">Données d'exemple</span></p>
+ <div class="grid"><div class="card"><div class="sub">Tâches ouvertes</div><div class="stat">${open}</div></div>
+ <div class="card"><div class="sub">Courriels à traiter</div><div class="stat">${MAILS.length}</div></div>
+ <div class="card"><div class="sub">Facturé / à encaisser</div><div class="stat">${fmt(paid)}</div><div class="sub">${fmt(due)} en attente</div></div>
+ <div class="card"><div class="sub">Concentration (démo)</div><div class="stat">${S.focusMin} min</div></div></div>
+ <h3 style="margin-top:18px">Résumé du matin (simulé)</h3><div class="card"><ul style="margin:0;padding-left:18px"><li>Un conflit d'horaire mercredi à 14 h : <a href="#" data-go="agenda">résoudre</a></li><li>Une facture en retard : Coop Horizon</li><li>Samuel Gagnon attend une réponse depuis 12 jours</li><li>Habitudes : ${hd} cochées cette semaine</li></ul></div>
+ <h3 style="margin-top:18px">Actions rapides</h3><div class="row"><button class="btn" data-go="assist">💬 Demander à Agendo</button><button class="btn" data-go="focus">⏱️ Lancer 25 min</button><button class="btn" data-go="notes">📝 Nouvelle note de réunion</button><button class="btn" data-go="fin">🧾 Nouvelle facture</button></div>
+ <h3 style="margin-top:18px">Liste du jour</h3><ul class="list">${S.todo.map(t=>`<li class="${t.d?"done":""}"><input type="checkbox" data-todo="${t.id}" ${t.d?"checked":""} aria-label="${esc(t.t)}"><span class="t">${esc(t.t)}</span></li>`).join("")}</ul>
+ <form class="row" data-f="todo" style="margin-top:8px"><input type="text" name="t" placeholder="Ajouter à la liste du jour" aria-label="Nouvelle tâche du jour" style="flex:1"><button class="btn">Ajouter</button></form>`},
+agenda(){return `<h2>Agenda de la semaine</h2><p class="sub">Blocs de concentration proposés et conflits détectés. <span class="tag s">Données d'exemple</span></p>
+ <div class="week">${WEEK.map(d=>`<div class="day"><b>${d[0]}</b>${d[1].map(e=>`<div class="ev ${e[2]}">${e[0]} · ${e[1]}</div>`).join("")}</div>`).join("")}</div>
+ <div class="row" style="margin-top:12px"><button class="btn p" data-act="resolve">Résoudre le conflit de mercredi</button><button class="btn" data-act="blocks">Proposer des blocs de focus</button></div>`},
+mail(){return `<h2>Courriels triés</h2><p class="sub">L'IA propose, tu approuves. Aucun envoi réel. <span class="tag s">Données d'exemple</span></p><ul class="list">${MAILS.map((m,i)=>`<li><span class="tag ${m[2]==="urgent"?"w":""}">${m[2]}</span><span class="t"><b>${m[0]}</b> — ${m[1]}<br><small style="color:var(--mut)">${m[3]}</small></span><button class="btn sm" data-act="approve" data-i="${i}">Approuver (simulé)</button></li>`).join("")}</ul>`},
+assist(){return `<h2>Assistant</h2><p class="sub">Réponses par mots-clés (pas une vraie IA dans ce prototype). Voix : ${("webkitSpeechRecognition" in window||"SpeechRecognition" in window)?"disponible dans ton navigateur":"non disponible ici, utilise le clavier"}.</p>
+ <div class="chat" id="chat" aria-live="polite">${S.chat.map(m=>`<div class="m ${m.r==="u"?"u":""}">${esc(m.t)}</div>`).join("")}</div>
+ <div class="row" style="margin:10px 0">${["Résume ma journée","Ajoute une tâche : appeler Samuel","Que dois-je facturer?","Lance une session de concentration"].map(c=>`<button class="btn sm" data-chip="${esc(c)}">${esc(c)}</button>`).join("")}</div>
+ <form class="row" data-f="chat"><input type="text" id="cin" name="q" placeholder="Écris ou parle à Agendo…" aria-label="Message" style="flex:1"><button type="button" class="btn" id="mic" aria-label="Dicter (microphone)">🎤</button><button class="btn p">Envoyer</button></form>`},
+notes(){return `<h2>Notes de réunion</h2><p class="sub">Colle ou écris des notes : Agendo (simulé) en tire un résumé et des tâches. L'analyse est locale et très simple.</p>
+ <form data-f="note"><label class="l" for="nt">Titre</label><input type="text" id="nt" name="ti" placeholder="Ex. : Rencontre Atelier Lune"><label class="l" for="nb">Notes (une idée par ligne; « à faire : » ou « - [ ] » crée une tâche)</label><textarea id="nb" name="b" rows="5" placeholder="On a validé le budget.&#10;À faire : envoyer la maquette vendredi&#10;À faire : confirmer le délai"></textarea><div class="row" style="margin-top:8px"><button class="btn p">Résumer et extraire</button><button type="button" class="btn" data-act="sample">Remplir un exemple</button></div></form>
+ <h3 style="margin-top:18px">Notes enregistrées</h3>${S.notes.length?S.notes.map(n=>`<div class="card" style="margin-bottom:8px"><div class="row b"><b>${esc(n.ti)}</b><button class="btn sm d" data-del="notes" data-i="${n.id}">Supprimer</button></div><p style="margin:6px 0"><i>Résumé :</i> ${esc(n.sum)}</p>${n.tasks.length?`<ul style="margin:0;padding-left:18px">${n.tasks.map(t=>`<li>${esc(t)}</li>`).join("")}</ul>`:""}</div>`).join(""):`<p class="sub">Aucune note pour l'instant.</p>`}`},
+proj(){const cols=[["todo","À faire"],["doing","En cours"],["done","Terminé"]];return `<h2>Projets et tâches</h2><p class="sub">Tableau kanban. Déplace les cartes avec les boutons ◀ ▶ (accessible au clavier).</p>
+ <form class="row" data-f="task" style="margin-bottom:12px"><input type="text" name="t" placeholder="Nouvelle tâche" aria-label="Nouvelle tâche" style="flex:2;min-width:160px"><input type="text" name="p" placeholder="Projet" aria-label="Projet" style="flex:1;min-width:110px"><button class="btn p">Ajouter</button></form>
+ <div class="kan">${cols.map(c=>`<div class="col"><h3>${c[1]} <span class="tag">${S.tasks.filter(t=>t.s===c[0]).length}</span></h3>${S.tasks.filter(t=>t.s===c[0]).map(t=>`<div class="k"><div>${esc(t.t)}</div><div class="row b"><span class="tag">${esc(t.p||"Sans projet")}</span><span class="row"><button class="btn sm" data-mv="-1" data-i="${t.id}" aria-label="Reculer">◀</button><button class="btn sm" data-mv="1" data-i="${t.id}" aria-label="Avancer">▶</button><button class="btn sm d" data-del="tasks" data-i="${t.id}" aria-label="Supprimer">✕</button></span></div></div>`).join("")}</div>`).join("")}</div>`},
+habits(){const D=["L","M","M","J","V","S","D"];return `<h2>Habitudes et objectifs</h2><p class="sub">Coche les jours réussis. Sans pression : le but est la régularité.</p>
+ <div class="scroll"><table><tr><th>Habitude</th>${D.map(d=>`<th>${d}</th>`).join("")}<th></th></tr>${S.habits.map(h=>`<tr><td>${esc(h.n)}</td>${h.days.map((v,i)=>`<td><input type="checkbox" data-h="${h.id}" data-d="${i}" ${v?"checked":""} aria-label="${esc(h.n)} jour ${i+1}"></td>`).join("")}<td><button class="btn sm d" data-del="habits" data-i="${h.id}" aria-label="Supprimer">✕</button></td></tr>`).join("")}</table></div>
+ <form class="row" data-f="habit" style="margin:10px 0"><input type="text" name="n" placeholder="Nouvelle habitude" aria-label="Nouvelle habitude" style="flex:1"><button class="btn">Ajouter</button></form>
+ <h3 style="margin-top:18px">Objectifs</h3>${S.goals.map(g=>`<div class="card" style="margin-bottom:8px"><div class="row b"><b>${esc(g.n)}</b><span>${g.v} %</span></div><div class="bar2" role="progressbar" aria-valuenow="${g.v}" aria-valuemin="0" aria-valuemax="100"><div style="width:${g.v}%"></div></div><div class="row" style="margin-top:8px"><button class="btn sm" data-g="${g.id}" data-v="-10">−10</button><button class="btn sm" data-g="${g.id}" data-v="10">+10</button></div></div>`).join("")}
+ <form class="row" data-f="goal"><input type="text" name="n" placeholder="Nouvel objectif" aria-label="Nouvel objectif" style="flex:1"><button class="btn">Ajouter</button></form>`},
+crm(){return `<h2>Contacts</h2><p class="sub">Un petit CRM : qui relancer, et quand. Personnes fictives.</p>
+ <div class="grid">${S.contacts.map(c=>`<div class="card"><div class="row b"><b>${esc(c.n)}</b><span class="tag">${esc(c.st)}</span></div><div class="sub" style="margin:2px 0">${esc(c.o)} · ${esc(c.e)}</div><div class="sub" style="margin:2px 0">Dernier contact : ${esc(c.last)}</div>${c.nt?`<p style="margin:6px 0;font-size:14px">${esc(c.nt)}</p>`:""}<div class="row"><button class="btn sm" data-act="followup" data-i="${c.id}">Préparer une relance</button><button class="btn sm d" data-del="contacts" data-i="${c.id}">Supprimer</button></div></div>`).join("")}</div>
+ <h3 style="margin-top:18px">Ajouter un contact</h3><form data-f="contact" class="grid"><input type="text" name="n" placeholder="Nom" aria-label="Nom" required><input type="text" name="o" placeholder="Entreprise" aria-label="Entreprise"><select name="st" aria-label="Statut"><option>Prospect</option><option>Client actif</option><option>Partenaire</option></select><button class="btn p">Ajouter</button></form>`},
+fin(){const tot=S.inv.reduce((a,i)=>a+i.a,0),paid=S.inv.filter(i=>i.s==="payée").reduce((a,i)=>a+i.a,0),ex=S.exp.reduce((a,e)=>a+e.a,0);
+ return `<h2>Finances de travailleur autonome</h2><p class="sub">Suivi simple. Montants fictifs. Ceci n'est pas un conseil fiscal ou comptable.</p>
+ <div class="grid"><div class="card"><div class="sub">Facturé</div><div class="stat">${fmt(tot)}</div></div><div class="card"><div class="sub">Encaissé</div><div class="stat">${fmt(paid)}</div></div><div class="card"><div class="sub">Dépenses</div><div class="stat">${fmt(ex)}</div></div><div class="card"><div class="sub">Solde encaissé − dépenses</div><div class="stat">${fmt(paid-ex)}</div></div></div>
+ <h3 style="margin-top:18px">Factures</h3><div class="scroll"><table><tr><th>Client</th><th>Montant</th><th>Date</th><th>Statut</th><th></th></tr>${S.inv.map(i=>`<tr><td>${esc(i.c)}</td><td>${fmt(i.a)}</td><td>${i.d}</td><td><span class="tag ${i.s==="payée"?"ok":i.s==="en retard"?"w":""}">${i.s}</span></td><td class="row">${i.s!=="payée"?`<button class="btn sm" data-act="paid" data-i="${i.id}">Marquer payée</button>`:""}<button class="btn sm d" data-del="inv" data-i="${i.id}" aria-label="Supprimer">✕</button></td></tr>`).join("")}</table></div>
+ <form class="row" data-f="inv" style="margin-top:10px"><input type="text" name="c" placeholder="Client" aria-label="Client" required style="flex:2;min-width:120px"><input type="number" name="a" placeholder="Montant $" min="0" step="0.01" aria-label="Montant" required style="flex:1;min-width:100px"><button class="btn p">Créer la facture (démo)</button></form>
+ <h3 style="margin-top:18px">Dépenses</h3><ul class="list">${S.exp.map(e=>`<li><span class="t">${esc(e.n)}</span><b>${fmt(e.a)}</b><button class="btn sm d" data-del="exp" data-i="${e.id}" aria-label="Supprimer">✕</button></li>`).join("")}</ul>
+ <form class="row" data-f="exp" style="margin-top:8px"><input type="text" name="n" placeholder="Dépense" aria-label="Dépense" required style="flex:2"><input type="number" name="a" placeholder="$" min="0" step="0.01" aria-label="Montant" required style="flex:1"><button class="btn">Ajouter</button></form>`},
+focus(){return `<h2>Mode concentration</h2><p class="sub">Un minuteur pour travailler sans distraction. Le temps compte dans ton accueil (démo).</p>
+ <div class="timer" id="tm" role="timer" aria-live="off">25:00</div><div class="row" style="justify-content:center;margin:10px 0"><button class="btn p" id="tStart">Démarrer</button><button class="btn" id="tPause">Pause</button><button class="btn" id="tReset">Réinitialiser</button></div>
+ <div class="row" style="justify-content:center"><label for="tdur" class="sub" style="margin:0">Durée :</label><select id="tdur" style="width:auto"><option value="25">25 min</option><option value="50">50 min</option><option value="5">5 min (test)</option></select></div>
+ <p class="sub" style="text-align:center;margin-top:12px">Total cumulé (démo) : <b>${S.focusMin} min</b></p>`},
+integ(){const L=[["gmail","Gmail","✉️"],["gcal","Google Agenda","📅"],["outlook","Outlook","📧"],["slack","Slack","💬"]];return `<h2>Intégrations</h2><p class="sub">Aucune connexion réelle n'existe dans ce prototype. Les boutons simulent le parcours futur.</p><div class="grid">${L.map(l=>`<div class="card"><div class="row b"><b>${l[2]} ${l[1]}</b><span class="tag ${S.integ[l[0]]?"s":"w"}">${S.integ[l[0]]?"Simulée":"Bientôt"}</span></div><p class="sub" style="margin:8px 0">${S.integ[l[0]]?"Connexion simulée avec des données d'exemple.":"Lecture seule d'abord, envoi seulement avec ton approbation."}</p><button class="btn sm" data-int="${l[0]}">${S.integ[l[0]]?"Déconnecter (simulé)":"Simuler la connexion"}</button></div>`).join("")}</div>`},
+priv(){return `<h2>Données et vie privée</h2><p class="sub">Pensé en tenant compte de la Loi 25 (Québec). Cette page décrit le prototype; une vraie politique de confidentialité serait requise au lancement.</p>
+ <div class="grid"><div class="card"><h3>Dans ce prototype</h3><ul style="padding-left:18px;margin:0;color:var(--mut)"><li>Aucune donnée envoyée à un serveur</li><li>Tout est stocké dans ton navigateur</li><li>Aucun témoin de suivi ni publicité</li></ul></div><div class="card"><h3>Principes visés</h3><ul style="padding-left:18px;margin:0;color:var(--mut)"><li>Consentement clair et révocable</li><li>Accès, export et suppression en un clic</li><li>Minimisation : seulement ce qui est nécessaire</li><li>Responsable de la protection des renseignements à désigner</li></ul></div></div>
+ <div class="row" style="margin-top:14px"><button class="btn p" data-act="export">⬇️ Exporter mes données (JSON)</button><button class="btn d" data-act="wipe">🗑️ Tout effacer et réinitialiser</button></div>`}
+};
+
 function render(){
- $('#themeBtn').textContent=S.theme==='dark'?'🌙':'☀️';document.documentElement.dataset.theme=S.theme;
- $('#hdrSaved').textContent='⏱ '+totalMin()+' min gagnées';
- ({today:rToday,agenda:rAgenda,chat:rChat,follow:rFollow,time:rTime,plans:rPlans})[cur]();save()}
-function catTag(e){return e.cat?'<span class="tag t-'+e.cat+'">'+({urgent:'Urgent',repondre:'À répondre',info:'Info',infolettre:'Infolettre'})[e.cat]+'</span>':'<span class="tag t-new">Non trié</span>'}
-function rToday(){
- var un=S.emails.filter(function(e){return!e.cat}).length,urg=S.emails.filter(function(e){return e.cat==='urgent'&&!e.sent}).length;
- var cf=conflicts().length,td=todayIdx(),ev=S.events.filter(function(e){return e.day===td}).sort(function(a,b){return a.s-b.s});
- var h='<div class="hero"><span class="pill demo">Données d\'exemple</span><h1>Bonjour! Voici ta journée.</h1><p class="mut">Agendo a lu ta boîte fictive, vérifié ton agenda et prépare le terrain. Rien ne part sans ton accord.</p>'+
- '<div class="stats"><div class="stat"><b>'+un+'</b><span class="small mut">courriels à trier</span></div><div class="stat"><b>'+urg+'</b><span class="small mut">urgents en attente</span></div><div class="stat"><b style="color:'+(cf?'var(--bad)':'var(--ok)')+'">'+cf+'</b><span class="small mut">conflits d\'agenda</span></div><div class="stat"><b>'+totalMin()+' min</b><span class="small mut">gagnées (démo)</span></div></div>'+
- '<p style="margin:14px 0 0"><button class="btn" data-a="triage">✨ Trier ma boîte</button> <button class="btn ghost" data-go="chat">💬 Parler à Agendo</button> <button class="btn ghost" data-a="plan-focus">🎯 Protéger mon focus</button></p></div>';
- h+='<div class="grid"><div class="card"><h2>📬 Boîte de réception <span class="small mut">(fictive)</span></h2>'+S.emails.map(function(e){
-  return '<div class="row"><div style="flex:1"><div>'+catTag(e)+' <b>'+esc(e.subj)+'</b></div><div class="small mut">'+esc(e.from)+' — '+esc(e.body)+'</div>'+
-  (e.cat&&e.draft&&!e.sent?'<div class="draft">Brouillon proposé : « '+esc(e.draft)+' »<br><button class="btn ok sm" data-a="send" data-id="'+e.id+'" style="margin-top:6px">Approuver et envoyer (simulé)</button></div>':'')+
-  (e.sent?'<div class="small" style="color:var(--ok)">✔ Réponse envoyée (simulation)</div>':'')+'</div></div>'}).join('')+'</div>'+
- '<div><div class="card"><h2>📅 Aujourd\'hui · '+DAYF[td]+'</h2>'+(ev.length?ev.map(function(e){return '<div class="row"><b style="min-width:70px">'+fh(e.s)+'</b><span>'+esc(e.t)+'</span></div>'}).join(''):'<p class="mut">Rien d\'inscrit.</p>')+
- '</div><div class="card" style="margin-top:14px"><h2>✅ Liste du jour</h2>'+S.tasks.map(function(t){return '<label class="row" style="cursor:pointer;align-items:center"><input type="checkbox" data-a="task" data-id="'+t.id+'" '+(t.d?'checked':'')+'><span class="'+(t.d?'done':'')+'">'+esc(t.t)+'</span></label>'}).join('')+'</div></div></div>'
- $('#v-today').innerHTML=h}
-function rAgenda(){
- var cf=conflicts(),cs=new Set();cf.forEach(function(p){cs.add(p[0].id);cs.add(p[1].id)});
- var h='<h1>Agenda de la semaine</h1><p class="mut">Semaine fictive. Agendo repère les conflits et réserve du temps de concentration.</p>'+
- '<p><button class="btn" data-a="plan-focus">🎯 Planifier mes blocs de focus</button> <button class="btn ghost" data-a="resolve">⚠️ Résoudre les conflits ('+cf.length+')</button> <button class="btn ghost" data-a="clear-focus">Retirer le focus</button></p>';
- if(cf.length)h+='<div class="card" style="border-color:var(--bad);margin-bottom:12px">⚠️ '+cf.map(function(p){return '<b>'+esc(p[0].t)+'</b> chevauche <b>'+esc(p[1].t)+'</b> ('+DAYF[p[0].day]+')'}).join('<br>⚠️ ')+'</div>';
- var hrs='';for(var x=H0;x<=H1;x++)hrs+='<span style="top:'+(x-H0)*PX+'px">'+x+'h</span>';
- h+='<div class="wk"><div class="hd"></div>'+DAYS.map(function(d,i){return '<div class="hd'+(i===todayIdx()?' today':'')+'">'+d+'</div>'}).join('')+'<div class="col hrs">'+hrs+'</div>';
- for(var d=0;d<5;d++){h+='<div class="col">'+S.events.filter(function(e){return e.day===d}).map(function(e){
-  var half='';if(cs.has(e.id)){var mate=cf.filter(function(p){return p[0]===e||p[1]===e})[0];half=mate[0]===e?' half':' half2'}
-  return '<button class="ev '+e.k+(cs.has(e.id)?' conflict':'')+half+'" style="top:'+(e.s-H0)*PX+'px;height:'+(e.d*PX-2)+'px" data-a="ev" data-id="'+e.id+'" title="'+esc(e.t)+'"><b>'+fh(e.s)+'</b> '+esc(e.t)+'</button>'}).join('')+'</div>'}
- h+='</div><div class="legend small mut"><span><i class="dot" style="background:var(--ac)"></i>Réunion</span><span><i class="dot" style="background:var(--ac2)"></i>Focus (Agendo)</span><span><i class="dot" style="background:var(--warn)"></i>Perso</span><span><i class="dot" style="border:2px solid var(--bad)"></i>Conflit</span><span>Clique un événement pour préparer la réunion.</span></div>';
- $('#v-agenda').innerHTML=h}
-function rChat(){
- var el=$('#v-chat');
- if(!el.dataset.built){el.dataset.built=1;el.innerHTML='<h1>Parle à Agendo</h1><p class="mut">Écris une commande en langage naturel. Agendo propose des actions; tu approuves. (Simulation locale, sans IA réelle.)</p><div class="card chat"><div class="msgs" id="msgs" aria-live="polite"></div><div class="chips" id="chips"></div><form class="in" id="cform"><input type="text" id="cin" autocomplete="off" placeholder="Ex. : planifie une réunion jeudi à 14h" aria-label="Commande"><button class="btn">Envoyer</button></form></div>';
-  $('#chips').innerHTML=['Planifie une réunion jeudi à 14h','Résume mes courriels','Protège mon temps de focus','Détecte les conflits','Prépare ma réunion de mardi','Fais les relances','Combien de temps ai-je gagné?'].map(function(c){return '<button class="chip" type="button" data-chip="'+esc(c)+'">'+esc(c)+'</button>'}).join('');
-  $('#cform').addEventListener('submit',function(e){e.preventDefault();var i=$('#cin'),v=i.value.trim();if(!v)return;i.value='';ask(v)})}
- if(!S.chat.length)S.chat.push({r:'a',h:'Salut! Je suis Agendo. Je peux trier tes courriels, planifier des réunions, protéger ton focus, détecter les conflits, préparer tes rencontres et relancer tes contacts. Essaie une suggestion ci-dessous.'});
- drawMsgs()}
-function drawMsgs(){var box=$('#msgs');if(!box)return;box.innerHTML=S.chat.map(function(m,i){return '<div class="m '+m.r+'">'+(m.r==='u'?esc(m.h):m.h)+(m.prop&&m.prop.st==='open'?propHtml(m.prop,i):'')+(m.prop&&m.prop.st==='ok'?'<div class="small" style="color:var(--ok);margin-top:6px">✔ Approuvé</div>':'')+(m.prop&&m.prop.st==='no'?'<div class="small mut" style="margin-top:6px">Refusé</div>':'')+'</div>'}).join('');box.scrollTop=box.scrollHeight}
-function propHtml(p,i){return '<div class="prop"><b>Actions proposées</b><ul>'+p.items.map(function(x){return '<li>'+esc(x)+'</li>'}).join('')+'</ul><button class="btn ok sm" data-a="approve" data-i="'+i+'">Approuver</button> <button class="btn ghost sm" data-a="refuse" data-i="'+i+'">Refuser</button></div>'}
-function say(h,prop){S.chat.push({r:'a',h:h,prop:prop||null});save();drawMsgs()}
-function norm(s){return s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'')}
-function ask(text){
- S.chat.push({r:'u',h:text});drawMsgs();
- var box=$('#msgs');var tp=document.createElement('div');tp.className='m a';tp.innerHTML='<span class="typing"><i></i><i></i><i></i></span>';box.appendChild(tp);box.scrollTop=box.scrollHeight;
- setTimeout(function(){reply(text)},ask.fast?0:550)}
-function reply(text){
- var q=norm(text),m;
- if(/plan|reunion|rencontre|rdv|rendez|cafe|appel|bloque/.test(q)&&!/focus|concentration|relance|conflit/.test(q)){
-  var day=null;DAYF.forEach(function(d,i){if(q.indexOf(d)>=0)day=i});if(/demain/.test(q))day=Math.min(4,todayIdx()+1);if(day===null)day=todayIdx();
-  var tm=q.match(/(\d{1,2})\s*(?:h|:)\s*(\d{2})?/),s=tm?parseInt(tm[1],10)+(tm[2]?parseInt(tm[2],10)/60:0):null;
-  var dur=1,dm=q.match(/(\d{2,3})\s*min/);if(dm)dur=parseInt(dm[1],10)/60;
-  var title=(q.match(/(?:avec|:)\s+([a-z ]{2,30})$/)||[])[1];title=title?'Réunion avec '+title.trim().replace(/^./,function(c){return c.toUpperCase()}):/cafe/.test(q)?'Café':/appel/.test(q)?'Appel':'Réunion';
-  var items=[],ev;
-  if(s===null){s=findSlot(day,dur,9);if(s===null){return say('Je ne trouve aucune plage libre '+DAYF[day]+'. Veux-tu essayer un autre jour?')}items.push('Meilleure plage libre trouvée : '+fh(s))}
-  else if(!freeAt(day,s,dur)){var alt=findSlot(day,dur,9);var msg='Tu as déjà quelque chose '+DAYF[day]+' à '+fh(s)+' (ou c\'est hors des heures de bureau).';if(alt===null)return say(msg+' Aucune autre plage libre ce jour-là.');s=alt;items.push('Conflit évité : je propose plutôt '+fh(s));say(msg);}
-  ev={day:day,s:s,d:dur,t:title,k:'rdv'};items.push('Ajouter « '+title+' » '+DAYF[day]+' de '+fh(s)+' à '+fh(s+dur));items.push('Préparer un ordre du jour (simulé)');
-  return say('Voici ce que je propose :',{st:'open',kind:'meeting',ev:ev,items:items})}
- if(/resume|courriel|mail|boite|inbox/.test(q)){
-  var u=S.emails.filter(function(e){return!e.cat}),urg=S.emails.filter(function(e){return e.real==='urgent'&&!e.sent});
-  var h='Tu as '+S.emails.length+' courriels (fictifs), dont '+u.length+' non triés. Points clés :\n• '+S.emails.filter(function(e){return e.real==='urgent'||e.real==='repondre'}).map(function(e){return esc(e.subj)}).join('\n• ');
-  if(!u.length&&!S.emails.some(function(e){return e.draft&&!e.sent}))return say(h+'\n\nTout est déjà trié et traité. 🎉');
-  var items=[];if(u.length)items.push('Trier les '+u.length+' courriels non triés');var dr=S.emails.filter(function(e){return e.draft&&!e.sent});if(dr.length)items.push('Marquer '+dr.length+' brouillons de réponse comme prêts à approuver (rien ne s\'envoie sans ton clic dans « Aujourd\'hui »)');
-  return say(h,{st:'open',kind:'triage',items:items})}
- if(/focus|concentration|travail profond|deep/.test(q)){var f=planFocus();if(!f.length)return say('Ton focus est déjà protégé, ou ton agenda est trop plein pour ajouter des blocs de 2 h.');
-  return say('J\'ai trouvé des plages calmes pour protéger ton travail profond :',{st:'open',kind:'focus',evs:f,items:f.map(function(e){return DAYF[e.day]+' de '+fh(e.s)+' à '+fh(e.s+e.d)})})}
- if(/conflit|chevauch|double/.test(q)){var cf=conflicts();if(!cf.length)return say('Aucun conflit dans ton agenda. ✅');
-  return say('J\'ai détecté '+cf.length+' conflit(s) :',{st:'open',kind:'resolve',items:cf.map(function(p){return '« '+p[1].t+' » ('+DAYF[p[1].day]+') déplacé à la prochaine plage libre'})})}
- if(/prepare|preparation|briefing|brief/.test(q)){var day=null;DAYF.forEach(function(d,i){if(q.indexOf(d)>=0)day=i});var evs=S.events.filter(function(e){return e.k==='rdv'&&(day===null||e.day===day)}).sort(function(a,b){return a.day-b.day||a.s-b.s});
-  var e=evs[0];if(!e)return say('Je ne vois aucune réunion à préparer.');prep(e.id);return}
- if(/relance|suivi|relancer/.test(q)){var p=S.follow.filter(function(f){return f.st==='attente'});if(!p.length)return say('Toutes les relances sont déjà traitées. 👌');
-  return say('Ces contacts n\'ont pas répondu. Je prépare des relances polies :',{st:'open',kind:'follow',items:p.map(function(f){return f.who+' — '+f.what+' ('+f.days+' j)'})})}
- if(/temps|gagne|economi/.test(q)){return say('Selon les actions que tu as approuvées dans cette démo, tu as gagné environ '+totalMin()+' minutes. Détail dans l\'onglet « Temps gagné » (estimations modifiables, pas des statistiques réelles).')}
- if(/merci/.test(q))return say('Avec plaisir! 😊');
- if(/aide|help|quoi faire|peux-tu/.test(q))return say('Essaie : « planifie une réunion jeudi à 14h », « résume mes courriels », « protège mon focus », « détecte les conflits », « prépare ma réunion de mardi » ou « fais les relances ».');
- say('Je n\'ai pas compris cette commande dans cette démo (je ne suis pas une vraie IA ici). Essaie : « planifie une réunion jeudi à 14h », « résume mes courriels », « protège mon focus », « détecte les conflits », « prépare ma réunion » ou « fais les relances ».')}
-function prep(id){var e=S.events.filter(function(x){return x.id===id})[0];if(!e)return;
- var rel=S.emails.filter(function(m){return norm(e.t).split(/\W+/).some(function(w){return w.length>4&&norm(m.subj+m.from).indexOf(w)>=0})}).slice(0,2);
- var h='📋 Préparation : <b>'+esc(e.t)+'</b> ('+DAYF[e.day]+' '+fh(e.s)+')\n• Contexte : '+(rel.length?rel.map(function(m){return esc(m.subj)}).join('; '):'aucun échange récent trouvé (données fictives)')+'\n• Ordre du jour suggéré : 1) Objectifs (5 min) 2) Points clés (20 min) 3) Décisions et prochaines étapes (10 min)\n• Question à poser : « Quelle est la prochaine décision à prendre? »';
- if(S.prepared[id]){say(h+'\n\n(Déjà préparée.)');return}
- say(h,{st:'open',kind:'prep',id:id,items:['Joindre la note de préparation à l\'événement (simulé)']})}
-function approve(i){var m=S.chat[i];if(!m||!m.prop||m.prop.st!=='open')return;var p=m.prop;p.st='ok';
- if(p.kind==='meeting'){addEvent(Object.assign({},p.ev));award('meeting',p.ev.t)}
- else if(p.kind==='triage')triage();
- else if(p.kind==='focus'){p.evs.forEach(function(e){addEvent(Object.assign({},e));award('focus',DAYF[e.day])})}
- else if(p.kind==='resolve')resolve();
- else if(p.kind==='follow')S.follow.forEach(function(f){if(f.st==='attente'){f.st='prepare';award('followup',f.who)}});
- else if(p.kind==='prep'){S.prepared[p.id]=1;award('prep',String(p.id))}
- save();drawMsgs();updHdr()}
-function updHdr(){$('#hdrSaved').textContent='⏱ '+totalMin()+' min gagnées'}
-function triage(){var n=0;S.emails.forEach(function(e){if(!e.cat){e.cat=e.real;n++;S.log.push({type:'triage',min:MIN.triage,detail:e.subj,at:Date.now()})}});if(n)toast('+'+n*MIN.triage+' min · '+n+' courriels triés');else toast('Tout est déjà trié')}
-function resolve(){var n=0;conflicts().forEach(function(p){var b=p[1],s=findSlot(b.day,b.d,9);var day=b.day;if(s===null){for(var d=0;d<5&&s===null;d++){s=findSlot(d,b.d,9);day=d}}if(s!==null){b.day=day;b.s=s;n++;award('conflict',b.t)}});if(!n)toast('Aucun conflit résolu')}
-function rFollow(){
- $('#v-follow').innerHTML='<h1>Relances automatiques</h1><p class="mut">Agendo surveille les messages restés sans réponse et prépare une relance polie. Contacts fictifs.</p><div class="grid">'+S.follow.map(function(f){
- return '<div class="card"><b>'+esc(f.who)+'</b> <span class="tag t-'+(f.st==='attente'?'repondre':'info')+'">'+({attente:'Sans réponse '+f.days+' j',prepare:'Relance prête',envoye:'Relance envoyée (simulé)'})[f.st]+'</span><div class="small mut">'+esc(f.what)+'</div>'+
- (f.st!=='attente'?'<div class="draft">'+esc(f.txt)+'</div>':'')+
- '<p>'+(f.st==='attente'?'<button class="btn sm" data-a="fprep" data-id="'+f.id+'">Préparer la relance</button>':f.st==='prepare'?'<button class="btn ok sm" data-a="fsend" data-id="'+f.id+'">Approuver et envoyer (simulé)</button>':'<span style="color:var(--ok)">✔ Terminé</span>')+'</p></div>'}).join('')+'</div>'}
-function rTime(){
- var by={};S.log.forEach(function(l){by[l.type]=by[l.type]||{n:0,m:0};by[l.type].n++;by[l.type].m+=l.min});var tot=totalMin();
- var rows=Object.keys(MIN).map(function(k){var b=by[k]||{n:0,m:0};return '<tr><td>'+LABEL[k]+'</td><td class="n">'+b.n+'</td><td class="n">× '+MIN[k]+' min</td><td class="n"><b>'+b.m+' min</b></td></tr>'}).join('');
- var goal=120;
- $('#v-time').innerHTML='<h1>Temps gagné</h1><p class="mut">Calculé uniquement à partir des actions que tu approuves dans cette démo. Les durées par action sont des <b>hypothèses de démonstration</b>, pas des statistiques mesurées.</p><div class="grid"><div class="card"><div class="stat"><b style="font-size:40px">'+(tot>=60?Math.floor(tot/60)+' h '+(tot%60):tot+' min')+'</b><span class="mut small">gagnées dans cette session démo</span></div><p class="small mut" style="margin-bottom:4px">Objectif démo : 2 h</p><div class="bar2"><i style="width:'+Math.min(100,tot/goal*100)+'%"></i></div><p class="small mut">Actions approuvées : '+S.log.length+'</p><button class="btn ghost sm" data-a="reset">Réinitialiser la démo</button></div>'+
- '<div class="card"><h2>Détail du calcul</h2><table><tr><th>Action</th><th class="n">Nb</th><th class="n">Hypothèse</th><th class="n">Total</th></tr>'+rows+'</table></div></div>'}
-function rPlans(){$('#v-plans').innerHTML='<h1>Forfaits (aperçu)</h1><p class="mut">Prix proposés à valider. Aucun paiement n\'est possible dans ce prototype.</p><div class="price"><div class="card"><h2>Essentiel</h2><b>15 $</b><span class="mut"> /mois</span><p class="small">Tri des courriels, résumé du matin, agenda et focus.</p></div><div class="card" style="border-color:var(--ac)"><h2>Pro</h2><b>29 $</b><span class="mut"> /mois</span><p class="small">Tout Essentiel + relances automatiques, préparation de réunions, assistant illimité.</p></div><div class="card"><h2>Fondateurs</h2><b>10 $</b><span class="mut"> /mois</span><p class="small">Tarif réservé aux premiers utilisateurs. Essai de 14 jours.</p></div></div><p><button class="btn" data-a="waitlist">Me joindre à la liste d\'attente (simulé)</button></p>'}
+ $$("#tabs button").forEach(b=>{const on=b.dataset.t===S.tab;b.setAttribute("aria-selected",on);b.tabIndex=on?0:-1});
+ const m=$("#main");m.setAttribute("role","tabpanel");m.setAttribute("aria-labelledby","tab-"+S.tab);
+ m.innerHTML=V[S.tab]();
+ if(S.tab==="focus")bindTimer();
+ if(S.tab==="assist"){bindMic();const c=$("#chat");c.scrollTop=c.scrollHeight}
+ document.documentElement.dataset.theme=S.theme;
+}
 
-/* ---- événements ---- */
-document.addEventListener('click',function(ev){
- var t=ev.target.closest('[data-a],[data-go],[data-tab],[data-chip]');if(!t)return;
- if(t.dataset.tab)return show(t.dataset.tab);
- if(t.dataset.go)return show(t.dataset.go);
- if(t.dataset.chip){return ask(t.dataset.chip)}
- var a=t.dataset.a,id=+t.dataset.id;
- if(a==='triage'){triage();render()}
- else if(a==='send'){var e=S.emails.filter(function(x){return x.id===id})[0];if(e){e.sent=true;award('draft',e.subj)}render()}
- else if(a==='task'){var k=S.tasks.filter(function(x){return x.id===id})[0];k.d=t.checked;if(k.d)award('task',k.t);else{for(var i=S.log.length-1;i>=0;i--)if(S.log[i].type==='task'&&S.log[i].detail===k.t){S.log.splice(i,1);break}}render()}
- else if(a==='plan-focus')planFocusUI();
- else if(a==='clear-focus'){S.events=S.events.filter(function(e){return e.k!=='focus'});render()}
- else if(a==='resolve'){resolve();render()}
- else if(a==='ev'){show('chat');prep(id)}
- else if(a==='approve')approve(+t.dataset.i);
- else if(a==='refuse'){S.chat[+t.dataset.i].prop.st='no';save();drawMsgs()}
- else if(a==='fprep'){var f=S.follow.filter(function(x){return x.id===id})[0];f.st='prepare';award('followup',f.who);render()}
- else if(a==='fsend'){var f2=S.follow.filter(function(x){return x.id===id})[0];f2.st='envoye';toast('Relance envoyée (simulation)');render()}
- else if(a==='reset'){if(confirm('Réinitialiser la démo?')){S=seed();var c=$('#v-chat');c.dataset.built='';c.innerHTML='';render()}}
- else if(a==='waitlist')toast('Merci! (simulation, rien n\'a été enregistré)');
-});
-function planFocusUI(){var f=planFocus();if(!f.length){toast('Focus déjà protégé ou agenda plein');return}f.forEach(function(e){addEvent(e);award('focus',DAYF[e.day])});if(cur!=='agenda')show('agenda');else render()}
-document.addEventListener('keydown',function(e){
- if(e.metaKey||e.ctrlKey||e.altKey)return;var tg=e.target.tagName;
- if(e.key==='Escape'){var d=$('#help');if(d.open)d.close();return}
- if(tg==='INPUT'&&e.target.type==='text')return;
- var k=e.key;
- if(/^[1-6]$/.test(k))show(TABS[+k-1][0]);
- else if(k==='/'){e.preventDefault();show('chat')}
- else if(k==='t'||k==='T'){S.theme=S.theme==='dark'?'light':'dark';render()}
- else if(k==='f'||k==='F')planFocusUI();
- else if(k==='?')$('#help').showModal()});
-$('#themeBtn').onclick=function(){S.theme=S.theme==='dark'?'light':'dark';render()};
-$('#helpBtn').onclick=function(){$('#help').showModal()};
-window.__agendo={ask:function(t){ask.fast=true;ask(t);ask.fast=false},state:function(){return S}};
-show('today');
+/* assistant */
+function reply(q){const s=q.toLowerCase();let r;
+ const m=s.match(/(?:ajoute|ajouter|cr[ée]e)[^:]*:\s*(.+)/);
+ if(m){S.tasks.push({id:id(),t:m[1].trim(),s:"todo",p:""});r=`C'est ajouté au tableau Projets : « ${m[1].trim()} ». (simulé)`}
+ else if(/r[ée]sum|journ[ée]e|matin/.test(s))r=`Aujourd'hui (exemple) : ${S.tasks.filter(t=>t.s!=="done").length} tâches ouvertes, 4 courriels triés, 1 conflit mercredi 14 h.`;
+ else if(/factur|argent|paiement/.test(s)){const d=S.inv.filter(i=>i.s!=="payée");r=d.length?`À encaisser (exemple) : ${d.map(i=>i.c+" "+fmt(i.a)).join(", ")}.`:"Tout est payé dans les données d'exemple."}
+ else if(/concentr|focus|pomodoro/.test(s)){r="Ouvre l'onglet Concentration pour démarrer le minuteur.";setTimeout(()=>go("focus",true),700)}
+ else if(/r[ée]union|note/.test(s)){r="Ouvre l'onglet Réunions pour résumer tes notes.";setTimeout(()=>go("notes",true),700)}
+ else if(/contact|relanc/.test(s))r="Samuel Gagnon (prospect) n'a pas eu de nouvelles depuis 12 jours (exemple). Je peux préparer une relance dans Contacts.";
+ else r="Je comprends quelques commandes seulement dans cette démo : résumer la journée, ajouter une tâche, facturer, concentration, réunions.";
+ S.chat.push({r:"u",t:q},{r:"a",t:r});S.saved+=1;save();render()}
+function bindMic(){const b=$("#mic");const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+ b.onclick=()=>{if(!SR){toast("La dictée vocale n'est pas disponible dans ce navigateur. Utilise le clavier.");return}
+  try{const r=new SR();r.lang="fr-CA";r.onresult=e=>{$("#cin").value=e.results[0][0].transcript};r.onerror=()=>toast("Micro indisponible ou refusé.");r.onend=()=>b.textContent="🎤";b.textContent="🔴";r.start()}catch(e){toast("Dictée impossible ici.")}}}
+
+/* timer */
+let tmr=null,left=25*60,run=false;
+function paint(){const t=$("#tm");if(t){t.textContent=String(Math.floor(left/60)).padStart(2,"0")+":"+String(left%60).padStart(2,"0")}}
+function bindTimer(){left=Math.min(left,3600);paint();
+ $("#tdur").onchange=e=>{left=+e.target.value*60;paint()};
+ $("#tStart").onclick=()=>{if(tmr)return;tmr=setInterval(()=>{left--;paint();if(left<=0){clearInterval(tmr);tmr=null;const d=+$("#tdur").value;S.focusMin+=d;save();toast("Session terminée! +"+d+" min (démo)");left=d*60;render()}},1000)};
+ $("#tPause").onclick=()=>{clearInterval(tmr);tmr=null};
+ $("#tReset").onclick=()=>{clearInterval(tmr);tmr=null;left=+$("#tdur").value*60;paint()}}
+
+/* notes analysis */
+function analyse(b){const lines=b.split(/\n+/).map(x=>x.trim()).filter(Boolean),tasks=[],other=[];
+ lines.forEach(l=>{const m=l.match(/^(?:[-*]\s*\[ \]\s*|à faire\s*:\s*|a faire\s*:\s*)(.+)/i);m?tasks.push(m[1]):other.push(l)});
+ const sum=other.length?other.slice(0,3).join(" · "):"Aucun point de discussion détecté.";return{sum,tasks}}
+
+/* events */
+document.addEventListener("click",e=>{const t=e.target;let x;
+ if((x=t.closest("[data-go]"))){e.preventDefault();go(x.dataset.go);return}
+ if((x=t.closest("[data-chip]"))){reply(x.dataset.chip);return}
+ if((x=t.closest("[data-mv]"))){const k=S.tasks.find(a=>a.id==x.dataset.i),o=["todo","doing","done"];k.s=o[Math.max(0,Math.min(2,o.indexOf(k.s)+ +x.dataset.mv))];save();render();return}
+ if((x=t.closest("[data-del]"))){const a=S[x.dataset.del];const i=a.findIndex(z=>z.id==x.dataset.i);if(i>=0)a.splice(i,1);save();render();toast("Supprimé");return}
+ if((x=t.closest("[data-g]"))){const g=S.goals.find(a=>a.id==x.dataset.g);g.v=Math.max(0,Math.min(100,g.v+ +x.dataset.v));save();render();return}
+ if((x=t.closest("[data-int]"))){S.integ[x.dataset.int]=!S.integ[x.dataset.int];save();render();toast("Simulé : aucune connexion réelle");return}
+ if((x=t.closest("[data-act]"))){act(x.dataset.act,x.dataset.i)}});
+document.addEventListener("change",e=>{const t=e.target;
+ if(t.dataset.todo){const k=S.todo.find(a=>a.id==t.dataset.todo);k.d=t.checked;S.saved+=t.checked?1:0;save();render()}
+ if(t.dataset.h){const h=S.habits.find(a=>a.id==t.dataset.h);h.days[+t.dataset.d]=t.checked?1:0;save()}});
+document.addEventListener("submit",e=>{const f=e.target.closest("form[data-f]");if(!f)return;e.preventDefault();const d=Object.fromEntries(new FormData(f));
+ switch(f.dataset.f){
+ case"chat":if(d.q.trim())reply(d.q.trim());break;
+ case"todo":if(d.t.trim()){S.todo.push({id:id(),t:d.t.trim(),d:false})}break;
+ case"task":if(d.t.trim())S.tasks.push({id:id(),t:d.t.trim(),s:"todo",p:(d.p||"").trim()});break;
+ case"habit":if(d.n.trim())S.habits.push({id:id(),n:d.n.trim(),days:[0,0,0,0,0,0,0]});break;
+ case"goal":if(d.n.trim())S.goals.push({id:id(),n:d.n.trim(),v:0});break;
+ case"contact":S.contacts.push({id:id(),n:d.n.trim(),o:d.o||"",e:"—",st:d.st,last:"aujourd'hui",nt:""});break;
+ case"inv":S.inv.push({id:id(),c:d.c.trim(),a:+d.a,s:"envoyée",d:new Date().toISOString().slice(0,10)});toast("Facture créée (démo, rien n'est envoyé)");break;
+ case"exp":S.exp.push({id:id(),n:d.n.trim(),a:+d.a});break;
+ case"note":{const b=(d.b||"").trim();if(!b){toast("Écris quelques notes d'abord.");return}const r=analyse(b);S.notes.unshift({id:id(),ti:(d.ti||"Sans titre").trim()||"Sans titre",sum:r.sum,tasks:r.tasks});r.tasks.forEach(t=>S.tasks.push({id:id(),t,s:"todo",p:"Réunions"}));toast(r.tasks.length+" tâche(s) ajoutée(s) à Projets");break}}
+ save();render()});
+function act(a,i){
+ if(a==="resolve")toast("Simulé : « Dentiste » déplacé à 16 h.");
+ else if(a==="blocks")toast("Simulé : 3 blocs de focus proposés.");
+ else if(a==="approve"){S.saved+=1;toast("Brouillon approuvé (envoi simulé, rien n'est parti)")}
+ else if(a==="followup")toast("Brouillon de relance préparé (simulé). Rien n'est envoyé.");
+ else if(a==="paid"){S.inv.find(z=>z.id==i).s="payée";save();render()}
+ else if(a==="sample"){$("#nt").value="Rencontre Atelier Lune (exemple)";$("#nb").value="On a validé le budget global.\nLe lancement vise la fin du mois.\nÀ faire : envoyer la maquette vendredi\nÀ faire : confirmer le délai avec Marie"}
+ else if(a==="export"){const u=URL.createObjectURL(new Blob([JSON.stringify(S,null,2)],{type:"application/json"})),l=document.createElement("a");l.href=u;l.download="agendo-donnees-demo.json";l.click();setTimeout(()=>URL.revokeObjectURL(u),500);toast("Export créé")}
+ else if(a==="wipe"){if(confirm("Effacer toutes les données de la démo?")){try{localStorage.removeItem(KEY)}catch(e){}S=seed();render();toast("Données effacées")}}}
+
+/* search */
+const gsd=$("#gsd"),gs=$("#gs");
+function openSearch(){if(!gsd.open){try{gsd.showModal()}catch(e){gsd.setAttribute("open","")}}gs.value="";doSearch();gs.focus()}
+function doSearch(){const q=gs.value.trim().toLowerCase();let items=[];
+ TABS.forEach(t=>items.push({l:t[1]+" "+t[2],k:"Section",tab:t[0]}));
+ S.tasks.forEach(t=>items.push({l:t.t,k:"Tâche",tab:"proj"}));S.contacts.forEach(c=>items.push({l:c.n+" — "+c.o,k:"Contact",tab:"crm"}));S.notes.forEach(n=>items.push({l:n.ti,k:"Note",tab:"notes"}));S.inv.forEach(i=>items.push({l:"Facture "+i.c+" "+fmt(i.a),k:"Facture",tab:"fin"}));S.habits.forEach(h=>items.push({l:h.n,k:"Habitude",tab:"habits"}));
+ items=items.filter(i=>!q||(i.l+i.k).toLowerCase().includes(q)).slice(0,12);
+ $("#gres").innerHTML=items.length?items.map((i,n)=>`<button data-tab="${i.tab}"><span class="tag">${i.k}</span> ${esc(i.l)}</button>`).join(""):`<p class="sub">Aucun résultat.</p>`}
+gs.addEventListener("input",doSearch);
+$("#gres").addEventListener("click",e=>{const b=e.target.closest("button");if(b){gsd.close();go(b.dataset.tab)}});
+gs.addEventListener("keydown",e=>{if(e.key==="Escape"){e.preventDefault();gsd.close();return}if(e.key==="Enter"){const b=$("#gres button");if(b){gsd.close();go(b.dataset.tab)}}});
+$("#gsx").onclick=()=>gsd.close();$("#gsBtn").onclick=openSearch;
+document.addEventListener("keydown",e=>{
+ if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==="k"){e.preventDefault();openSearch();return}
+ if(/INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName)||e.ctrlKey||e.metaKey||e.altKey)return;
+ if(e.key==="t"||e.key==="T")$("#themeBtn").click();
+ if(e.key==="?")toast("Raccourcis : Ctrl/Cmd+K recherche · T thème · flèches pour naviguer entre sections")});
+
+/* theme + plans */
+$("#themeBtn").onclick=()=>{S.theme=S.theme==="dark"?"light":"dark";save();render()};
+$("#tryBtn").onclick=()=>$("#demo").scrollIntoView();
+const toPlans=()=>$("#plans").scrollIntoView();$("#goPlans").onclick=toPlans;$("#goPlans2").onclick=toPlans;
+let annual=false;
+const PL=[
+ {n:"Gratuit",m:0,a:0,d:"Pour essayer Agendo.",f:["Liste du jour et agenda","Tri de courriels limité (démo : 1 compte)","Habitudes et objectifs","Mode concentration","Export de tes données"],c:"Commencer gratuitement"},
+ {n:"Essentiel",m:15,a:12,d:"Pour une personne occupée.",f:["Tout du forfait Gratuit","Résumé du matin","Brouillons de courriels à approuver","Notes de réunion avec tâches extraites","Projets en kanban","Gmail ou Outlook (bientôt)"],c:"Choisir Essentiel"},
+ {n:"Pro",m:29,a:24,d:"Pour travailleurs autonomes.",f:["Tout du forfait Essentiel","Contacts et relances (CRM léger)","Finances et factures","Assistant vocal","Plusieurs agendas et courriels (bientôt)","Soutien prioritaire"],c:"Choisir Pro",hot:1},
+ {n:"Équipe",m:39,a:32,d:"Par siège, minimum à valider.",f:["Tout du forfait Pro","Projets et contacts partagés (bientôt)","Rôles et permissions (bientôt)","Slack (bientôt)","Journal d'audit (bientôt)","Facturation centralisée"],c:"Parler à l'équipe",seat:1}];
+function plans(){$("#bm").setAttribute("aria-pressed",!annual);$("#ba").setAttribute("aria-pressed",annual);
+ $("#planCards").innerHTML=PL.map(p=>{const v=annual?p.a:p.m;return `<div class="plan ${p.hot?"hot":""}">${p.hot?'<span class="ribbon">Populaire (exemple)</span>':""}<h3>${p.n}</h3><div class="sub" style="margin:0">${p.d}</div><div class="pr">${v?v+" $":"0 $"}<small style="font-size:14px;font-weight:400;color:var(--mut)"> CA${v?(p.seat?" / siège":"")+" / mois":""}</small></div><div><span class="tag w">Prix à valider</span> ${annual&&v?'<span class="tag">facturé annuellement</span>':""}</div><ul>${p.f.map(x=>`<li>${x}</li>`).join("")}</ul><button class="btn ${p.hot?"p":""}" data-plan="${p.n}">${p.c}</button></div>`}).join("")}
+document.addEventListener("click",e=>{const b=e.target.closest("[data-plan]");if(b)toast("Démo : aucun paiement ni inscription réels. Forfait « "+b.dataset.plan+" » non disponible.")});
+$("#bm").onclick=()=>{annual=false;plans()};$("#ba").onclick=()=>{annual=true;plans()};
+const CM=[["Liste du jour, agenda, habitudes","y","y","y","y"],["Concentration et export des données","y","y","y","y"],["Comptes courriel connectés","1 (démo)","1","3 (bientôt)","Illimité (bientôt)"],["Résumé du matin","n","y","y","y"],["Brouillons à approuver","n","y","y","y"],["Notes de réunion et tâches","n","y","y","y"],["Projets kanban","3 max","y","y","y"],["Contacts (CRM léger)","n","n","y","y"],["Finances et factures","n","n","y","y"],["Assistant vocal","n","n","y","y"],["Projets et contacts partagés","n","n","n","bientôt"],["Rôles, audit, Slack","n","n","n","bientôt"],["Soutien","Communauté","Courriel","Prioritaire","Dédié (à valider)"]];
+$("#cmp").innerHTML=`<tr><th>Fonction</th>${PL.map(p=>`<th>${p.n}</th>`).join("")}</tr>`+CM.map(r=>`<tr><td>${r[0]}</td>${r.slice(1).map(v=>v==="y"?'<td class="y" aria-label="inclus">✓</td>':v==="n"?'<td class="n" aria-label="non inclus">—</td>':`<td>${v}</td>`).join("")}</tr>`).join("");
+plans();render();
 })();
 </script>
 </body>
