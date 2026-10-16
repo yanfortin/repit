@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="fr-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Répit — Votre assistant personnel, sans le stress</title>
+<meta name="description" content="Répit trie vos courriels, prépare vos réponses et garde vos tâches à jour. Prototype.">
+<style>
+:root{--bg:#faf8f4;--ink:#1f2a30;--mute:#5d6b73;--brand:#2f7d6d;--brand-d:#245f53;--soft:#e6f2ee;--card:#fff;--line:#e4e0d8;--warn:#fff4d6;--r:16px}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--ink);background:var(--bg);line-height:1.55}
+h1,h2,h3{line-height:1.2;margin:0 0 .5em}
+h1{font-size:clamp(2rem,5vw,3.4rem);letter-spacing:-.02em}
+h2{font-size:clamp(1.5rem,3.5vw,2.2rem)}
+p{margin:0 0 1em}
+a{color:var(--brand-d)}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+section{padding:64px 0}
+.banner{background:var(--warn);text-align:center;font-size:.9rem;padding:8px 12px;border-bottom:1px solid #ecd9a0}
+header.nav{position:sticky;top:0;background:rgba(250,248,244,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);z-index:10}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;height:60px;gap:12px}
+.logo{font-weight:800;font-size:1.3rem;color:var(--brand-d);text-decoration:none}
+.nav nav{display:flex;gap:18px;align-items:center}
+.nav nav a{text-decoration:none;color:var(--ink);font-size:.95rem}
+@media(max-width:640px){.nav nav a.l{display:none}}
+.btn{display:inline-block;background:var(--brand);color:#fff;border:0;border-radius:999px;padding:12px 24px;font-size:1rem;font-weight:600;cursor:pointer;text-decoration:none;font-family:inherit}
+.btn:hover{background:var(--brand-d)}
+.btn.sec{background:transparent;color:var(--brand-d);border:2px solid var(--brand)}
+.btn.sec:hover{background:var(--soft)}
+.btn.sm{padding:7px 16px;font-size:.9rem}
+.hero{padding:72px 0 56px;text-align:center}
+.hero p.lead{font-size:1.2rem;color:var(--mute);max-width:700px;margin:0 auto 1.5em}
+.small{font-size:.85rem;color:var(--mute)}
+.grid{display:grid;gap:20px}
+.g3{grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:24px}
+.card h3{font-size:1.1rem}
+.pain li{margin-bottom:.5em}
+.alt{background:#fff;border-block:1px solid var(--line)}
+.center{text-align:center}
+.steps{counter-reset:s;list-style:none;padding:0}
+.steps li{counter-increment:s;position:relative;padding-left:52px;margin-bottom:18px}
+.steps li:before{content:counter(s);position:absolute;left:0;top:0;width:36px;height:36px;border-radius:50%;background:var(--brand);color:#fff;display:grid;place-items:center;font-weight:700}
+.price{display:flex;flex-direction:column}
+.price ul{padding-left:1.2em;flex:1}
+.price .amt{font-size:2.2rem;font-weight:800}
+.price .amt span{font-size:1rem;font-weight:400;color:var(--mute)}
+.price.feat{border:2px solid var(--brand);position:relative}
+.tag{position:absolute;top:-13px;left:20px;background:var(--brand);color:#fff;border-radius:99px;font-size:.78rem;padding:3px 12px}
+.toggle{display:inline-flex;background:var(--soft);border-radius:99px;padding:4px;margin-bottom:28px}
+.toggle button{border:0;background:transparent;padding:8px 20px;border-radius:99px;cursor:pointer;font:inherit;color:var(--ink)}
+.toggle button[aria-pressed=true]{background:var(--brand);color:#fff}
+details{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 18px;margin-bottom:10px}
+summary{cursor:pointer;font-weight:600}
+details p{margin:.7em 0 0;color:var(--mute)}
+/* demo */
+.demo{background:#fff;border:1px solid var(--line);border-radius:20px;box-shadow:0 10px 40px rgba(31,42,48,.08);overflow:hidden}
+.demo-top{background:var(--warn);padding:8px 16px;font-size:.85rem;border-bottom:1px solid #ecd9a0;display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap}
+.tabs{display:flex;border-bottom:1px solid var(--line);overflow-x:auto}
+.tabs button{flex:1;min-width:120px;padding:14px 10px;border:0;background:none;cursor:pointer;font:inherit;font-weight:600;color:var(--mute);border-bottom:3px solid transparent}
+.tabs button[aria-selected=true]{color:var(--brand-d);border-color:var(--brand);background:var(--soft)}
+.panel{padding:24px;min-height:360px}
+.panel[hidden]{display:none}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.chip{border:1px solid var(--line);background:#fff;border-radius:99px;padding:6px 14px;cursor:pointer;font:inherit;font-size:.9rem}
+.chip[aria-pressed=true]{background:var(--brand);color:#fff;border-color:var(--brand)}
+.mail{display:flex;gap:12px;align-items:flex-start;padding:12px;border:1px solid var(--line);border-radius:12px;margin-bottom:10px}
+.mail .b{flex:1;min-width:0}
+.mail .s{font-weight:600}
+.mail .p{color:var(--mute);font-size:.9rem}
+.badge{font-size:.75rem;border-radius:99px;padding:3px 10px;background:var(--soft);color:var(--brand-d);white-space:nowrap}
+.badge.a{background:#fde2dc;color:#a33a24}
+.badge.l{background:#e8e8f7;color:#4a4a99}
+.badge.n{background:#eee;color:#555}
+.sum{background:var(--soft);border-radius:12px;padding:18px;margin-bottom:14px}
+.sum h3{font-size:1rem}
+.draft{border:1px solid var(--line);border-radius:12px;padding:16px}
+.draft textarea{width:100%;min-height:150px;border:1px solid var(--line);border-radius:8px;padding:10px;font:inherit;resize:vertical;margin:8px 0}
+.actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.status{margin-top:12px;padding:10px 14px;border-radius:10px;background:var(--soft);font-size:.92rem}
+.task{display:flex;gap:12px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line)}
+.task input{width:20px;height:20px;accent-color:var(--brand)}
+.task.done label{text-decoration:line-through;color:var(--mute)}
+.task .t{color:var(--mute);font-size:.85rem;min-width:56px}
+.task.ev .t{color:var(--brand-d);font-weight:600}
+.log{font-size:.85rem;color:var(--mute);margin-top:14px;border-top:1px dashed var(--line);padding-top:10px}
+footer{padding:36px 0;text-align:center;color:var(--mute);font-size:.9rem}
+dialog{border:0;border-radius:var(--r);padding:28px;max-width:420px;box-shadow:0 20px 60px rgba(0,0,0,.3)}
+dialog::backdrop{background:rgba(0,0,0,.45)}
+</style>
+</head>
+<body>
+<div class="banner">🧪 <strong>Prototype</strong> : aucune inscription, aucun paiement et aucune vraie donnée. Tout le contenu est un exemple.</div>
+<header class="nav"><div class="wrap">
+<a class="logo" href="#top">Répit</a>
+<nav><a class="l" href="#demo">Démo</a><a class="l" href="#prix">Prix</a><a class="l" href="#faq">FAQ</a><button class="btn sm" data-cta>Essai gratuit</button></nav>
+</div></header>
+
+<main id="top">
+<section class="hero"><div class="wrap">
+<h1>Votre boîte de réception, votre agenda et vos tâches. Enfin sous contrôle.</h1>
+<p class="lead">Répit est votre assistant IA personnel. Il trie vos courriels, prépare vos réponses, fixe vos rendez-vous et garde vos tâches à jour, pour que vous puissiez vous concentrer sur ce qui compte vraiment.</p>
+<button class="btn" data-cta>Essayer gratuitement pendant 14 jours</button>
+<a class="btn sec" href="#demo" style="margin-left:8px">Voir la démo</a>
+<p class="small" style="margin-top:14px">Aucune carte de crédit requise. Annulation en tout temps.</p>
+</div></section>
+
+<section class="alt"><div class="wrap">
+<h2 class="center">Vous vous reconnaissez?</h2>
+<ul class="pain" style="max-width:700px;margin:0 auto 1em">
+<li>Vous commencez votre journée par 45 minutes de courriels… et vous n'avez toujours rien accompli.</li>
+<li>Fixer un simple café demande cinq messages de va-et-vient.</li>
+<li>Vous avez oublié de relancer un client, encore.</li>
+<li>Votre liste de tâches est éparpillée entre des courriels, des post-it et votre tête.</li>
+</ul>
+<p class="center"><strong>Vous n'avez pas besoin d'une autre application à gérer. Vous avez besoin de quelqu'un qui s'en occupe.</strong></p>
+</div></section>
+
+<section><div class="wrap">
+<h2 class="center">Le bras droit que vous n'aviez pas les moyens d'embaucher</h2>
+<div class="grid g3" style="margin-top:28px">
+<div class="card"><h3>📬 Une boîte qui se trie toute seule</h3><p>Les infolettres et notifications attendent leur tour; les messages importants remontent en haut.</p></div>
+<div class="card"><h3>☀️ Un résumé chaque matin</h3><p>Qui attend une réponse, vos rendez-vous du jour et les tâches prioritaires, avant votre premier café.</p></div>
+<div class="card"><h3>✍️ Des réponses prêtes à envoyer</h3><p>Des brouillons dans votre ton. Vous relisez, vous ajustez, vous envoyez. Rien ne part sans votre accord.</p></div>
+<div class="card"><h3>📅 Des rendez-vous sans va-et-vient</h3><p>« Trouve-moi une heure avec Sophie la semaine prochaine, pas le vendredi. » Répit propose les bonnes plages.</p></div>
+<div class="card"><h3>✅ Aucune tâche oubliée</h3><p>Une soumission pour jeudi? Elle devient une tâche avec échéance, rappelée au bon moment.</p></div>
+<div class="card"><h3>🔁 Des relances au bon moment</h3><p>Pas de réponse depuis quelques jours? Répit vous le signale et propose un petit mot de relance.</p></div>
+</div>
+</div></section>
+
+<section class="alt" id="demo"><div class="wrap">
+<h2 class="center">Essayez la démo</h2>
+<p class="center small" style="margin-bottom:24px">Une journée type pour Julie, consultante à son compte. Données fictives, rien n'est lu ni envoyé.</p>
+<div class="demo">
+<div class="demo-top"><span>⚠️ <strong>DONNÉES D'EXEMPLE</strong> — démonstration fictive</span><button class="chip" id="reset">↺ Réinitialiser</button></div>
+<div class="tabs" role="tablist" id="tabs">
+<button role="tab" aria-selected="true" data-p="p1">☀️ Résumé du matin</button>
+<button role="tab" aria-selected="false" data-p="p2">📬 Tri des courriels</button>
+<button role="tab" aria-selected="false" data-p="p3">✍️ Brouillon</button>
+<button role="tab" aria-selected="false" data-p="p4">✅ Liste du jour</button>
+</div>
+
+<div class="panel" id="p1" role="tabpanel">
+<h3>Bonjour Julie 👋 <span class="small" id="today"></span></h3>
+<div class="sum"><h3>Ce qui demande votre attention</h3>
+<ul id="sumList" style="margin:0;padding-left:1.2em"></ul></div>
+<div class="sum" style="background:#f3f0ea"><h3>Aujourd'hui</h3>
+<p style="margin:0">3 rendez-vous, 4 tâches. Un bloc de concentration est réservé de 13 h à 15 h.</p></div>
+<button class="btn sm" id="goDraft">Préparer la réponse à Marc →</button>
+</div>
+
+<div class="panel" id="p2" role="tabpanel" hidden>
+<div class="chips" id="filters"></div>
+<div id="mails"></div>
+<p class="small">Cliquez sur une catégorie pour filtrer, ou sur « Changer » pour corriger Répit : il apprend de vos ajustements.</p>
+</div>
+
+<div class="panel" id="p3" role="tabpanel" hidden>
+<div class="mail" style="background:#faf8f4"><div class="b"><div class="s">Marc Tremblay — Soumission révisée?</div><div class="p">« Bonjour Julie, as-tu pu jeter un œil à ma demande de soumission? J'en aurais besoin d'ici jeudi. Merci! »</div></div><span class="badge a">Sans réponse depuis 3 jours</span></div>
+<div class="draft">
+<strong>Brouillon proposé par Répit</strong> <span class="small">(modifiable)</span>
+<textarea id="draftText" aria-label="Brouillon de réponse"></textarea>
+<div class="actions">
+<button class="btn sm" id="approve">✓ Approuver et « envoyer »</button>
+<button class="btn sec sm" id="regen">↻ Autre ton</button>
+<button class="btn sec sm" id="discard">Rejeter</button>
+</div>
+<div class="status" id="draftStatus" role="status">En attente de votre approbation. Rien n'est envoyé tant que vous n'approuvez pas.</div>
+</div></div>
+
+<div class="panel" id="p4" role="tabpanel" hidden>
+<div id="tasks"></div>
+<p class="small" id="progress" style="margin-top:12px"></p>
+<div class="actions" style="margin-top:8px"><input id="newTask" placeholder="Ajouter une tâche (ex. Appeler Sophie)" style="flex:1;min-width:200px;padding:10px;border:1px solid var(--line);border-radius:8px;font:inherit"><button class="btn sm" id="addTask">Ajouter</button></div>
+</div>
+<div style="padding:0 24px 20px"><div class="log"><strong>Journal des actions</strong> (exemple)<div id="log">Aucune action pour l'instant.</div></div></div>
+</div>
+</div></section>
+
+<section><div class="wrap">
+<h2 class="center">Comment ça fonctionne</h2>
+<ol class="steps" style="max-width:640px;margin:24px auto 0">
+<li><strong>Connectez votre compte</strong> Gmail et Google Agenda en quelques clics. <em>(Outlook bientôt offert.)</em></li>
+<li><strong>Dites à Répit vos préférences</strong> : vos heures de travail, vos priorités, votre façon d'écrire.</li>
+<li><strong>Laissez-le travailler.</strong> Vous gardez le contrôle et approuvez chaque action importante.</li>
+</ol>
+</div></section>
+
+<section class="alt"><div class="wrap">
+<h2 class="center">Vos données restent les vôtres</h2>
+<div class="grid g3" style="margin-top:24px">
+<div class="card"><strong>Vous choisissez</strong> ce que Répit peut lire et faire.</div>
+<div class="card"><strong>Rien n'est envoyé</strong> sans votre approbation.</div>
+<div class="card"><strong>Pas d'entraînement</strong> de modèles d'IA avec vos données sans votre consentement explicite.</div>
+<div class="card"><strong>Un journal clair</strong> montre chaque action effectuée.</div>
+<div class="card"><strong>Tout supprimer</strong> en un clic, à tout moment.</div>
+<div class="card">Conçu pour respecter la LPRPDE et la Loi 25 du Québec <span class="small">(avis juridique à obtenir avant le lancement)</span>.</div>
+</div></div></section>
+
+<section id="prix"><div class="wrap center">
+<h2>Un prix simple, sans surprise</h2>
+<div class="toggle" role="group" aria-label="Facturation"><button id="mo" aria-pressed="true">Mensuel</button><button id="yr" aria-pressed="false">Annuel (2 mois gratuits)</button></div>
+<div class="grid g3" style="text-align:left">
+<div class="card price feat"><span class="tag">Le plus populaire</span><h3>Essentiel</h3>
+<div class="amt"><b data-m="15 $" data-y="150 $">15 $</b><span data-m="/mois" data-y="/an">/mois</span></div>
+<ul><li>1 compte courriel et 1 agenda</li><li>Tri intelligent de la boîte de réception</li><li>Résumé quotidien</li><li>Brouillons de réponse</li><li>Rendez-vous en langage naturel</li><li>Suivi des tâches et des relances</li></ul>
+<button class="btn" data-cta>Commencer l'essai gratuit</button></div>
+<div class="card price"><h3>Pro</h3>
+<div class="amt"><b data-m="29 $" data-y="290 $">29 $</b><span data-m="/mois" data-y="/an">/mois</span></div>
+<ul><li>Tout ce qu'offre Essentiel</li><li>Jusqu'à 3 comptes courriel et agendas</li><li>Règles personnalisées</li><li>Ton d'écriture adapté à vos messages</li><li>Support prioritaire</li></ul>
+<button class="btn sec" data-cta>Commencer l'essai gratuit</button></div>
+<div class="card price"><h3>🌟 Fondateurs</h3>
+<div class="amt">10 $<span>/mois</span></div>
+<ul><li>Palier Essentiel</li><li>Prix garanti tant que l'abonnement est actif</li><li>Accès anticipé aux nouvelles fonctions</li><li>Réservé aux 100 premiers abonnés</li></ul>
+<button class="btn sec" data-cta>Réserver ma place</button></div>
+</div>
+<p class="small" style="margin-top:18px">Prix en dollars canadiens, taxes en sus; prix proposés, à valider. Annulation en tout temps, sans frais. Essai gratuit de 14 jours.</p>
+</div></section>
+
+<section class="alt" id="faq"><div class="wrap" style="max-width:760px">
+<h2 class="center">Questions fréquentes</h2>
+<details><summary>Est-ce que Répit envoie des courriels à ma place?</summary><p>Non, pas sans votre accord. Répit prépare des brouillons et des propositions; c'est toujours vous qui appuyez sur « Envoyer ».</p></details>
+<details><summary>Avec quels services Répit fonctionne-t-il?</summary><p>Au lancement, Gmail et Google Agenda. Outlook et Microsoft 365 sont en préparation.</p></details>
+<details><summary>Répit comprend-il le français?</summary><p>Oui. Répit fonctionne en français et en anglais, et s'adapte à la langue de chacun de vos courriels.</p></details>
+<details><summary>Puis-je annuler quand je veux?</summary><p>Oui, en deux clics, sans frais. Vos données sont supprimées sur demande.</p></details>
+<details><summary>Que se passe-t-il à la fin de l'essai gratuit?</summary><p>Nous vous écrivons avant la fin. Sans choix de forfait, votre compte est simplement mis en pause. Aucun frais surprise.</p></details>
+<details><summary>Est-ce que l'IA peut se tromper?</summary><p>Oui, comme tout assistant. C'est pourquoi vous approuvez les actions importantes et pouvez corriger Répit.</p></details>
+</div></section>
+
+<section class="center"><div class="wrap">
+<h2>Reprenez le contrôle de votre journée</h2>
+<p>Moins de temps dans vos courriels. Plus de temps pour votre travail, vos clients et vos proches.</p>
+<button class="btn" data-cta>Essayer Répit gratuitement pendant 14 jours</button>
+</div></section>
+</main>
+
+<footer><div class="wrap">Répit — Votre assistant personnel, sans le stress.<br>Prototype de démonstration · Politique de confidentialité · Conditions d'utilisation · Nous joindre (liens à venir)</div></footer>
+
+<dialog id="dlg"><h3>Ceci est un prototype 🧪</h3><p>Aucune inscription ni aucun paiement n'est possible pour l'instant. Ce bouton montre seulement où se trouverait l'appel à l'action.</p><button class="btn" onclick="document.getElementById('dlg').close()">Compris</button></dialog>
+
+<script>
+(function(){
+"use strict";
+var $=function(s,r){return (r||document).querySelector(s)};
+var $$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
+var CATS={todo:["À traiter","a"],later:["À lire plus tard","l"],news:["Infolettres","n"],wait:["Peut attendre",""]};
+var MAILS0=[
+{id:1,from:"Marc Tremblay",subj:"Soumission révisée?",prev:"As-tu pu jeter un œil à ma demande? J'en aurais besoin d'ici jeudi.",cat:"todo"},
+{id:2,from:"Sophie Gagnon",subj:"Café la semaine prochaine?",prev:"Je suis libre mardi ou mercredi, qu'est-ce qui te convient?",cat:"todo"},
+{id:3,from:"Cabinet Roy CPA",subj:"Documents pour votre déclaration",prev:"Merci de nous transmettre vos relevés avant le 30.",cat:"later"},
+{id:4,from:"L'Infolettre Pigiste",subj:"10 conseils pour fixer vos tarifs",prev:"Cette semaine : comment augmenter ses prix sans perdre de clients…",cat:"news"},
+{id:5,from:"Boutique Papeterie Plus",subj:"-20 % sur tout ce week-end",prev:"Profitez de nos rabais d'automne.",cat:"wait"},
+{id:6,from:"Banque Exemple",subj:"Votre relevé est disponible",prev:"Connectez-vous pour consulter votre relevé mensuel.",cat:"later"},
+{id:7,from:"Karim Benali",subj:"Relance : proposition de formation",prev:"Je me permets de revenir vers vous, des nouvelles?",cat:"todo"}];
+var TASKS0=[
+{t:"08:30",x:"Revoir le résumé du matin",d:0},
+{t:"09:30",x:"Appel avec Karim Benali (30 min)",d:0,ev:1},
+{t:"11:00",x:"Envoyer la soumission à Marc (échéance jeudi)",d:0},
+{t:"13:00",x:"Bloc de concentration : rapport RH",d:0,ev:1},
+{t:"15:30",x:"Café avec Sophie (à confirmer)",d:0,ev:1},
+{t:"16:30",x:"Relancer Karim pour la proposition",d:0}];
+var DRAFTS=[
+"Bonjour Marc,\n\nMerci de ta patience! Je t'envoie la soumission révisée aujourd'hui avant midi. N'hésite pas si tu veux ajuster quoi que ce soit.\n\nBonne journée,\nJulie",
+"Salut Marc,\n\nTu as bien fait de relancer. La soumission est presque prête et je te la fais parvenir ce matin. On se reparle ensuite pour les détails?\n\nJulie",
+"Bonjour Monsieur Tremblay,\n\nJe vous remercie de votre message. Je vous transmettrai la soumission révisée aujourd'hui, avant jeudi comme convenu.\n\nCordialement,\nJulie Lavoie"];
+var mails,tasks,filter="all",di=0,sent=false,logs;
+
+function log(m){logs.unshift(new Date().toLocaleTimeString("fr-CA",{hour:"2-digit",minute:"2-digit"})+" — "+m);logs=logs.slice(0,5);$("#log").innerHTML=logs.map(function(l){return "<div></div>"}).join("");$$("#log div").forEach(function(d,i){d.textContent=logs[i]})}
+function esc(s){var d=document.createElement("div");d.textContent=s;return d.innerHTML}
+
+function renderSummary(){
+ var n=mails.filter(function(m){return m.cat==="todo"}).length;
+ $("#sumList").innerHTML="<li>"+n+" courriels à traiter (sur "+mails.length+" reçus)</li><li>Marc attend votre soumission depuis 3 jours</li><li>Sophie propose mardi ou mercredi pour un café</li><li>Karim vous relance : proposition de formation</li>";
+}
+function renderFilters(){
+ var f=[["all","Tous ("+mails.length+")"]];
+ Object.keys(CATS).forEach(function(k){f.push([k,CATS[k][0]+" ("+mails.filter(function(m){return m.cat===k}).length+")"])});
+ var box=$("#filters");box.innerHTML="";
+ f.forEach(function(p){var b=document.createElement("button");b.className="chip";b.textContent=p[1];b.setAttribute("aria-pressed",filter===p[0]);b.onclick=function(){filter=p[0];renderFilters();renderMails()};box.appendChild(b)});
+}
+function renderMails(){
+ var box=$("#mails");box.innerHTML="";
+ mails.filter(function(m){return filter==="all"||m.cat===filter}).forEach(function(m){
+  var e=document.createElement("div");e.className="mail";
+  e.innerHTML='<div class="b"><div class="s"></div><div class="p"></div></div><span class="badge"></span><button class="chip">Changer</button>';
+  $(".s",e).textContent=m.from+" — "+m.subj;$(".p",e).textContent=m.prev;
+  var bd=$(".badge",e);bd.textContent=CATS[m.cat][0];bd.className="badge "+CATS[m.cat][1];
+  $(".chip",e).onclick=function(){var ks=Object.keys(CATS);m.cat=ks[(ks.indexOf(m.cat)+1)%ks.length];log("Vous avez reclassé « "+m.subj+" » dans « "+CATS[m.cat][0]+" ».");renderFilters();renderMails();renderSummary()};
+  box.appendChild(e)});
+}
+function renderTasks(){
+ var box=$("#tasks");box.innerHTML="";
+ tasks.forEach(function(k,i){
+  var e=document.createElement("div");e.className="task"+(k.d?" done":"")+(k.ev?" ev":"");
+  var id="tk"+i;
+  e.innerHTML='<input type="checkbox" id="'+id+'"><span class="t"></span><label for="'+id+'"></label>';
+  $("input",e).checked=!!k.d;$(".t",e).textContent=k.t||"—";$("label",e).textContent=(k.ev?"📅 ":"")+k.x;
+  $("input",e).onchange=function(){k.d=this.checked;if(k.d)log("Tâche terminée : "+k.x);renderTasks()};
+  box.appendChild(e)});
+ var d=tasks.filter(function(k){return k.d}).length;
+ $("#progress").textContent=d+" sur "+tasks.length+" terminées";
+}
+function setDraft(){$("#draftText").value=DRAFTS[di%DRAFTS.length];$("#draftText").disabled=false;sent=false;$("#draftStatus").textContent="En attente de votre approbation. Rien n'est envoyé tant que vous n'approuvez pas."}
+function show(id){$$(".panel").forEach(function(p){p.hidden=p.id!==id});$$("#tabs button").forEach(function(b){b.setAttribute("aria-selected",b.dataset.p===id)})}
+
+function init(){
+ mails=MAILS0.map(function(m){return Object.assign({},m)});
+ tasks=TASKS0.map(function(t){return Object.assign({},t)});
+ logs=[];filter="all";di=0;
+ $("#log").textContent="Aucune action pour l'instant.";
+ $("#today").textContent="— exemple de résumé";
+ renderSummary();renderFilters();renderMails();renderTasks();setDraft();
+}
+$$("#tabs button").forEach(function(b){b.onclick=function(){show(b.dataset.p)}});
+$("#goDraft").onclick=function(){show("p3")};
+$("#regen").onclick=function(){if(sent)return;di++;setDraft();log("Nouveau ton proposé pour la réponse à Marc.")};
+$("#discard").onclick=function(){$("#draftText").value="";$("#draftStatus").textContent="Brouillon rejeté. Répit ne l'a pas envoyé.";log("Brouillon rejeté.")};
+$("#approve").onclick=function(){
+ if(sent)return;if(!$("#draftText").value.trim()){$("#draftStatus").textContent="Le brouillon est vide.";return}
+ sent=true;$("#draftText").disabled=true;
+ $("#draftStatus").textContent="✓ Approuvé (simulation). Dans le vrai produit, le courriel partirait maintenant. Ici, rien n'a été envoyé.";
+ log("Réponse à Marc approuvée par vous (simulation).");
+ var t=tasks[2];if(t&&!t.d){t.d=1;renderTasks()}
+};
+$("#addTask").onclick=function(){var v=$("#newTask").value.trim();if(!v)return;tasks.push({t:"",x:v,d:0});$("#newTask").value="";log("Tâche ajoutée : "+v);renderTasks()};
+$("#newTask").onkeydown=function(e){if(e.key==="Enter")$("#addTask").click()};
+$("#reset").onclick=init;
+$$("[data-cta]").forEach(function(b){b.onclick=function(){$("#dlg").showModal()}});
+function price(y){$$("[data-m]").forEach(function(e){e.textContent=y?e.dataset.y:e.dataset.m});$("#mo").setAttribute("aria-pressed",!y);$("#yr").setAttribute("aria-pressed",y)}
+$("#mo").onclick=function(){price(false)};$("#yr").onclick=function(){price(true)};
+init();
+})();
+</script>
+</body>
+</html>
