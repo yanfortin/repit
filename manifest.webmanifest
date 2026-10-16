@@ -1,0 +1,21 @@
+{
+  "name": "Agendo — assistant IA personnel",
+  "short_name": "Agendo",
+  "description": "Prototype d'assistant IA personnel : agenda, courriels, tâches, réunions et plus encore. Données d'exemple.",
+  "lang": "fr-CA",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#0b0d14",
+  "theme_color": "#0b0d14",
+  "icons": [
+    {"src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any"},
+    {"src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any"},
+    {"src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable"}
+  ],
+  "shortcuts": [
+    {"name": "Ma journée parfaite", "url": "./index.html#day"},
+    {"name": "Boîte zéro", "url": "./index.html#mail"}
+  ]
+}
