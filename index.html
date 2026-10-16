@@ -9,7 +9,7 @@
 :root{--bg:#0b0d14;--bg2:#121624;--card:#171c2e;--line:#262d47;--tx:#eef1fb;--mut:#a3adc9;--ac:#7c6cff;--ac2:#2ee6c5;--ok:#38d98a;--warn:#ffb547;--bad:#ff5d73;--r:14px}
 [data-theme=light]{--bg:#f5f6fb;--bg2:#fff;--card:#fff;--line:#dfe3f0;--tx:#161a2b;--mut:#566080;--ac:#5b49f0;--ac2:#0aa58c}
 *{box-sizing:border-box}html{scroll-behavior:smooth}
-body{margin:0;font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--tx)}
+body{margin:0;font:1rem/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--tx)}
 a{color:var(--ac2)}button,input,select,textarea{font:inherit;color:inherit}
 :focus-visible{outline:3px solid var(--ac2);outline-offset:2px}
 .skip{position:absolute;left:-999px;top:0;background:var(--ac);color:#fff;padding:8px 12px;z-index:99}.skip:focus{left:8px}
@@ -30,7 +30,7 @@ header.top{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--b
 .badges{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:16px}
 .tag{font-size:12px;border:1px solid var(--line);border-radius:99px;padding:2px 10px;color:var(--mut);background:var(--bg2);white-space:nowrap}
 .tag.ok{color:var(--ok)}.tag.w{color:var(--warn)}.tag.s{color:var(--ac2)}
-.app{display:grid;grid-template-columns:210px 1fr;gap:18px;margin:18px 0 40px;align-items:start}
+.app{display:grid;grid-template-columns:210px minmax(0,1fr);gap:18px;margin:18px 0 40px;align-items:start}
 nav.side{position:sticky;top:74px;display:flex;flex-direction:column;gap:2px;background:var(--bg2);border:1px solid var(--line);border-radius:var(--r);padding:8px}
 nav.side button{text-align:left;background:none;border:0;padding:9px 12px;border-radius:9px;cursor:pointer;color:var(--mut);display:flex;gap:10px;align-items:center}
 nav.side button:hover{background:var(--card)}nav.side button[aria-selected=true]{background:var(--card);color:var(--tx);font-weight:600;box-shadow:inset 3px 0 var(--ac)}
@@ -75,9 +75,85 @@ dialog{border:1px solid var(--line);border-radius:16px;background:var(--bg2);col
 #toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--card);border:1px solid var(--ac);padding:10px 16px;border-radius:12px;transition:.25s;z-index:60;max-width:92vw}#toast.on{transform:translateX(-50%)}
 footer{border-top:1px solid var(--line);padding:24px 0;color:var(--mut);font-size:13px}
 label.l{display:block;font-size:13px;color:var(--mut);margin:8px 0 3px}
-@media(max-width:900px){.app{grid-template-columns:1fr}nav.side{position:static;flex-direction:row;overflow-x:auto;white-space:nowrap}.plans{grid-template-columns:repeat(2,1fr)}.kan{grid-template-columns:1fr}.week{grid-template-columns:1fr}}
+@media(max-width:900px){.app{grid-template-columns:minmax(0,1fr)}nav.side{position:static;flex-direction:row;overflow-x:auto;white-space:nowrap}.plans{grid-template-columns:repeat(2,1fr)}.kan{grid-template-columns:1fr}.week{grid-template-columns:1fr}}
 @media(max-width:560px){.plans{grid-template-columns:1fr}.hide-m{display:none}main.panel{padding:14px}}
 @media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+html[data-pal=ocean]{--ac:#2f8cff;--ac2:#27e0d0}
+html[data-pal=foret]{--ac:#2ea96b;--ac2:#b6e35a}
+html[data-pal=soleil]{--ac:#f2652b;--ac2:#ffc43d}
+html[data-pal=rose]{--ac:#e5489b;--ac2:#ff8fc9}
+html[data-pal=contraste]{--bg:#000;--bg2:#000;--card:#0b0b0b;--line:#fff;--tx:#fff;--mut:#e6e6e6;--ac:#ffe600;--ac2:#00e5ff}
+html[data-pal=contraste] .btn.p,html[data-pal=contraste] .m.u,html[data-pal=contraste] .sw button[aria-pressed=true],html[data-pal=contraste] .ribbon{color:#000}
+html[data-reduce] *{transition:none!important;animation:none!important;scroll-behavior:auto!important}
+nav.side .gh{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--mut);padding:10px 12px 2px}
+.ib{position:relative;min-width:40px;padding:8px 10px}.ib[disabled]{opacity:.4;cursor:default}
+.bdg{position:absolute;top:-5px;right:-5px;background:var(--bad);color:#fff;border-radius:99px;font-size:11px;min-width:18px;height:18px;line-height:18px;text-align:center;padding:0 4px}
+.two{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:14px;align-items:start}
+.three{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.tl{position:relative;margin-left:46px;border-left:1px solid var(--line);user-select:none}
+.tl .hr{position:absolute;left:-46px;right:0;border-top:1px dashed var(--line);font-size:11px;color:var(--mut);padding-left:2px;pointer-events:none;line-height:1}
+.tl .hr span{background:var(--card);padding-right:4px;position:relative;top:-6px}
+.blk{position:absolute;border-radius:8px;padding:2px 6px;font-size:12px;overflow:hidden;cursor:grab;border-left:4px solid var(--c);background:color-mix(in srgb,var(--c) 26%,var(--card));transition:top .8s cubic-bezier(.2,.8,.2,1),height .8s cubic-bezier(.2,.8,.2,1),left .8s,width .8s,opacity .5s,box-shadow .2s;touch-action:none;line-height:1.25;box-shadow:0 1px 0 #0003}
+.blk.dr{transition:none;cursor:grabbing;z-index:5;box-shadow:0 8px 24px #0006}
+.blk.k-m{--c:var(--ac)}.blk.k-f{--c:var(--ac2)}.blk.k-a{--c:var(--warn)}.blk.k-b,.blk.k-l{--c:var(--ok)}.blk.k-p{--c:#ff7ac8}
+.blk.bad{outline:2px solid var(--bad);outline-offset:-2px}.blk.ro{cursor:default}.blk.gh{opacity:.35}
+.blk b{font-weight:600}.blk small{opacity:.8}
+.ring{--v:0;width:120px;height:120px;border-radius:50%;background:conic-gradient(var(--ac2) calc(var(--v)*1%),var(--line) 0);display:grid;place-items:center;transition:--v .8s}
+.ring>div{width:92px;height:92px;border-radius:50%;background:var(--card);display:grid;place-items:center;font-size:30px;font-weight:800}
+.dl{font-size:13px;font-weight:700}.dl.up{color:var(--ok)}.dl.dn{color:var(--bad)}
+.chips{display:flex;gap:6px;flex-wrap:wrap}.chip{font-size:12.5px;border:1px solid var(--line);border-radius:99px;padding:3px 10px;background:var(--bg);color:var(--tx)}
+.chip.on{background:var(--ac);border-color:var(--ac);color:#fff}
+button.chip{cursor:pointer}button.chip:hover{border-color:var(--ac)}
+.m .ln{display:block}.m .ln.ok::before{content:"✓ ";color:var(--ok);font-weight:700}.m .ln.er::before{content:"⚠ ";color:var(--warn)}
+.m .chips{margin-bottom:6px}.m.u .chip{background:#fff3;border-color:#fff5;color:#fff}
+.pv{min-height:30px;margin:6px 0}
+.stack{position:relative;height:290px;max-width:440px;margin:10px auto;touch-action:pan-y}
+.mc{position:absolute;inset:0;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px;display:flex;flex-direction:column;gap:6px;box-shadow:0 12px 30px -14px #000a;transition:transform .35s,opacity .35s;will-change:transform}
+.mc:not(.top)>*{opacity:0}.mc.n1{transform:scale(.95) translateY(14px);opacity:.7}.mc.n2{transform:scale(.9) translateY(28px);opacity:.4}
+.mc.top{cursor:grab;touch-action:none}.mc.top.dr{transition:none;cursor:grabbing}
+.mc .lab{position:absolute;top:14px;font-weight:800;font-size:20px;border:3px solid;border-radius:10px;padding:2px 10px;opacity:0;transform:rotate(-8deg)}
+.mc .l1{left:14px;color:var(--bad)}.mc .l2{right:14px;color:var(--ok);transform:rotate(8deg)}.mc .l3{left:50%;margin-left:-40px;color:var(--warn)}.mc .l4{left:50%;margin-left:-40px;top:auto;bottom:14px;color:var(--ac2)}
+.mz{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.mz .btn{min-width:110px}
+.aud{display:flex;gap:3px;align-items:flex-end;height:28px}.aud i{width:5px;background:var(--ac2);border-radius:3px;height:6px}
+.aud.on i{animation:eq .9s ease-in-out infinite}.aud.on i:nth-child(2n){animation-delay:.2s}.aud.on i:nth-child(3n){animation-delay:.45s}
+@keyframes eq{0%,100%{height:5px}50%{height:26px}}
+.tr p{margin:4px 0;padding:6px 10px;border-radius:8px;border-left:3px solid transparent;transition:background .2s}.tr p.cur{background:color-mix(in srgb,var(--ac) 22%,transparent);border-color:var(--ac2)}
+canvas{max-width:100%;display:block}
+.gcv{width:100%;height:420px;background:var(--bg);border:1px solid var(--line);border-radius:12px;touch-action:none;cursor:grab}
+.tip{font-size:13px;color:var(--mut);min-height:20px;margin-top:6px}
+.leg{display:flex;gap:10px;flex-wrap:wrap;font-size:12.5px;color:var(--mut);margin-top:6px}.leg i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:4px}
+.strip{display:grid;grid-template-columns:110px repeat(48,1fr);gap:1px;font-size:11px;align-items:center}
+.strip>b{font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding-right:4px}
+.strip>i{height:18px;background:var(--line);opacity:.35;display:block}.strip>i.c{background:var(--ok);opacity:.9}.strip>i.t{background:var(--warn);opacity:.8}.strip>i.all{background:var(--ac2);opacity:1}
+.slot{display:flex;gap:10px;align-items:center;flex-wrap:wrap;justify-content:space-between;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin-bottom:8px}
+.pill{font-size:12px;border-radius:99px;padding:2px 9px;border:1px solid var(--line)}.pill.c{border-color:var(--ok);color:var(--ok)}.pill.t{border-color:var(--warn);color:var(--warn)}
+.env{margin-bottom:10px}.env .bar2.hot>div{background:var(--bad)}.env .bar2.warn>div{background:var(--warn)}
+.hm{display:grid;grid-template-columns:34px repeat(10,1fr);gap:3px;font-size:11px}.hm i{height:22px;border-radius:4px;background:var(--ac2)}
+.heat{display:grid;grid-template-columns:repeat(28,1fr);gap:2px;margin-top:6px}.heat i{aspect-ratio:1;border-radius:3px;background:var(--line);display:block}.heat i.on{background:var(--ok)}
+.flame{font-weight:800;color:var(--warn)}
+.bd{display:inline-flex;gap:6px;align-items:center;border:1px solid var(--line);border-radius:12px;padding:6px 10px;background:var(--bg);font-size:13px}.bd.off{opacity:.4;filter:grayscale(1)}
+.rule{display:flex;gap:10px;align-items:center;flex-wrap:wrap;border:1px solid var(--line);border-radius:12px;padding:10px;background:var(--card);margin-bottom:8px}.rule .t{min-width:200px}
+.tg{position:relative;width:44px;height:24px;flex:none}.tg input{position:absolute;inset:0;opacity:0;margin:0;width:100%;height:100%;cursor:pointer}.tg span{position:absolute;inset:0;border-radius:99px;background:var(--line);transition:.2s;pointer-events:none}.tg span::after{content:"";position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:#fff;transition:.2s}.tg input:checked+span{background:var(--ac)}.tg input:checked+span::after{transform:translateX(20px)}.tg input:focus-visible+span{outline:3px solid var(--ac2)}
+.sel{display:inline-flex;gap:6px;align-items:center;flex-wrap:wrap}.sel select,.sel input{width:auto}
+.sw2{width:44px;height:44px;border-radius:50%;border:3px solid var(--line);cursor:pointer;padding:0}.sw2[aria-pressed=true]{border-color:var(--tx);box-shadow:0 0 0 3px var(--bg),0 0 0 5px var(--ac2)}
+#cf{position:fixed;inset:0;pointer-events:none;z-index:200}
+#pres{position:fixed;inset:0;z-index:150;background:var(--bg);display:none;flex-direction:column;padding:18px;gap:12px;overflow:auto}#pres.on{display:flex}
+#pres .big{font-size:clamp(26px,5vw,54px);font-weight:800;letter-spacing:-1px;text-align:center}
+#pres .timer{font-size:clamp(70px,16vw,190px)}#pres .timer.over{color:var(--bad)}
+.segs{display:flex;gap:4px}.segs i{flex:1;height:10px;border-radius:6px;background:var(--line);position:relative;overflow:hidden}.segs i.d{background:var(--ok)}.segs i.c{background:var(--ac)}.segs i.o{background:var(--bad)}
+.tour{position:fixed;z-index:180;max-width:min(340px,92vw);background:var(--card);border:2px solid var(--ac);border-radius:14px;padding:14px;box-shadow:0 20px 50px #0008}
+.tour-hl{position:relative;z-index:170;outline:3px solid var(--ac2)!important;outline-offset:3px;border-radius:10px;animation:pulse 1.4s infinite}
+@keyframes pulse{50%{outline-color:var(--ac)}}
+.nl{display:flex;gap:10px;align-items:flex-start;padding:10px;border-bottom:1px solid var(--line)}.nl.un{background:color-mix(in srgb,var(--ac) 10%,transparent)}
+.mini .tl{margin-left:34px}.mini .blk{font-size:10.5px;padding:0 4px}.mini .tl .hr{left:-34px}
+.pvt{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.tone{height:6px;border-radius:9px;background:var(--line);overflow:hidden}.tone>div{height:100%;background:var(--ac2);transition:width .4s}
+.out{white-space:pre-wrap;background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:14px;min-height:240px;transition:opacity .2s}
+.hs{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}.hs .card{display:flex;flex-direction:column;gap:6px}.hs .card p{margin:0;color:var(--mut);font-size:13.5px;flex:1}
+@media(max-width:900px){.two{grid-template-columns:1fr}.three{grid-template-columns:1fr}nav.side .gh{display:none}.pvt{grid-template-columns:1fr}.strip{grid-template-columns:70px repeat(48,1fr)}}
+@media print{header,nav,.banner{display:none}}
+@media(max-width:560px){#goPlans{display:none}.bar{gap:6px}.bar .btn{padding:6px 9px}.logo{font-size:18px}}
 </style>
 </head>
 <body>
@@ -85,16 +161,19 @@ label.l{display:block;font-size:13px;color:var(--mut);margin:8px 0 3px}
 <div class="banner" role="note">Prototype de démonstration : toutes les données sont des <b>exemples fictifs</b>. Aucun paiement réel, aucune connexion réelle à Gmail, Agenda ou Slack.</div>
 <header class="top"><div class="wrap bar">
 <div class="logo"><i></i>Agendo</div><span class="tag w hide-m">Prototype</span><span class="sp"></span>
-<button class="btn" id="gsBtn" aria-label="Recherche globale">🔍 <span class="hide-m">Rechercher</span> <kbd class="hide-m">Ctrl K</kbd></button>
-<button class="btn" id="themeBtn" aria-label="Changer le thème">🌓</button>
+<button class="btn ib" id="undoBtn" aria-label="Annuler la dernière action (Ctrl Z)" title="Annuler (Ctrl+Z)" disabled>↶</button>
+<button class="btn ib" id="redoBtn" aria-label="Rétablir (Ctrl Y)" title="Rétablir (Ctrl+Y)" disabled>↷</button>
+<button class="btn" id="gsBtn" aria-label="Palette de commandes et recherche">⌘ <span class="hide-m">Commandes</span> <kbd class="hide-m">Ctrl K</kbd></button>
+<button class="btn ib" id="bellBtn" aria-label="Notifications">🔔<span class="bdg" id="bellN" hidden>0</span></button>
+<button class="btn ib" id="themeBtn" aria-label="Basculer clair ou sombre">🌓</button>
 <button class="btn p" id="goPlans">Forfaits</button>
 </div></header>
 
 <section class="hero wrap">
 <h1>Ton assistant IA qui <span>s'occupe de tout</span>, pour que tu fasses ce qui compte.</h1>
-<p>Courriels, agenda, réunions, projets, habitudes et factures : une seule application, et c'est toi qui approuves chaque action.</p>
-<div class="row" style="justify-content:center"><button class="btn p" id="tryBtn">Essayer la démo</button><button class="btn" id="goPlans2">Voir les forfaits</button></div>
-<div class="badges"><span class="tag s">Données d'exemple</span><span class="tag">Rien ne part sans ton accord</span><span class="tag">Pensé pour la Loi 25</span><span class="tag">Fonctionne dans ton navigateur</span></div>
+<p>Replanifie ta journée en un clic, parle-lui en français, trouve des créneaux entre fuseaux horaires, vide ta boîte courriel en quelques balayages. Toi seul approuves chaque action.</p>
+<div class="row" style="justify-content:center"><button class="btn p" id="tryBtn">Essayer la démo</button><button class="btn" id="tourBtn">🧭 Visite guidée</button><button class="btn" id="goPlans2">Voir les forfaits</button></div>
+<div class="badges"><span class="tag s">Données d'exemple</span><span class="tag">Rien ne part sans ton accord</span><span class="tag">Pensé pour la Loi 25</span><span class="tag">Tout reste dans ton navigateur</span></div>
 </section>
 
 <div class="wrap app" id="demo">
@@ -111,9 +190,13 @@ label.l{display:block;font-size:13px;color:var(--mut);margin:8px 0 3px}
 <p class="sub" style="margin-top:12px">Les limites et inclusions ci-dessus sont une proposition de travail. Les fonctions « bientôt » ne sont pas encore disponibles. Taxes en sus, s'il y a lieu.</p>
 </section>
 
-<footer><div class="wrap">Agendo — prototype de démonstration. Aucune donnée réelle collectée : tout reste dans ton navigateur (localStorage). Raccourcis : Ctrl/Cmd+K recherche, T thème, ? aide.</div></footer>
+<footer><div class="wrap">Agendo — prototype de démonstration. Aucune donnée réelle collectée : tout reste dans ton navigateur (localStorage). Raccourcis : Ctrl/Cmd+K commandes, Ctrl+Z annuler, T thème, ? aide.</div></footer>
 
-<dialog id="gsd" aria-label="Recherche globale"><input id="gs" type="search" placeholder="Rechercher tâches, contacts, notes, factures, sections…" aria-label="Recherche"><div class="res" id="gres"></div><div class="row b" style="margin-top:10px"><span class="sub" style="margin:0">Échap pour fermer</span><button class="btn sm" id="gsx">Fermer</button></div></dialog>
+<dialog id="gsd" aria-label="Palette de commandes"><input id="gs" type="search" placeholder="Tape une commande, une recherche ou une phrase pour l'assistant…" aria-label="Palette de commandes" autocomplete="off"><div class="res" id="gres" role="listbox" aria-label="Résultats"></div><div class="row b" style="margin-top:10px"><span class="sub" style="margin:0">↑↓ naviguer · Entrée choisir · &gt; pour les actions · Échap fermer</span><button class="btn sm" id="gsx">Fermer</button></div></dialog>
+<dialog id="nd" aria-label="Notifications"><div class="row b"><h3 style="margin:0">🔔 Notifications <span class="tag s">simulées</span></h3><span class="row"><button class="btn sm" id="ndRead">Tout marquer lu</button><button class="btn sm" id="ndSim">Simuler une notification</button><button class="btn sm" id="ndx">Fermer</button></span></div><div id="nlist" style="margin-top:10px;max-height:60vh;overflow:auto"></div></dialog>
+<div id="pres" role="dialog" aria-modal="true" aria-label="Mode présentation de réunion"></div>
+<div id="tourCard" class="tour" role="dialog" aria-label="Visite guidée" hidden></div>
+<canvas id="cf" aria-hidden="true"></canvas>
 <div id="toast" role="status" aria-live="polite"></div>
 
 <script>
@@ -121,193 +204,793 @@ label.l{display:block;font-size:13px;color:var(--mut);margin:8px 0 3px}
 "use strict";
 const $=(s,r=document)=>r.querySelector(s),$$=(s,r=document)=>[...r.querySelectorAll(s)];
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-const KEY="agendo-v3";
-const seed=()=>({theme:"dark",tab:"home",
+const flat=s=>String(s).toLowerCase().replace(/[àâä]/g,"a").replace(/[éèêë]/g,"e").replace(/[îï]/g,"i").replace(/[ôö]/g,"o").replace(/[ùûü]/g,"u").replace(/ç/g,"c").replace(/[’`]/g,"'");
+const clone=o=>JSON.parse(JSON.stringify(o)),clamp=(v,a,b)=>Math.max(a,Math.min(b,v)),cap=s=>s.charAt(0).toUpperCase()+s.slice(1);
+const KEY="agendo-v4";
+const DAYS=["dimanche","lundi","mardi","mercredi","jeudi","vendredi","samedi"],MONTHS=["janvier","février","mars","avril","mai","juin","juillet","août","septembre","octobre","novembre","décembre"];
+const dateOf=o=>{const d=new Date();d.setHours(12,0,0,0);d.setDate(d.getDate()+o);return d};
+const H=m=>{m=Math.round(m);const h=Math.floor(m/60),mi=m%60;return h+" h"+(mi?" "+String(mi).padStart(2,"0"):"")};
+const DUR=m=>m<60?m+" min":Math.floor(m/60)+" h"+(m%60?" "+String(m%60).padStart(2,"0"):"");
+const dlabel=o=>o===0?"aujourd'hui":o===1?"demain":o===2?"après-demain":DAYS[dateOf(o).getDay()]+" "+dateOf(o).getDate()+" "+MONTHS[dateOf(o).getMonth()];
+const fmt=n=>n.toLocaleString("fr-CA",{style:"currency",currency:"CAD"});
+const mk=(p,tail)=>{const a=Array.from({length:28},(_,i)=>((i*7+p)%10<6?1:0));for(let i=20;i<28;i++)a[i]=0;tail.forEach(i=>a[i]=1);return a};
+const BC=["Logiciels","Bureau","Repas","Transport","Marketing","Autre"];
+const seed=()=>({theme:"dark",pal:"aurore",fs:100,reduce:false,tab:"home",tour:false,xp:40,badges:[],
  tasks:[{id:1,t:"Répondre à la soumission de Marie (exemple)",s:"todo",p:"Site Atelier Lune"},{id:2,t:"Préparer la maquette de la page d'accueil",s:"doing",p:"Site Atelier Lune"},{id:3,t:"Envoyer le plan de contenu",s:"done",p:"Infolettre"},{id:4,t:"Réviser le contrat type",s:"todo",p:"Administration"},{id:5,t:"Planifier le calendrier de publications",s:"doing",p:"Infolettre"}],
  todo:[{id:1,t:"Trier la boîte de réception",d:false},{id:2,t:"Appeler le comptable (exemple)",d:false},{id:3,t:"Réserver un bloc de concentration",d:true}],
- habits:[{id:1,n:"Marcher 20 minutes",days:[1,1,0,1,1,0,0]},{id:2,n:"Lire 15 minutes",days:[1,0,1,1,0,0,0]},{id:3,n:"Boire 2 L d'eau",days:[1,1,1,1,1,1,0]}],
+ cal:[
+  {id:11,o:0,s:510,d:30,t:"Courriels du matin",k:"a",fx:false,e:1},
+  {id:12,o:0,s:540,d:90,t:"Rédiger la proposition Atelier Lune",k:"f",fx:false,e:3},
+  {id:13,o:0,s:570,d:45,t:"Appel Studio Nord",k:"m",fx:true,e:2,who:["Samuel Gagnon"]},
+  {id:14,o:0,s:660,d:90,t:"Revoir la maquette",k:"f",fx:false,e:3},
+  {id:15,o:0,s:720,d:30,t:"Facturation du mois",k:"a",fx:false,e:1},
+  {id:16,o:0,s:810,d:60,t:"Démo client",k:"m",fx:true,e:2,who:["Marie Tremblay"]},
+  {id:17,o:0,s:840,d:45,t:"Réviser le contrat type",k:"a",fx:false,e:2},
+  {id:18,o:0,s:900,d:45,t:"Réunion d'équipe",k:"m",fx:true,e:2},
+  {id:19,o:0,s:930,d:30,t:"Planifier la semaine",k:"a",fx:false,e:2},
+  {id:20,o:1,s:600,d:45,t:"Appel Studio Nord",k:"m",fx:true,e:2},
+  {id:21,o:1,s:840,d:120,t:"Bloc focus : rédaction",k:"f",fx:false,e:3},
+  {id:22,o:2,s:570,d:60,t:"Démo client",k:"m",fx:true,e:2},
+  {id:23,o:2,s:600,d:60,t:"Dentiste (conflit)",k:"p",fx:false,e:1},
+  {id:24,o:3,s:780,d:60,t:"Bilan de la semaine",k:"m",fx:true,e:2}],
+ habits:[{id:1,n:"Marcher 20 minutes",h:mk(1,[24,25,26])},{id:2,n:"Lire 15 minutes",h:mk(4,[26])},{id:3,n:"Boire 2 L d'eau",h:mk(2,[21,22,23,24,25,26])}],
  goals:[{id:1,n:"Lancer le site vitrine",v:60},{id:2,n:"Mettre 5 000 $ de côté (exemple)",v:35}],
  notes:[],
- contacts:[{id:1,n:"Marie Tremblay",o:"Atelier Lune",e:"marie@exemple.invalid",st:"Client actif",last:"il y a 3 jours",nt:"Aime les rappels par courriel."},{id:2,n:"Samuel Gagnon",o:"Studio Nord",e:"samuel@exemple.invalid",st:"Prospect",last:"il y a 12 jours",nt:"À relancer cette semaine."},{id:3,n:"Inès Roy",o:"Coop Horizon",e:"ines@exemple.invalid",st:"Partenaire",last:"il y a 1 mois",nt:""}],
+ contacts:[
+  {id:1,n:"Marie Tremblay",o:"Atelier Lune",e:"marie@exemple.invalid",st:"Client actif",ds:3,tz:"America/Toronto",city:"Montréal",nt:"Aime les rappels par courriel."},
+  {id:2,n:"Samuel Gagnon",o:"Studio Nord",e:"samuel@exemple.invalid",st:"Prospect",ds:12,tz:"America/Vancouver",city:"Vancouver",nt:"À relancer cette semaine."},
+  {id:3,n:"Inès Roy",o:"Coop Horizon",e:"ines@exemple.invalid",st:"Partenaire",ds:30,tz:"Europe/Paris",city:"Paris",nt:""},
+  {id:4,n:"Kenji Sato",o:"Hoshi Labs",e:"kenji@exemple.invalid",st:"Fournisseur",ds:45,tz:"Asia/Tokyo",city:"Tokyo",nt:""},
+  {id:5,n:"Amara Diallo",o:"Dakar Numérique",e:"amara@exemple.invalid",st:"Partenaire",ds:8,tz:"Africa/Dakar",city:"Dakar",nt:""},
+  {id:6,n:"Luca Moretti",o:"Nordic Pixel",e:"luca@exemple.invalid",st:"Prospect",ds:20,tz:"Europe/London",city:"Londres",nt:""},
+  {id:7,n:"Sophie Lavoie",o:"Cabinet Lavoie",e:"sophie@exemple.invalid",st:"Fournisseur",ds:60,tz:"America/Toronto",city:"Québec",nt:"Comptable."},
+  {id:8,n:"Julien Caron",o:"Atelier Lune",e:"julien@exemple.invalid",st:"Client actif",ds:15,tz:"America/Toronto",city:"Montréal",nt:""},
+  {id:9,n:"Fatou Ndiaye",o:"Dakar Numérique",e:"fatou@exemple.invalid",st:"Partenaire",ds:25,tz:"Africa/Dakar",city:"Dakar",nt:""},
+  {id:10,n:"Hugo Pelletier",o:"Coop Horizon",e:"hugo@exemple.invalid",st:"Prospect",ds:90,tz:"America/Toronto",city:"Gatineau",nt:""}],
+ links:[[1,8,"collègues"],[1,2,"projet commun"],[2,6,"ancien employeur"],[3,10,"même coop"],[3,5,"partenariat"],[5,9,"même équipe"],[4,6,"fournisseur de"],[1,7,"comptable de"],[8,7,"comptable de"],[3,1,"introduite par"]],
  inv:[{id:1,c:"Atelier Lune",a:850,s:"payée",d:"2026-09-28"},{id:2,c:"Studio Nord",a:1200,s:"envoyée",d:"2026-10-05"},{id:3,c:"Coop Horizon",a:430,s:"en retard",d:"2026-09-10"}],
- exp:[{id:1,n:"Abonnement logiciel (exemple)",a:29},{id:2,n:"Coworking (exemple)",a:120}],
+ exp:[{id:1,n:"Abonnement logiciel (exemple)",a:29,c:"Logiciels"},{id:2,n:"Coworking (exemple)",a:120,c:"Bureau"},{id:3,n:"Dîner client (exemple)",a:64,c:"Repas"},{id:4,n:"Train Montréal–Québec (exemple)",a:58,c:"Transport"},{id:5,n:"Publicité en ligne (exemple)",a:75,c:"Marketing"}],
+ budget:{Logiciels:100,Bureau:150,Repas:120,Transport:100,Marketing:150,Autre:80},
  integ:{gmail:false,gcal:false,outlook:false,slack:false},
- chat:[{r:"a",t:"Bonjour! Je suis Agendo (démo). Essaie « résume ma journée », « ajoute une tâche : appeler Samuel » ou le micro 🎤."}],
- focusMin:0,saved:0,nid:100});
+ chat:[{r:"a",lines:["Bonjour! Je suis Agendo (démo). Je comprends le français naturel et j'enchaîne plusieurs actions."],chips:[]}],
+ mz:{q:[1,2,3,4,5,6,7,8,9,10,11,12],snz:[],log:[],streak:0,best:0,done:0,times:[]},
+ drafts:[],rules:[
+  {id:1,on:true,when:"invoice_late",cond:"",then:"draft",arg:"Relance de facture"},
+  {id:2,on:true,when:"event_added",cond:"client",then:"task",arg:"Préparer la réunion"}],
+ alog:[],notifs:[{id:2,t:"Bienvenue dans Agendo! Essaie « Ma journée parfaite ».",k:"i",ts:Date.now(),r:false}],
+ focusMin:0,saved:0,nid:100,pw:[9,17],tol:true,sp:[1,3,5],sd:45,so:1,sn:5,fd:25,gen:{to:1,int:"relance",tone:"chaleureux",len:1,pts:"",v:0}});
 let S;try{S=Object.assign(seed(),JSON.parse(localStorage.getItem(KEY)||"{}"))}catch(e){S=seed()}
 const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}};
 const id=()=>++S.nid;
-let tt;const toast=m=>{const t=$("#toast");t.textContent=m;t.classList.add("on");clearTimeout(tt);tt=setTimeout(()=>t.classList.remove("on"),2600)};
-const fmt=n=>n.toLocaleString("fr-CA",{style:"currency",currency:"CAD"});
-
-const TABS=[["home","🏠","Accueil"],["agenda","📅","Agenda"],["mail","✉️","Courriels"],["assist","💬","Assistant"],["notes","📝","Réunions"],["proj","🗂️","Projets"],["habits","🎯","Habitudes"],["crm","👥","Contacts"],["fin","🧾","Finances"],["focus","⏱️","Concentration"],["integ","🔌","Intégrations"],["priv","🔒","Données et vie privée"]];
+let tt;const toast=m=>{const t=$("#toast");t.textContent=m;t.classList.add("on");clearTimeout(tt);tt=setTimeout(()=>t.classList.remove("on"),2800)};
+/* historique annuler / rétablir */
+const DK=["cal","tasks","todo","inv","exp","contacts","habits","goals","notes","rules","drafts","mz","budget"];
+const HS={u:[],r:[]};
+const pick=()=>JSON.stringify(DK.reduce((a,k)=>(a[k]=S[k],a),{}));
+function syncUR(){const u=$("#undoBtn"),r=$("#redoBtn");if(u)u.disabled=!HS.u.length;if(r)r.disabled=!HS.r.length}
+function snap(l){HS.u.push({s:pick(),l:l||""});if(HS.u.length>60)HS.u.shift();HS.r=[];syncUR()}
+function undo(){const x=HS.u.pop();if(!x){toast("Rien à annuler");return}HS.r.push({s:pick(),l:x.l});Object.assign(S,JSON.parse(x.s));save();render();syncUR();toast("↶ Annulé"+(x.l?" : "+x.l:""))}
+function redo(){const x=HS.r.pop();if(!x){toast("Rien à rétablir");return}HS.u.push({s:pick(),l:x.l});Object.assign(S,JSON.parse(x.s));save();render();syncUR();toast("↷ Rétabli"+(x.l?" : "+x.l:""))}
+/* confettis */
+function confetti(n=150){if(S.reduce||matchMedia("(prefers-reduced-motion: reduce)").matches){toast("🎉 Bravo!");return}
+ const c=$("#cf");c.width=innerWidth;c.height=innerHeight;const x=c.getContext("2d"),cols=["#7c6cff","#2ee6c5","#ffb547","#ff5d73","#38d98a","#ffffff"];
+ const P=Array.from({length:n},()=>({x:innerWidth/2+(Math.random()-.5)*240,y:innerHeight*.4,vx:(Math.random()-.5)*15,vy:-Math.random()*14-3,r:Math.random()*5+3,c:cols[Math.random()*6|0],a:Math.random()*6,va:(Math.random()-.5)*.4}));
+ const t0=performance.now();const f=t=>{const el=t-t0;x.clearRect(0,0,c.width,c.height);let alive=false;P.forEach(p=>{p.vy+=.34;p.x+=p.vx;p.y+=p.vy;p.vx*=.99;p.a+=p.va;if(p.y<innerHeight+20)alive=true;x.save();x.translate(p.x,p.y);x.rotate(p.a);x.fillStyle=p.c;x.globalAlpha=Math.max(0,1-el/3600);x.fillRect(-p.r,-p.r/2,p.r*2,p.r);x.restore()});if(alive&&el<3600)requestAnimationFrame(f);else x.clearRect(0,0,c.width,c.height)};requestAnimationFrame(f)}
+/* récompenses */
+const BADGES={first:["🚀","Premier pas"],perfect:["✨","Journée parfaite"],zero:["📭","Boîte zéro"],s7:["🔥","Série de 7 jours"],auto:["🤖","Automatiseur"],talk:["💬","Parleur d'agenda"],slot:["🌍","Citoyen du monde"],pres:["🎤","Maître de réunion"],goal:["🏆","Objectif atteint"]};
+const lvl=()=>Math.floor(S.xp/100)+1;
+function gain(n,why){const a=lvl();S.xp+=n;save();if(lvl()>a){toast("⬆️ Niveau "+lvl()+" atteint!");confetti(90)}}
+function badge(k){if(S.badges.includes(k))return;S.badges.push(k);gain(25);save();notify("Badge débloqué : "+BADGES[k][0]+" "+BADGES[k][1],"b")}
+/* notifications */
+function bell(){const n=S.notifs.filter(x=>!x.r).length,b=$("#bellN");b.textContent=n;b.hidden=!n;$("#bellBtn").setAttribute("aria-label","Notifications, "+n+" non lue"+(n>1?"s":""))}
+function notify(t,k="i",quiet){S.notifs.unshift({id:id(),t,k,ts:Date.now(),r:false});S.notifs=S.notifs.slice(0,40);save();bell();if(!quiet)toast("🔔 "+t)}
+function ago(ts){const m=Math.round((Date.now()-ts)/60000);return m<1?"à l'instant":m<60?"il y a "+m+" min":"il y a "+Math.round(m/60)+" h"}
+function notifList(){$("#nlist").innerHTML=S.notifs.length?S.notifs.map(n=>`<div class="nl ${n.r?"":"un"}"><span aria-hidden="true">${n.k==="b"?"🏅":n.k==="a"?"🤖":n.k==="m"?"✉️":"🔔"}</span><div style="flex:1">${esc(n.t)}<div class="sub" style="margin:0">${ago(n.ts)}</div></div></div>`).join(""):`<p class="sub">Aucune notification.</p>`}
+const SIMN=["Samuel a répondu à ta proposition (simulé).","Rappel : facture Coop Horizon en retard depuis 36 jours (simulé).","Ton prochain bloc de focus commence dans 10 min (simulé).","Marie a accepté l'invitation de jeudi (simulé).","Série de lecture : plus qu'un jour pour atteindre 7 (simulé)."];
+let simI=0;const simNotif=()=>{notify(SIMN[simI++%SIMN.length],"m");fire("mail",{text:SIMN[(simI-1)%SIMN.length]})};
+/* ===== planificateur ===== */
+const WIN0={s:480,e:1050};
+const nrg=m=>{const h=m/60;return h<9?2:h<11.5?3:h<13?2:h<15?1:h<17?2:1};
+const ovl=(a,b,buf=0)=>a.s<b.s+b.d+buf&&b.s<a.s+a.d+buf;
+const dayEv=o=>S.cal.filter(e=>e.o===o);
+const costAt=(s,d,e)=>{let c=0,n=0;for(let m=s;m<s+d;m+=15){c+=Math.abs(nrg(m)-e);n++}return c/Math.max(1,n)};
+const KN={m:"Réunion",f:"Focus",a:"Admin",b:"Pause",l:"Dîner",p:"Perso"};
+function findFree(placed,d,{e=2,win=WIN0,from}={}){let best=null;for(let s=Math.ceil((from??win.s)/15)*15;s+d<=win.e;s+=15){const c={s,d};if(placed.some(p=>ovl(c,p,p.k==="m"?10:5)))continue;const k=costAt(s,d,e)+(s-win.s)/2000;if(!best||k<best.k)best={s,k}}return best?best.s:-1}
+function planDay(evs,opt={}){const win=opt.win||WIN0;
+ const keep=evs.filter(e=>e.fx&&e.k!=="l"&&e.k!=="b").map(e=>({...e}));
+ const flex=evs.filter(e=>!e.fx&&e.k!=="l"&&e.k!=="b").map(e=>({...e})).sort((a,b)=>b.e-a.e||b.d-a.d);
+ const placed=[...keep],pushed=[],extra=[],old=evs.find(e=>e.k==="l");
+ if(!opt.noLunch){let bl=-1,bd=1e9;for(let s=705;s<=810;s+=15){const c={s,d:45};if(keep.some(p=>ovl(c,p,0)))continue;const dd=Math.abs(s-735);if(dd<bd){bd=dd;bl=s}}if(bl>=0)placed.push({id:old?old.id:id(),t:"Dîner",s:bl,d:45,k:"l",fx:true,e:1,o:evs[0]?evs[0].o:0})}
+ flex.forEach(t=>{const s=findFree(placed,t.d,{e:t.e||2,win});if(s<0)pushed.push(t);else{t.s=s;placed.push(t)}});
+ const all=[...placed].sort((a,b)=>a.s-b.s);let acc=0;
+ all.forEach((a,i)=>{if(a.k==="l"||a.k==="b"){acc=0;return}acc+=a.d;const nx=all[i+1],gap=nx?nx.s-(a.s+a.d):win.e-(a.s+a.d);if(gap>=15){if(acc>=90&&nx&&nx.k!=="l")extra.push({id:id(),t:"Pause",s:a.s+a.d,d:10,k:"b",fx:true,e:1,o:a.o});acc=0}});
+ return{ev:[...placed,...extra],pushed}}
+function metrics(evs,win=WIN0){const w=evs.filter(e=>e.k!=="b"&&e.k!=="l");let conf=0;for(let i=0;i<w.length;i++)for(let j=i+1;j<w.length;j++)if(ovl(w[i],w[j]))conf++;
+ const lunch=evs.some(e=>e.k==="l"),fl=w.filter(e=>!e.fx);let mm=0,dt=0;fl.forEach(e=>{mm+=costAt(e.s,e.d,e.e||2)*e.d;dt+=e.d});const mis=dt?mm/dt:0;
+ const so=[...evs].sort((a,b)=>a.s-b.s);let run=0,long=0,end=0;
+ so.forEach((e,i)=>{if(e.k==="l"||e.k==="b"){run=0;return}const p=so[i-1];if(p&&e.s-(p.s+p.d)>=15)run=0;run+=e.d;if(run>120){long++;run=0}});
+ so.forEach(e=>end=Math.max(end,e.s+e.d));const over=Math.max(0,end-win.e)/60;
+ const sum=k=>evs.filter(e=>e.k===k).reduce((a,e)=>a+e.d,0);
+ return{score:clamp(Math.round(100-conf*12-(lunch?0:14)-mis*14-long*7-over*10),0,100),conf,lunch,align:Math.round((1-mis/2)*100),long,end,focus:sum("f"),meet:sum("m"),adm:sum("a"),brk:sum("b")+sum("l"),n:w.length}}
+function resolveDay(o){let moved=0;for(let g=0;g<20;g++){const ev=dayEv(o).filter(e=>e.k!=="b"&&e.k!=="l");let pair=null;for(let i=0;i<ev.length&&!pair;i++)for(let j=i+1;j<ev.length;j++)if(ovl(ev[i],ev[j])){pair=[ev[i],ev[j]];break}if(!pair)break;
+  const mv=!pair[1].fx?pair[1]:!pair[0].fx?pair[0]:pair[1];const rest=dayEv(o).filter(e=>e!==mv);let s=findFree(rest,mv.d,{e:mv.e||2});if(s>=0){mv.s=s;moved++}else{mv.o=o+1;mv.s=540;moved++}}return moved}
+/* ===== chronologie ===== */
+const H0=7*60;
+function cols(evs){const a=[...evs].sort((x,y)=>x.s-y.s||y.d-x.d),out=new Map();let cl=[],end=-1;
+ const fl=()=>{const ce=[];cl.forEach(e=>{let c=ce.findIndex(n=>n<=e.s);if(c<0){c=ce.length;ce.push(0)}ce[c]=e.s+e.d;out.set(e.id,{c})});cl.forEach(e=>out.get(e.id).n=ce.length)};
+ a.forEach(e=>{if(cl.length&&e.s>=end){fl();cl=[];end=-1}cl.push(e);end=Math.max(end,e.s+e.d)});if(cl.length)fl();return out}
+function paintTL(box,evs,opt={}){const PH=opt.ph||46;box.style.height=13*PH+"px";
+ if(!box.dataset.init){box.dataset.init=1;box.innerHTML=Array.from({length:14},(_,i)=>`<div class="hr" style="top:${i*PH}px"><span>${7+i} h</span></div>`).join("")}
+ const cm=cols(evs),seen=new Set(),w=evs.filter(e=>e.k!=="b"&&e.k!=="l"),bad=new Set();for(let i=0;i<w.length;i++)for(let j=i+1;j<w.length;j++)if(ovl(w[i],w[j])){bad.add(w[i].id);bad.add(w[j].id)}
+ evs.forEach(e=>{seen.add(String(e.id));let el=box.querySelector(`[data-bid="${e.id}"]`);
+  if(!el){el=document.createElement("div");el.dataset.bid=e.id;el.style.opacity=0;box.appendChild(el);setTimeout(()=>el.style.opacity=1,30)}
+  el.dataset.gone="";const c=cm.get(e.id)||{c:0,n:1};el.className="blk k-"+e.k+(bad.has(e.id)?" bad":"")+(opt.edit?"":" ro");
+  el.style.top=(e.s-H0)*PH/60+"px";el.style.height=Math.max(14,e.d*PH/60-2)+"px";el.style.left=c.c/c.n*100+"%";el.style.width="calc("+100/c.n+"% - 3px)";
+  el.innerHTML=e.d<=30?`<b>${esc(e.t)}</b> <small>${H(e.s)}</small>`:`<b>${esc(e.t)}</b><br><small>${H(e.s)}–${H(e.s+e.d)}${bad.has(e.id)?" · conflit":""}</small>`;
+  el.setAttribute("aria-label",`${e.t}, ${H(e.s)} à ${H(e.s+e.d)}${bad.has(e.id)?", en conflit":""}`);
+  if(opt.edit){el.tabIndex=0;el.title="Glisse ou utilise ↑ ↓ pour déplacer (15 min)"}else el.removeAttribute("tabindex")});
+ $$(".blk",box).forEach(el=>{if(!seen.has(el.dataset.bid)){el.style.opacity=0;el.dataset.gone=1;setTimeout(()=>{if(el.dataset.gone=="1")el.remove()},S.reduce?0:450)}})}
+/* ===== Ma journée parfaite ===== */
+let showBefore=false,cmp=null;
+const TPL={focus:["Journée focus",[["Travail profond : projet principal",120,"f",3],["Travail profond : rédaction",90,"f",3],["Courriels",30,"a",1],["Classement et admin",45,"a",1]]],reun:["Journée réunions",[["Préparer les réunions",30,"a",2],["Suivi et comptes rendus",45,"a",1],["Courriels",30,"a",1],["Bloc focus court",60,"f",3]]],admin:["Journée admin",[["Facturation",60,"a",1],["Courriels",45,"a",1],["Classement",45,"a",1],["Appels de suivi",60,"a",2],["Planifier la semaine",30,"a",2]]]};
+function dayInfo(){const m=metrics(dayEv(0)),b=cmp?cmp.mb:null,a=cmp?cmp.ma:m;
+ const d=(x,y,inv,u="")=>{const v=y-x;return v===0?"":`<span class="dl ${(inv?v<0:v>0)?"up":"dn"}">${v>0?"+":""}${v}${u}</span>`};
+ const row=(l,k,u="",inv)=>`<tr><td>${l}</td><td>${b?b[k]+u:""}</td><td><b>${m[k]}${u}</b> ${b?d(b[k],m[k],inv,u):""}</td></tr>`;
+ return `<div class="card"><div class="row" style="gap:16px;flex-wrap:nowrap"><div class="ring" style="--v:${m.score}"><div id="scv">${m.score}</div></div><div><h3>Score de ta journée</h3><div class="sub" style="margin:0">${m.score>=80?"Excellente journée, équilibrée.":m.score>=55?"Correcte, mais ça peut s'améliorer.":"Journée tendue : conflits ou manque de pauses."}</div>${cmp?`<div class="sub" style="margin:4px 0 0">Avant → après : <b>${cmp.mb.score}</b> → <b>${m.score}</b></div>`:""}</div></div>
+ <div class="scroll"><table style="margin-top:10px"><tr><th>Indicateur</th><th>${b?"Avant":""}</th><th>Maintenant</th></tr>${row("Conflits","conf","",1)}${row("Alignement énergie","align"," %")}${row("Focus","focus"," min")}${row("Réunions","meet"," min")}${row("Pauses et dîner","brk"," min")}</table></div>
+ <p class="sub" style="margin:8px 0 0">Fin de journée : <b>${H(m.end)}</b>. Le score est un calcul local d'exemple, pas une mesure scientifique.</p></div>
+ ${cmp&&cmp.pushed.length?`<div class="card" style="margin-top:10px"><h3>Reporté à demain</h3><ul style="margin:0;padding-left:18px">${cmp.pushed.map(p=>`<li>${esc(p.t)} (${DUR(p.d)})</li>`).join("")}</ul></div>`:""}`}
+function paintDay(){const box=$("#tl");if(!box)return;paintTL(box,showBefore&&cmp?cmp.before:dayEv(0),{edit:!showBefore});const i=$("#dayInfo");if(i)i.innerHTML=dayInfo();const bb=$("#cmpBtn");if(bb){bb.hidden=!cmp;bb.textContent=showBefore?"👁 Voir l'après":"👁 Voir l'avant"}}
+function countTo(el,from,to){if(!el)return;if(S.reduce){el.textContent=to;return}const t0=performance.now();const f=t=>{const k=clamp((t-t0)/900,0,1);el.textContent=Math.round(from+(to-from)*k);if(k<1&&el.isConnected)requestAnimationFrame(f)};requestAnimationFrame(f)}
+function perfectDay(o=0,quiet){const evs=dayEv(o);if(!evs.length){return{msg:"Aucun événement "+dlabel(o)+" à optimiser."}}
+ const before=clone(evs),mb=metrics(before),r=planDay(evs);snap("journée parfaite");
+ S.cal=S.cal.filter(e=>e.o!==o).concat(r.ev.map(e=>({...e,o})));
+ r.pushed.forEach(p=>{const rest=dayEv(o+1);let s=findFree(rest,p.d,{e:p.e||2});if(s<0)s=540;S.cal.push({...p,o:o+1,s,id:id()})});
+ const ma=metrics(dayEv(o));if(o===0){cmp={before,mb,ma,pushed:r.pushed};showBefore=false}save();badge("perfect");gain(10);
+ return{msg:`Journée ${dlabel(o)} réorganisée : score ${mb.score} → ${ma.score}, ${mb.conf-ma.conf>0?(mb.conf-ma.conf)+" conflit(s) réglé(s), ":""}${r.pushed.length?r.pushed.length+" tâche(s) reportée(s) à demain.":"rien à reporter."}`,ma,mb}}
+function doPerfect(){if(S.tab!=="day")go("day",true);const before=metrics(dayEv(0)).score;const r=perfectDay(0);paintDay();countTo($("#scv"),before,r.ma?r.ma.score:before);toast("✨ "+r.msg);if(r.ma&&r.ma.score>=80)confetti(80)}
+function dayDrag(){const box=$("#tl");if(!box)return;let d=null;const PH=46;
+ box.addEventListener("pointerdown",e=>{const el=e.target.closest(".blk");if(!el||el.classList.contains("ro"))return;const ev=S.cal.find(x=>x.id==el.dataset.bid);if(!ev)return;d={el,ev,y:e.clientY,s:ev.s};el.classList.add("dr");el.setPointerCapture(e.pointerId)});
+ box.addEventListener("pointermove",e=>{if(!d)return;const ns=clamp(Math.round((d.s+(e.clientY-d.y)/PH*60)/15)*15,H0,20*60-d.ev.d);d.ns=ns;d.el.style.top=(ns-H0)*PH/60+"px";d.el.querySelector("small")&&(d.el.querySelector("small").textContent=H(ns)+"–"+H(ns+d.ev.d))});
+ const up=()=>{if(!d)return;const x=d;d=null;x.el.classList.remove("dr");if(x.ns!=null&&x.ns!==x.ev.s){snap("déplacement");x.ev.s=x.ns;save();cmp=null;paintDay();fire("event_moved",{text:x.ev.t})}};
+ box.addEventListener("pointerup",up);box.addEventListener("pointercancel",up);
+ box.addEventListener("keydown",e=>{const el=e.target.closest(".blk");if(!el||el.classList.contains("ro"))return;if(e.key!=="ArrowUp"&&e.key!=="ArrowDown")return;e.preventDefault();const ev=S.cal.find(x=>x.id==el.dataset.bid);if(!ev)return;snap("déplacement");ev.s=clamp(ev.s+(e.key==="ArrowUp"?-15:15),H0,20*60-ev.d);save();cmp=null;paintDay();const n=$(`[data-bid="${ev.id}"]`,box);n&&n.focus()})}
+function applyTpl(k){const t=TPL[k];if(!t)return;snap("modèle de journée");const keep=dayEv(0).filter(e=>e.fx&&e.k!=="l"&&e.k!=="b");S.cal=S.cal.filter(e=>e.o!==0).concat(keep);t[1].forEach(x=>S.cal.push({id:id(),o:0,s:480,d:x[1],t:x[0],k:x[2],fx:false,e:x[3]}));const old=clone(dayEv(0));cmp=null;paintDay();toast("Modèle « "+t[0]+" » appliqué. Clique sur ✨ pour le replanifier.")}
+/* ===== moteur de commandes en français ===== */
+const take=(st,re)=>{const m=re.exec(st.f);if(!m)return null;const b=" ".repeat(m[0].length);st.f=st.f.slice(0,m.index)+b+st.f.slice(m.index+m[0].length);st.o=st.o.slice(0,m.index)+b+st.o.slice(m.index+m[0].length);return m};
+const WN={un:1,une:1,deux:2,trois:3,quatre:4,cinq:5,six:6};
+const WD=["dimanche","lundi","mardi","mercredi","jeudi","vendredi","samedi"];
+const MF=MONTHS.map(flat);
+function parseEnt(text){const st={o:text,f:flat(text)},E={o:null,time:null,end:null,dur:null,who:[],hint:null};let m;
+ if((m=take(st,/\bde\s+(\d{1,2})\s*(?:h|:)\s*(\d{2})?\s*(?:a|jusqu'a)\s+(\d{1,2})\s*(?:h|:)\s*(\d{2})?/))){E.time=+m[1]*60+(+m[2]||0);E.end=+m[3]*60+(+m[4]||0);if(E.end<=E.time)E.end+=720;E.dur=E.end-E.time}
+ if(E.time==null&&(m=take(st,/\b(?:a|vers)\s+(\d{1,2})\s*heures?(?:\s*(\d{2}))?\b/)))E.time=+m[1]*60+(+m[2]||0);
+ if(E.dur==null){
+  if((m=take(st,/\b(?:pendant|durant)\s+(\d{1,2})\s*h\s*(\d{2})?\b/)))E.dur=+m[1]*60+(+m[2]||0);
+  else if((m=take(st,/\b(?:une?\s+)?demi[- ]heure\b/)))E.dur=30;
+  else if((m=take(st,/\b(un|une|deux|trois|quatre)\s+heures?\s+et\s+demie?\b/)))E.dur=WN[m[1]]*60+30;
+  else if((m=take(st,/\b(\d+(?:[.,]\d+)?|un|une|deux|trois|quatre|cinq|six)\s*(heures?|minutes?|mins?)\b(?:\s*(?:et\s*)?(\d{1,2})(?:\s*(?:min|minutes?))?)?/))){let n=WN[m[1]]||parseFloat(m[1].replace(",","."));E.dur=/^h/.test(m[2])?Math.round(n*60)+(+m[3]||0):Math.round(n)}}
+ if(E.time==null){
+  if((m=take(st,/(?<![a-z-])midi\b\s*(?:et\s+(demi|quart)|(\d{2}))?/)))E.time=720+(m[1]==="demi"?30:m[1]==="quart"?15:+m[2]||0);
+  else if((m=take(st,/\b(\d{1,2})\s*(?:h|:)\s*(\d{2})?(?!\d)/)))E.time=+m[1]*60+(+m[2]||0);
+  else if((m=take(st,/\ba\s+(\d{1,2})(?![\d:]|\s*(?:min|minutes?|heures?|\$|jours?|semaines?|personnes?|%))\b/))&&+m[1]>=7&&+m[1]<=22)E.time=+m[1]*60}
+ if(take(st,/\bapres[- ]demain\b/))E.o=2;
+ else if(take(st,/\bdemain\b/))E.o=1;
+ else if(take(st,/\b(?:aujourd'hui|ce soir|ce matin|cet apres[- ]midi)\b/))E.o=0;
+ else if((m=take(st,/\bdans\s+(\d+)\s*(jours?|semaines?)\b/)))E.o=+m[1]*(/^s/.test(m[2])?7:1);
+ else if((m=take(st,/\b(lundi|mardi|mercredi|jeudi|vendredi|samedi|dimanche)(?:\s+prochain)?\b/))){let df=(WD.indexOf(m[1])-new Date().getDay()+7)%7;if(df===0)df=7;E.o=df}
+ else if(take(st,/\bla semaine prochaine\b/)){E.o=(8-new Date().getDay())%7||7}
+ else if((m=take(st,/\ble\s+(\d{1,2})(?:er)?(?:\s+(janvier|fevrier|mars|avril|mai|juin|juillet|aout|septembre|octobre|novembre|decembre))?\b/))){const dd=+m[1],t0=dateOf(0);let tgt=new Date(t0.getFullYear(),m[2]?MF.indexOf(m[2]):t0.getMonth(),dd,12);if(Math.round((tgt-t0)/864e5)<0)tgt=m[2]?new Date(t0.getFullYear()+1,MF.indexOf(m[2]),dd,12):new Date(t0.getFullYear(),t0.getMonth()+1,dd,12);E.o=Math.round((tgt-t0)/864e5)}
+ const hf=/\b(matin|apres[- ]midi|soir)\b/.exec(st.f);if(hf){E.hint=hf[1].replace(/[- ]/g,"-").replace("apres-midi","apres-midi");take(st,/\b(?:ce |cet |le |en )?(?:matin|apres[- ]midi|soir)(?:ee)?\b/)}
+ if(/ce soir/.test(flat(text)))E.hint="soir";if(/cet apres/.test(flat(text)))E.hint="apres-midi";if(/ce matin/.test(flat(text)))E.hint="matin";
+ if(E.time!=null&&E.time<480&&E.time>=60&&E.time<720&&(E.hint==="apres-midi"||E.hint==="soir"||E.time<420))E.time+=720;
+ if(E.time!=null&&E.time<720&&(E.hint==="apres-midi"||E.hint==="soir")&&E.time<720)E.time+=720;
+ S.contacts.forEach(c=>{const fn=flat(c.n).split(" ");for(const w of [fn[0],fn[fn.length-1]]){if(w.length>2&&take(st,new RegExp("\\b"+w+"\\b"))){if(!E.who.includes(c))E.who.push(c);const other=fn.find(z=>z!==w);if(other&&other.length>2)take(st,new RegExp("\\b"+other+"\\b"));break}}});
+ E.st=st;return E}
+function chipsOf(E){const c=[];if(E.o!=null)c.push("📅 "+dlabel(E.o));else if(E.hint)c.push("📅 "+E.hint.replace("apres-midi","après-midi"));if(E.time!=null)c.push("🕐 "+H(E.time));if(E.dur)c.push("⏱ "+DUR(E.dur));E.who.forEach(w=>c.push("👤 "+w.n));return c}
+function cleanTitle(E,verbRe){const st=E.st;if(verbRe)take(st,verbRe);let t=st.o.replace(/\s+/g," ").trim();
+ for(let i=0;i<5;i++)t=t.replace(/^(?:(?:s'il te plait|stp|svp|peux-tu|pourrais-tu|moi|une?|le|la|les|des|mon|ma|mes|de|que)\b|l'|d'|[:-])\s*/i,"").replace(/(?:^|\s)(?:avec|a|à|au|le|la|de|du|pour|vers|et|pendant|durant|en|chez|l'|d'|:|,)\s*$/i,"").trim();
+ return t}
+function titleFor(E,t,def){let x=t||def;if(E.who.length&&!/avec/i.test(x))x+=" avec "+E.who.map(w=>w.n.split(" ")[0]).join(" et ");return cap(x)}
+const KRE=[["m",/reunion|rencontre|rdv|rendez-vous|appel|call|demo|cafe|dejeuner|diner|entrevue|entretien|visio/],["f",/focus|concentration|bloc|travail|redaction|ecrire|deep|maquette|coder/],["a",/facturation|courriel|admin|classement|paperasse|compta/],["p",/dentiste|medecin|sport|gym|famille|perso|coiffeur|marche|yoga|course/]];
+const DD={m:45,f:90,a:30,p:60};const EN={m:2,f:3,a:1,p:1};
+function addEvent(E,k,t,fx){const o=E.o==null?0:E.o,d=E.dur||DD[k];let s=E.time,note="";
+ if(s==null){const rest=dayEv(o),win=E.hint==="matin"?{s:480,e:720}:E.hint==="apres-midi"?{s:780,e:1050}:E.hint==="soir"?{s:1020,e:1200}:WIN0;s=findFree(rest,d,{e:EN[k],win});if(s<0)s=findFree(rest,d,{e:EN[k],win:{s:420,e:1260}});if(s<0){s=540;note=" (aucun créneau libre trouvé)"}else note=" (meilleur créneau libre)"}
+ s=clamp(s,0,1380-d);const ev={id:id(),o,s,d,t,k,fx,e:EN[k],who:E.who.map(w=>w.n)};S.cal.push(ev);const cf=dayEv(o).filter(x=>x!==ev&&x.k!=="b"&&x.k!=="l"&&ovl(x,ev));
+ fire("event_added",{text:t+" "+E.who.map(w=>w.n).join(" ")});
+ return `${cap(KN[k].toLowerCase())} « ${t} » ajouté ${dlabel(o)} de ${H(s)} à ${H(s+d)}${note}.`+(cf.length?` ⚠ Conflit avec « ${cf[0].t} » : dis « résous les conflits ».`:"")}
+function findEv(E,includeAll){const toks=flat(E.st.o).split(/[^a-z0-9']+/).filter(w=>w.length>2&&!/^(les?|une?|mon|ses|aux|des|tout|toute|toutes|tous|reunions?|rendez|vous|evenement|mes|ma|que|pour|avec)$/.test(w));let best=null,bs=0;
+ S.cal.forEach(e=>{if(E.o!=null&&e.o!==E.o&&!includeAll)return;const f=flat(e.t+" "+(e.who||[]).join(" "));let sc=toks.filter(w=>f.includes(w)).length;if(!toks.length&&includeAll)sc=0;if(sc>bs||(sc===bs&&sc>0&&best&&e.o<best.o)){bs=sc;best=e}});return bs>0?best:null}
+const VERB="(?:planifie|planifier|programme|programmer|reserve|reserver|fixe|fixer|bloque|bloquer|ajoute|ajouter|cree|creer|mets|mettre|note|organise|organiser)";
+const INTENTS=[
+ ["undo",/^(?:annule(?:-moi)?\s+(?:ca|cela|tout ca|la derniere action|l'action)|defais|undo|reviens en arriere)\b/],
+ ["redo",/^(?:retablis|refais|redo)\b/],
+ ["perfect",/(?:optimise|reorganise|replanifie|rearrange).*\b(?:journee|jour|semaine|agenda)\b|journee parfaite|reglons?\s+ma\s+journee/],
+ ["resolve",/(?:resous|regle|corrige|elimine|resoudre).*conflit/],
+ ["theme",/(?:theme|palette|couleur|mode)\s+(?:de\s+couleur\s+)?(clair|sombre|ocean|foret|aurore|soleil|rose|contraste)/],
+ ["brief",/^(?:lis[- ]moi|lis|ecoute|fais[- ]moi (?:le|mon) briefing|lance (?:le|mon) briefing)\b|\bbriefing (?:audio|vocal)\b|resume.*(?:voix|audio)/],
+ ["summary",/^(?:resume|fais[- ]moi (?:un )?(?:resume|bilan)|donne[- ]moi (?:un )?(?:resume|bilan)|qu'est-ce que j'ai|c'est quoi ma journee|quoi de neuf|mon programme)/],
+ ["timer",/(?:lance|demarre|commence|start).*(?:focus|concentration|pomodoro|minuteur)/],
+ ["slots",/(?:trouve|cherche|propose|regarde).*(?:creneau|moment|disponibilite|heure)/],
+ ["email",/(?:ecris|redige|prepare|compose|envoie|genere).*(?:courriel|email|mail|message|relance)/],
+ ["invoice",/^(?:facture|cree une facture|emets une facture)\b/],
+ ["expense",/^(?:depense|j'ai depense|achat|j'ai achete|note une depense)\b/],
+ ["cancel",/^(?:annule|supprime|enleve|retire|efface)\b/],
+ ["move",/^(?:deplace|decale|reporte|repousse|avance|change l'heure|reprogramme|replanifie)\b/],
+ ["goto",/^(?:va|vas|ouvre|affiche|montre|aller|passe)\b/],
+ ["party",/(?:celebre|fete|confetti|bravo)/],
+ ["task",/^(?:rappelle[- ]moi|n'oublie pas|ajoute\s+(?:une?\s+)?(?:tache|rappel|todo)|cree\s+(?:une?\s+)?(?:tache|rappel)|note\s+(?:une?\s+)?(?:tache|rappel)|tache\s*:|todo)/],
+ ["event",new RegExp("^(?:peux-tu |pourrais-tu |svp |stp )?"+VERB+"\\b|reunion|rendez-vous|rdv|\\bappel\\b|dejeuner|\\bcafe\\b|\\bdemo\\b")]];
+const TABN={accueil:"home",home:"home",journee:"day",parfaite:"day","et si":"whatif",scenario:"whatif",creneau:"slots",agenda:"agenda",assistant:"assist",courriel:"mail",boite:"mail",redact:"compose",briefing:"brief",audio:"brief",reunion:"present",presentation:"present",note:"notes",projet:"proj",contact:"crm",reseau:"crm",carte:"crm",budget:"fin",finance:"fin",facture:"fin",temps:"time",analyse:"time",habitude:"habits",objectif:"habits",serie:"habits",concentration:"focus",automatis:"auto",modele:"auto",integration:"integ",apparence:"look",theme:"look",confidentialite:"priv",donnee:"priv"};
+function runClause(raw){const f0=flat(raw).trim();if(!f0)return null;let kind=null;for(const [k,re] of INTENTS)if(re.test(f0)){kind=k;break}
+ const E=parseEnt(raw),ch=chipsOf(E);
+ const R=(msg,ok=true)=>({msg,ok,ch});
+ switch(kind){
+ case"undo":undo();return R("Dernière action annulée.");
+ case"redo":redo();return R("Action rétablie.");
+ case"perfect":{const r=perfectDay(E.o??0);if((E.o??0)===0&&S.tab==="day")paintDay();return R(r.msg)}
+ case"resolve":{snap("conflits");let n=0;for(let o=0;o<7;o++)n+=resolveDay(o);save();return R(n?n+" conflit(s) résolu(s) en déplaçant les blocs flexibles.":"Aucun conflit à résoudre.")}
+ case"theme":{const m=/(clair|sombre|ocean|foret|aurore|soleil|rose|contraste)/.exec(f0)[1];if(m==="clair"||m==="sombre")S.theme=m==="clair"?"light":"dark";else S.pal=m;applyLook();save();return R("Thème « "+m+" » appliqué.")}
+ case"brief":setTimeout(()=>{go("brief",true);setTimeout(()=>speakBrief(),300)},500);return R("J'ouvre le briefing audio.");
+ case"summary":{const ev=dayEv(0).filter(e=>e.k!=="b"&&e.k!=="l"),mt=metrics(dayEv(0));return R(`Aujourd'hui : ${ev.length} blocs, ${ev.filter(e=>e.k==="m").length} réunion(s), ${S.tasks.filter(t=>t.s!=="done").length} tâches ouvertes, ${mt.conf} conflit(s), score ${mt.score}/100.`)}
+ case"timer":{const d=E.dur||25;focusLeft=d*60;S.fd=d;save();setTimeout(()=>go("focus",true),500);return R("Minuteur de concentration réglé à "+d+" min. Ouvre l'onglet pour démarrer.")}
+ case"slots":{S.sp=E.who.map(w=>w.id);S.sd=E.dur||60;save();setTimeout(()=>go("slots",true),500);return R("Je cherche des créneaux"+(E.who.length?" avec "+E.who.map(w=>w.n.split(" ")[0]).join(", "):"")+".")}
+ case"email":{const st=E.st;const sj=/(?:sur|au sujet de|concernant|pour|a propos de)\s+(.+)$/.exec(st.f);const tone=(/(formel|chaleureux|direct|enthousiaste|court)/.exec(st.f)||[])[1];S.gen=Object.assign(S.gen||{},{to:E.who[0]?E.who[0].id:(S.gen&&S.gen.to)||1,pts:sj?st.o.slice(sj.index+sj[0].length-sj[1].length).trim():(S.gen&&S.gen.pts)||"",int:/relance|suivi/.test(f0)?"relance":/merci|remerci/.test(f0)?"merci":/refus|decline/.test(f0)?"refus":/rendez|reunion|rdv|rencontre/.test(f0)?"rdv":/facture|paiement/.test(f0)?"facture":(S.gen&&S.gen.int)||"relance"});if(tone)S.gen.tone=tone;save();setTimeout(()=>go("compose",true),500);return R("Courriel en préparation pour "+(E.who[0]?E.who[0].n:"le contact choisi")+" dans le Rédacteur.")}
+ case"invoice":{const am=/(\d[\d\s]*(?:[.,]\d+)?)\s*(?:\$|dollars?)/.exec(flat(raw));if(!am)return R("Il me manque le montant (ex. « facture 500 $ à Studio Nord »).",false);const a=parseFloat(am[1].replace(/\s/g,"").replace(",","."));const raw2=raw.slice(0,am.index)+" ".repeat(am[0].length)+raw.slice(am.index+am[0].length),cm=/\b(?:a|pour)\s+(.+)$/.exec(flat(raw2));let cl=cm?raw2.slice(cm.index+cm[0].length-cm[1].length).trim():"";const oc=S.contacts.find(c=>cl&&flat(c.o+" "+c.n).includes(flat(cl)))||E.who[0];cl=oc?oc.o:cl||"Client";snap("facture");S.inv.push({id:id(),c:cl,a,s:"envoyée",d:dateOf(0).toISOString().slice(0,10)});save();return R(`Facture de ${fmt(a)} créée pour ${cl} (simulé, rien n'est envoyé).`)}
+ case"expense":{const am=/(\d[\d\s]*(?:[.,]\d+)?)\s*(?:\$|dollars?)/.exec(flat(raw));if(!am)return R("Il me manque le montant (ex. « dépense 40 $ café »).",false);const a=parseFloat(am[1].replace(/\s/g,"").replace(",","."));let n=raw.replace(/^\S+(?:\s+(?:de|une?))?\s*/i,"").replace(/\d[\d\s]*(?:[.,]\d+)?\s*(?:\$|dollars?)/i,"").replace(/\s+/g," ").replace(/^(?:pour|en|de|d'|:)\s*/i,"").trim()||"Dépense";const ff=flat(n);const c=/logiciel|abonnement|app|licence/.test(ff)?"Logiciels":/cafe|resto|dejeuner|diner|repas|lunch/.test(ff)?"Repas":/essence|taxi|uber|train|avion|metro|bus|stationnement/.test(ff)?"Transport":/pub|marketing|annonce|facebook/.test(ff)?"Marketing":/bureau|papeterie|cowork|imprim/.test(ff)?"Bureau":"Autre";snap("dépense");S.exp.push({id:id(),n:cap(n),a,c});save();return R(`Dépense de ${fmt(a)} ajoutée (${c}).`)}
+ case"cancel":{const all=/\b(?:toutes?|tout|mes reunions|les reunions)\b/.test(f0);snap("annulation");if(all&&(E.o!=null||/aujourd|journee/.test(f0))){const o=E.o??0;const n=S.cal.filter(e=>e.o===o&&(e.k==="m")).length;S.cal=S.cal.filter(e=>!(e.o===o&&e.k==="m"));save();return R(n+" réunion(s) annulée(s) "+dlabel(o)+".")}
+  take(E.st,/^\s*(?:annule|supprime|enleve|retire|efface)\b/);const ev=findEv(E,true);if(!ev){HS.u.pop();syncUR();return R("Je n'ai pas trouvé quel événement annuler.",false)}S.cal=S.cal.filter(e=>e!==ev);save();return R(`« ${ev.t} » (${dlabel(ev.o)}, ${H(ev.s)}) supprimé.`)}
+ case"move":{take(E.st,/^\s*(?:deplace|decale|reporte|repousse|avance|change l'heure|reprogramme|replanifie)\b/);const sh=/\b(?:de|d')\s*$/.test(flat(raw).replace(/\d.*$/,""));const back=/^avance/.test(f0);
+  if(/\b(?:tout|ma journee|toute ma journee|mes reunions)\b/.test(f0)&&E.dur&&E.time==null){snap("décalage");const o=E.o??0,dl=(back?-1:1)*E.dur;dayEv(o).forEach(e=>e.s=clamp(e.s+dl,0,1380-e.d));save();return R(`Tous les événements ${dlabel(o)} sont décalés de ${dl>0?"+":"−"}${DUR(Math.abs(dl))}.`)}
+  const ev=findEv(Object.assign({},E,{o:null}),true);if(!ev)return R("Je n'ai pas trouvé quel événement déplacer.",false);snap("déplacement");
+  if(E.dur&&E.time==null&&E.o==null){ev.s=clamp(ev.s+(back?-1:1)*E.dur,0,1380-ev.d);save();return R(`« ${ev.t} » décalé à ${H(ev.s)} (${dlabel(ev.o)}).`)}
+  if(E.o!=null)ev.o=E.o;else if(/report|repouss/.test(f0)&&E.time==null)ev.o=ev.o+1;
+  if(E.time!=null)ev.s=E.time;else if(ev.o!==S.cal.find(x=>x===ev).o||true){const rest=dayEv(ev.o).filter(x=>x!==ev);if(rest.some(x=>ovl(x,ev))){const s=findFree(rest,ev.d,{e:ev.e||2});if(s>=0)ev.s=s}}
+  save();return R(`« ${ev.t} » déplacé ${dlabel(ev.o)} à ${H(ev.s)}.`)}
+ case"goto":{const k=Object.keys(TABN).find(w=>f0.includes(w));if(!k)return R("Je n'ai pas compris quelle section ouvrir.",false);setTimeout(()=>go(TABN[k],true),500);return R("J'ouvre la section « "+(TABS.find(t=>t[0]===TABN[k])||[0,0,k])[2]+" ».")}
+ case"party":confetti(140);gain(2);return R("🎉 Bravo! Tu le mérites.");
+ case"task":{take(E.st,/^\s*(?:rappelle[- ]moi|n'oublie pas|ajoute|cree|note|tache|todo)\b/);take(E.st,/^\s*(?:une?\s+)?(?:tache|rappel|todo)\b/);let t=cleanTitle(E);if(!t)return R("Quelle tâche veux-tu ajouter?",false);if(E.who.length)t+=" "+E.who.map(w=>w.n.split(" ")[0]).join(" et ");snap("tâche");S.todo.push({id:id(),t:cap(t),d:false,due:E.o});S.tasks.push({id:id(),t:cap(t),s:"todo",p:"",due:E.o});save();return R(`Tâche « ${cap(t)} » ajoutée${E.o!=null?" pour "+dlabel(E.o):""}.`)}
+ case"event":{const m=/^(?:peux-tu |pourrais-tu |svp |stp )?(planifie|planifier|programme|programmer|reserve|reserver|fixe|fixer|bloque|bloquer|ajoute|ajouter|cree|creer|mets|mettre|note|organise|organiser)\b/.exec(f0);const verb=m?m[1]:"";let k=null;const rest=f0;for(const [kk,re] of KRE)if(re.test(rest)){k=kk;break}
+  if(!k)k=/^bloque/.test(verb)?"f":E.who.length?"m":null;if(!k)return R("Je ne suis pas sûr s'il s'agit d'une tâche ou d'un événement. Précise « tâche : … » ou « réunion … ».",false);
+  const t0=cleanTitle(E,new RegExp("^\\s*(?:peux-tu |pourrais-tu |svp |stp )?(?:"+VERB+")\\b"));let t=t0;if(/^bloque/.test(verb)&&k==="f"&&!/focus|concentration|travail|bloc/.test(flat(t)))t=t?"Focus : "+t:"Bloc de focus";
+  t=titleFor(E,t.replace(/^(?:de\s+)?focus$/i,"Bloc de focus"),{m:"Réunion",f:"Bloc de focus",a:"Administration",p:"Rendez-vous perso"}[k]);snap("événement");const msg=addEvent(E,k,t,k==="m"||k==="p");save();return R(msg)}
+ default:return R("Je n'ai pas compris cette partie. Essaie par ex. « planifie une réunion avec Marie demain à 14 h pendant 45 min ».",false)}}
+function splitClauses(raw){const f=flat(raw),cut=[];const re=new RegExp("\\s*(?:[;]|,\\s*puis\\b|,\\s*ensuite\\b|\\bpuis\\b|\\bensuite\\b|\\bet\\s+ensuite\\b|\\bapres ca\\b|,\\s*et\\b|,|\\s+et)\\s+(?=(?:peux-tu |ensuite )?(?:planifie|programme|reserve|cree|annule|supprime|deplace|decale|reporte|ecris|redige|facture|bloque|lance|trouve|rappelle|optimise|resume|ajoute|mets|depense|resous|regle|passe|va|ouvre|fixe|organise|lis)\\b)","g");let m,p=0;const out=[];while((m=re.exec(f))){out.push(raw.slice(p,m.index));p=m.index+m[0].length}out.push(raw.slice(p));return out.map(s=>s.trim()).filter(Boolean)}
+function runCmd(raw){const parts=splitClauses(raw),res=[];parts.forEach(p=>{try{const r=runClause(p);if(r)res.push(r)}catch(e){res.push({msg:"Oups, cette partie a échoué : "+e.message,ok:false,ch:[]})}});return res}
+function chat(q){const res=runCmd(q);S.chat.push({r:"u",lines:[q],chips:[]},{r:"a",lines:res.map(r=>r.msg),oks:res.map(r=>r.ok),chips:res.flatMap(r=>r.ch||[]).slice(0,6)});if(S.chat.length>60)S.chat=S.chat.slice(-60);S.saved+=res.filter(r=>r.ok).length;save();if(res.filter(r=>r.ok).length>1)badge("talk");if(S.tab==="assist")render();else toast(res.map(r=>r.msg).join(" ")); syncUR()}
+/* ===== Et si ? ===== */
+const SC=[
+ {id:"urg",t:"Une réunion urgente d'une heure arrive à 10 h",f:e=>({evs:[...e,{id:-1,t:"Réunion urgente (hypothèse)",s:600,d:60,k:"m",fx:true,e:2,o:0}],opt:{}})},
+ {id:"lunch",t:"Je saute le dîner",f:e=>({evs:e.filter(x=>x.k!=="l"),opt:{noLunch:true}})},
+ {id:"team",t:"Je refuse la réunion d'équipe",f:e=>({evs:e.filter(x=>!/équipe/i.test(x.t)),opt:{}})},
+ {id:"early",t:"Je commence à 7 h",f:e=>({evs:e,opt:{win:{s:420,e:1050}}})},
+ {id:"late",t:"Je termine une heure plus tard",f:e=>({evs:e,opt:{win:{s:480,e:1110}}})},
+ {id:"short",t:"Mes réunions durent 15 min de moins",f:e=>({evs:e.map(x=>x.k==="m"?{...x,d:Math.max(15,x.d-15)}:x),opt:{}})},
+ {id:"half",t:"Je double mes blocs de focus",f:e=>({evs:e.map(x=>x.k==="f"?{...x,d:x.d*2}:x),opt:{}})}];
+let scSel="urg",scCustom=null;
+function scenarioResult(){const base=dayEv(0).map(e=>({...e}));let sc=SC.find(s=>s.id===scSel),r;
+ if(scSel==="custom"&&scCustom){r={evs:[...base,{id:-2,t:scCustom.t,s:540,d:scCustom.d,k:scCustom.e>=3?"f":"a",fx:false,e:scCustom.e,o:0}],opt:{}}}else r=(sc||SC[0]).f(base);
+ const p=planDay(r.evs,r.opt),win=r.opt.win||WIN0;return{base,after:p.ev,pushed:p.pushed,mb:metrics(base),ma:metrics(p.ev,win),evs:r.evs,opt:r.opt}}
+function whatifOut(){const box=$("#wi");if(!box)return;const r=scenarioResult(),a=r.ma,b=r.mb;scRes=r;
+ const d=(k,u="",inv)=>{const v=a[k]-b[k];return `<td>${b[k]}${u}</td><td><b>${a[k]}${u}</b> ${v?`<span class="dl ${(inv?v<0:v>0)?"up":"dn"}">${v>0?"+":""}${v}</span>`:""}</td>`};
+ $("#wiOut").innerHTML=`<div class="two mini"><div><h3>Maintenant</h3><div class="card"><div class="tl" id="wb"></div></div></div><div><h3>Avec ce scénario</h3><div class="card"><div class="tl" id="wa"></div></div></div></div>
+ <div class="scroll card" style="margin-top:12px"><table><tr><th>Indicateur</th><th>Maintenant</th><th>Scénario</th></tr><tr><td>Score global</td>${d("score")}</tr><tr><td>Conflits</td>${d("conf","",1)}</tr><tr><td>Alignement énergie (%)</td>${d("align")}</tr><tr><td>Focus (min)</td>${d("focus")}</tr><tr><td>Pauses et dîner (min)</td>${d("brk")}</tr></table>
+ ${r.pushed.length?`<p style="margin:10px 0 0"><b>Serait reporté à demain :</b> ${r.pushed.map(p=>esc(p.t)).join(", ")}.</p>`:""}
+ <p class="sub" style="margin:8px 0 0">Verdict : ${a.score>b.score?"ce scénario améliore ta journée.":a.score<b.score?"ce scénario dégrade ta journée de "+(b.score-a.score)+" point(s).":"effet neutre sur le score."}</p>
+ <div class="row" style="margin-top:8px"><button class="btn p" data-act="scApply">Appliquer ce scénario à ma journée</button><span class="sub" style="margin:0">Annulable avec ↶</span></div></div>`;
+ paintTL($("#wb"),r.base,{ph:24});paintTL($("#wa"),r.after,{ph:24})}
+let scRes=null;
+/* ===== créneaux multi-fuseaux ===== */
+const TZME="America/Toronto";
+const dtf={};const fmtz=tz=>dtf[tz]||(dtf[tz]=new Intl.DateTimeFormat("en-CA",{timeZone:tz,hourCycle:"h23",year:"numeric",month:"numeric",day:"numeric",hour:"numeric",minute:"numeric",second:"numeric"}));
+function parts(t,tz){const p={};fmtz(tz).formatToParts(new Date(t)).forEach(x=>p[x.type]=+x.value);return p}
+function zoned(y,mo,d,h,mi,tz){const tg=Date.UTC(y,mo,d,h,mi);let t=tg;for(let i=0;i<2;i++){const p=parts(t,tz),as=Date.UTC(p.year,p.month-1,p.day,p.hour,p.minute,p.second);t=tg-(as-t)}return t}
+function localOf(t,tz,ref){const p=parts(t,tz),m=p.hour*60+p.minute,dd=Math.round((Date.UTC(p.year,p.month-1,p.day)-Date.UTC(ref.year,ref.month-1,ref.day))/864e5);const wd=new Date(Date.UTC(p.year,p.month-1,p.day)).getUTCDay();return{m,dd,wd}}
+const comfort=(m,d)=>{const[ws,we]=S.pw.map(x=>x*60);return m>=ws&&m+d<=we?2:S.tol&&m>=ws-60&&m+d<=we+60?1:0};
+function slotCalc(){const ids=S.sp,pp=S.contacts.filter(c=>ids.includes(c.id)),dur=S.sd,res=[],days=S.sn;
+ for(let o=S.so;o<S.so+days;o++){const dt=dateOf(o),wd=dt.getDay();if(wd===0||wd===6)continue;const y=dt.getFullYear(),mo=dt.getMonth(),dd=dt.getDate();
+  for(let m=420;m+dur<=1200;m+=30){const t=zoned(y,mo,dd,Math.floor(m/60),m%60,TZME),ref=parts(t,TZME);const me=comfort(m,dur);if(!me)continue;if(dayEv(o).some(e=>e.k!=="b"&&e.k!=="l"&&ovl({s:m,d:dur},e)))continue;
+   const ls=pp.map(c=>{const l=localOf(t,c.tz,ref);const lw=l.wd;const cf=lw===0||lw===6?0:comfort(l.m,dur);return{c,l,cf}});if(ls.some(x=>!x.cf))continue;
+   res.push({o,m,t,ls,me,sc:me*10+ls.reduce((a,x)=>a+x.cf*10,0)-o*0.5})}}
+ res.sort((a,b)=>b.sc-a.sc||a.o-b.o||a.m-b.m);return res}
+function slotsOut(){const out=$("#slOut");if(!out)return;const pp=S.contacts.filter(c=>S.sp.includes(c.id));if(!pp.length){out.innerHTML=`<p class="sub">Choisis au moins un participant.</p>`;return}
+ const r=slotCalc(),top=r.slice(0,6);const d0=top.length?top[0].o:S.so,dt=dateOf(d0),y=dt.getFullYear(),mo=dt.getMonth(),dd=dt.getDate();
+ const rows=[{n:"Toi ("+TZME.split("/")[1].replace("_"," ")+")",tz:TZME},...pp.map(c=>({n:c.n.split(" ")[0]+" ("+c.city+")",tz:c.tz}))];
+ const cells=rows.map(rw=>{let h="";for(let i=0;i<48;i++){const t=zoned(y,mo,dd,Math.floor(i/2),(i%2)*30,TZME),l=localOf(t,rw.tz,parts(t,TZME)),cf=(l.wd===0||l.wd===6)?0:comfort(l.m,30);h+=`<i class="${cf===2?"c":cf===1?"t":""}"></i>`}return `<b>${esc(rw.n)}</b>${h}`}).join("");
+ let all="";for(let i=0;i<48;i++){const ok=rows.every(rw=>{const t=zoned(y,mo,dd,Math.floor(i/2),(i%2)*30,TZME),l=localOf(t,rw.tz,parts(t,TZME));return !(l.wd===0||l.wd===6)&&comfort(l.m,30)>0});all+=`<i class="${ok?"all":""}"></i>`}
+ out.innerHTML=(top.length?top.map((s,i)=>`<div class="slot"><div><b>${i===0?"⭐ ":""}${dlabel(s.o)} · ${H(s.m)} → ${H(s.m+S.sd)}</b> <span class="pill ${s.me===2?"c":"t"}">toi</span><div class="row" style="margin-top:6px">${s.ls.map(x=>`<span class="pill ${x.cf===2?"c":"t"}">${esc(x.c.n.split(" ")[0])} : ${H(x.l.m)}${x.l.dd?" ("+(x.l.dd>0?"lendemain":"veille")+")":""}</span>`).join("")}</div></div><button class="btn sm p" data-act="slotBook" data-i="${S.so===undefined?0:r.indexOf(s)}">Réserver (simulé)</button></div>`).join(""):`<div class="card"><b>Aucun créneau commun.</b> Essaie d'élargir les jours, de réduire la durée, ou de retirer un participant (Tokyo et Vancouver se chevauchent rarement).</div>`)
+ +`<h3 style="margin-top:16px">Heures de travail, ${dlabel(d0)} (heure de Montréal)</h3><div class="scroll"><div class="strip" role="img" aria-label="Disponibilités des participants sur 24 heures, ${dlabel(d0)}"><b></b>${Array.from({length:48},(_,i)=>i%6===0?`<span style="font-size:10px;grid-column:span 6">${i/2} h</span>`:"").join("")}${cells}<b>Tous ensemble</b>${all}</div></div><div class="leg"><span><i style="background:var(--ok)"></i>heures de travail</span><span><i style="background:var(--warn)"></i>tolérable (±1 h)</span><span><i style="background:var(--ac2)"></i>tout le monde disponible</span></div>`;
+ slotRes=r}
+let slotRes=[];
+/* ===== boîte zéro ===== */
+const MAILS=[
+ [1,"Marie Tremblay","Soumission — questions","urgent","Bonjour, j'ai quelques questions sur la soumission avant de confirmer. Pouvez-vous préciser le délai de livraison?"],
+ [2,"Infolettre Design Hebdo","10 outils à essayer cette semaine","promo","Cette semaine : 10 outils pour accélérer vos maquettes…"],
+ [3,"Banque (exemple)","Votre relevé est disponible","info","Votre relevé du mois est prêt à être consulté en ligne."],
+ [4,"Samuel Gagnon","Rendez-vous jeudi?","action","Salut! On peut se voir jeudi pour discuter de la suite? Dis-moi quelle heure te convient."],
+ [5,"Sophie Lavoie","Documents pour la TPS/TVQ","action","Peux-tu m'envoyer tes factures du trimestre avant vendredi?"],
+ [6,"Boutique Papier+","−20 % sur la papeterie","promo","Offre limitée sur nos carnets et stylos."],
+ [7,"Inès Roy","Idée de partenariat","action","On pourrait coorganiser un atelier en ligne au printemps. Ça t'intéresse?"],
+ [8,"Service d'hébergement","Renouvellement de ton domaine","urgent","Ton nom de domaine expire dans 12 jours. Renouvelle-le pour éviter une interruption."],
+ [9,"Julien Caron","Merci pour la démo!","info","Merci pour la présentation, toute l'équipe a adoré."],
+ [10,"Réseau Pigistes QC","Rencontre mensuelle","info","La prochaine rencontre aura lieu le 28 à 18 h."],
+ [11,"Kenji Sato","Échantillons prêts","action","Les échantillons sont prêts. Souhaites-tu qu'on les expédie cette semaine?"],
+ [12,"Alertes sécurité","Nouvelle connexion détectée","info","Une connexion depuis un nouvel appareil a été détectée (exemple)."]];
+const mzMail=i=>MAILS.find(m=>m[0]===i);
+let mzT0=Date.now();
+function mzAct(kind,fromKey){const q=S.mz.q;if(!q.length)return;const mid=q[0],m=mzMail(mid),dt=(Date.now()-mzT0)/1000;mzT0=Date.now();snap();
+ S.mz.q=q.slice(1);S.mz.log.push({id:mid,k:kind,dt});S.mz.times.push(dt);S.mz.done++;const combo=S.mz.times.slice(-3).every(x=>x<6)&&S.mz.times.length>=3;S.mz.streak=combo?S.mz.streak+1:0;S.mz.best=Math.max(S.mz.best,S.mz.streak);
+ if(kind==="reply"){S.drafts.push({id:id(),to:m[1],s:"Re: "+m[2],b:"(brouillon généré, simulé)"});toast("✉️ Brouillon prêt pour "+m[1]+" (simulé, rien n'est envoyé)")}
+ if(kind==="task"){S.tasks.push({id:id(),t:"Traiter : "+m[2],s:"todo",p:"Courriels"});toast("Tâche créée dans Projets")}
+ if(kind==="snooze"){S.mz.snz.push(mid);toast("Reporté à demain")}
+ gain(2);save();if(!S.mz.q.length){badge("zero");confetti(200);notify("📭 Boîte zéro atteinte!","b");fire("zero",{text:""})}mzPaint()}
+function mzUndo(){const l=S.mz.log.pop();if(!l)return;S.mz.q.unshift(l.id);S.mz.done=Math.max(0,S.mz.done-1);S.mz.snz=S.mz.snz.filter(x=>x!==l.id);save();mzPaint()}
+function mzPaint(){const box=$("#mzBox");if(!box)return;const q=S.mz.q,tot=MAILS.length,done=tot-q.length-S.mz.snz.length;
+ const avg=S.mz.times.length?Math.round(S.mz.times.reduce((a,b)=>a+b,0)/S.mz.times.length*10)/10:0;
+ $("#mzStats").innerHTML=`<span class="tag s">Restants : ${q.length}</span> <span class="tag">Traités : ${S.mz.done}</span> <span class="tag ${S.mz.streak>=2?"w":""}">Combo ×${S.mz.streak}</span> <span class="tag">Record ×${S.mz.best}</span> <span class="tag">Moyenne : ${avg} s</span>`;
+ $("#mzBar").style.width=(1-q.length/tot)*100+"%";$("#mzBar").parentElement.setAttribute("aria-valuenow",Math.round((1-q.length/tot)*100));
+ if(!q.length){box.innerHTML=`<div class="card" style="text-align:center;padding:30px"><div style="font-size:56px" aria-hidden="true">📭</div><h3>Boîte zéro!</h3><p class="sub">${S.mz.done} courriels traités${avg?`, ${avg} s en moyenne`:""}. Respire un bon coup.</p><button class="btn p" data-act="mzReset">Remplir la boîte (démo)</button></div>`;return}
+ box.innerHTML=`<div class="stack" id="mzStack" tabindex="0" aria-label="Pile de courriels. Flèche gauche : archiver. Droite : répondre. Haut : reporter. Bas : créer une tâche.">${q.slice(0,3).map((mid,i)=>{const m=mzMail(mid);return `<div class="mc ${i===0?"top":"n"+i}" data-m="${mid}"><span class="lab l1">ARCHIVER</span><span class="lab l2">RÉPONDRE</span><span class="lab l3">REPORTER</span><span class="lab l4">TÂCHE</span><div class="row b"><b>${esc(m[1])}</b><span class="tag ${m[3]==="urgent"?"w":""}">${m[3]}</span></div><h3 style="margin:2px 0">${esc(m[2])}</h3><p style="margin:0;color:var(--mut)">${esc(m[4])}</p><p class="sub" style="margin-top:auto">Suggestion : ${m[3]==="promo"||m[3]==="info"?"archiver":m[3]==="urgent"?"répondre maintenant":"créer une tâche ou répondre"}</p></div>`}).reverse().join("")}</div>
+ <div class="mz"><button class="btn" data-act="mz" data-i="archive">← Archiver (A)</button><button class="btn" data-act="mz" data-i="snooze">↑ Reporter (S)</button><button class="btn" data-act="mz" data-i="task">↓ Tâche (T)</button><button class="btn p" data-act="mz" data-i="reply">Répondre (R) →</button><button class="btn" data-act="mzUndo">↶ Annuler (Z)</button></div>`;
+ mzDrag()}
+function mzDrag(){const st=$("#mzStack");if(!st)return;const top=$(".mc.top",st);if(!top)return;let d=null;
+ top.addEventListener("pointerdown",e=>{d={x:e.clientX,y:e.clientY};top.classList.add("dr");top.setPointerCapture(e.pointerId)});
+ top.addEventListener("pointermove",e=>{if(!d)return;const dx=e.clientX-d.x,dy=e.clientY-d.y;top.style.transform=`translate(${dx}px,${dy}px) rotate(${dx/18}deg)`;const ax=Math.abs(dx)>Math.abs(dy);const op=Math.min(1,Math.max(Math.abs(dx),Math.abs(dy))/110);$$(".lab",top).forEach(l=>l.style.opacity=0);const l=ax?(dx<0?".l1":".l2"):(dy<0?".l3":".l4");$(l,top).style.opacity=op});
+ const end=e=>{if(!d)return;const dx=e.clientX-d.x,dy=e.clientY-d.y;d=null;top.classList.remove("dr");const ax=Math.abs(dx)>Math.abs(dy),mag=Math.max(Math.abs(dx),Math.abs(dy));
+  if(mag>110){const k=ax?(dx<0?"archive":"reply"):(dy<0?"snooze":"task");top.style.transition="transform .3s,opacity .3s";top.style.transform=`translate(${ax?Math.sign(dx)*600:dx}px,${ax?dy:Math.sign(dy)*500}px)`;top.style.opacity=0;setTimeout(()=>mzAct(k),250)}else{top.style.transform="";$$(".lab",top).forEach(l=>l.style.opacity=0)}};
+ top.addEventListener("pointerup",end);top.addEventListener("pointercancel",end)}
+/* ===== rédacteur de courriels ===== */
+const TONES={formel:{f:90,c:25,d:55,l:"Formel"},chaleureux:{f:30,c:90,d:40,l:"Chaleureux"},direct:{f:55,c:30,d:95,l:"Direct"},enthousiaste:{f:20,c:95,d:60,l:"Enthousiaste"},court:{f:50,c:30,d:100,l:"Court et efficace"}};
+const INTS={relance:"Relance",merci:"Remerciement",rdv:"Demande de rendez-vous",refus:"Refus poli",soumission:"Envoi de soumission",facture:"Rappel de facture",retard:"Excuses pour un retard"};
+const BODY={
+ relance:{formel:["Je me permets de vous relancer au sujet de {t}.","Je reviens vers vous concernant {t}, sans nouvelles de ma part depuis quelque temps."],chaleureux:["Je voulais prendre de tes nouvelles et faire un petit suivi à propos de {t}.","J'espère que tout va bien! Je repensais à {t} et je voulais savoir où tu en étais."],direct:["Suivi rapide sur {t} : où en sommes-nous?","Je relance au sujet de {t}. Peux-tu me donner un statut?"],enthousiaste:["J'ai hâte d'avancer sur {t}! Où en es-tu de ton côté?","Je suis vraiment motivé par {t}, et j'aimerais savoir comment on continue!"],court:["Suivi : {t}. Des nouvelles?"]},
+ merci:{formel:["Je tiens à vous remercier sincèrement pour {t}.","Je vous suis reconnaissant pour {t}."],chaleureux:["Un grand merci pour {t}, ça m'a vraiment fait plaisir!","Merci de tout cœur pour {t}. Ça compte beaucoup pour moi."],direct:["Merci pour {t}. C'est très apprécié.","Merci pour {t}, ça m'a beaucoup aidé."],enthousiaste:["Merci mille fois pour {t}, c'est génial!","Wow, merci pour {t}! Tu as fait ma journée!"],court:["Merci pour {t}!"]},
+ rdv:{formel:["Je souhaiterais convenir d'un rendez-vous afin de discuter de {t}.","Seriez-vous disponible prochainement pour échanger au sujet de {t}?"],chaleureux:["Ça te dirait qu'on prenne un moment pour parler de {t}?","J'aimerais bien qu'on se parle de {t}, quand ça te convient."],direct:["Peut-on se parler de {t} cette semaine? Propose-moi deux plages.","Je propose un appel de 30 minutes sur {t}."],enthousiaste:["Et si on se voyait pour parler de {t}? Ce serait super!","J'ai plein d'idées pour {t}, on se fait un appel?"],court:["Appel rapide sur {t} cette semaine?"]},
+ refus:{formel:["Après réflexion, je ne pourrai malheureusement pas donner suite à {t}.","Je vous remercie de votre proposition concernant {t}, mais je dois la décliner."],chaleureux:["Merci d'avoir pensé à moi pour {t}. Malheureusement, je dois dire non cette fois-ci.","C'est gentil de m'avoir proposé {t}, mais je ne pourrai pas cette fois."],direct:["Je dois refuser {t}. Je n'ai pas la disponibilité.","Je ne donnerai pas suite à {t}."],enthousiaste:["Merci pour {t}, ça me touche! Je dois malheureusement passer cette fois, mais gardons le contact!"],court:["Merci, mais je passe pour {t}."]},
+ soumission:{formel:["Veuillez trouver ci-joint notre soumission concernant {t}.","Je vous transmets notre proposition relative à {t}."],chaleureux:["Voici la soumission pour {t}, j'ai hâte d'avoir ton avis!","Je t'envoie la proposition pour {t}. N'hésite pas si tu as des questions."],direct:["Soumission pour {t} en pièce jointe. Validité : 30 jours.","Voici la proposition pour {t}. Dis-moi si on avance."],enthousiaste:["Voici la soumission pour {t}, je suis très enthousiaste à l'idée de travailler avec toi!"],court:["Soumission pour {t} ci-jointe."]},
+ facture:{formel:["Je me permets de vous rappeler que la facture relative à {t} demeure impayée.","Sauf erreur de ma part, le paiement de {t} n'a pas encore été reçu."],chaleureux:["Un petit rappel amical : la facture pour {t} est encore ouverte. Peux-tu y jeter un œil?","Je ne voudrais pas que ça passe entre les mailles : la facture de {t} attend toujours."],direct:["La facture de {t} est en retard. Merci de payer cette semaine.","Rappel : facture {t} échue."],enthousiaste:["Petit rappel pour la facture de {t}, merci d'avance, ça m'aide beaucoup!"],court:["Rappel : facture {t} impayée."]},
+ retard:{formel:["Je vous prie de bien vouloir excuser le retard concernant {t}.","Veuillez accepter mes excuses pour le délai relatif à {t}."],chaleureux:["Désolé pour le retard avec {t}, je m'en veux un peu!","Toutes mes excuses pour {t}, je te reviens très vite."],direct:["Retard sur {t}, mes excuses. Nouvelle date : à confirmer aujourd'hui.","Je suis en retard sur {t}. Voici le plan pour rattraper."],enthousiaste:["Désolé pour l'attente sur {t}! Je te livre ça très bientôt, promis!"],court:["Désolé du retard pour {t}."]}};
+const GREET={formel:["Bonjour {n},","Bonjour {n},"],chaleureux:["Bonjour {n}!","Allo {n}!"],direct:["Bonjour {n},","{n},"],enthousiaste:["Salut {n}!","Bonjour {n}!"],court:["{n},"]};
+const MID={formel:["Je demeure disponible pour toute précision.","N'hésitez pas à me contacter si vous avez des questions."],chaleureux:["Dis-moi ce qui te convient, je m'adapte.","Si tu préfères en parler de vive voix, c'est avec plaisir."],direct:["Réponse attendue d'ici vendredi.","Dis-moi ce qui bloque, le cas échéant."],enthousiaste:["Hâte de lire ta réponse!","On va faire de belles choses ensemble!"],court:[""]};
+const CLOSE={formel:["Cordialement,","Bien à vous,"],chaleureux:["À bientôt,","Bonne journée!"],direct:["Merci,","Au plaisir,"],enthousiaste:["À très vite!","Merci d'avance!"],court:["Merci,"]};
+function genMail(g){const c=S.contacts.find(x=>x.id==g.to)||S.contacts[0],tn=g.tone,v=g.v||0,pick=a=>a[v%a.length];const t=(g.pts||"").trim()||"notre dossier";const first=c.n.split(" ")[0];
+ const bs=BODY[g.int][tn]||BODY[g.int].direct;let body=pick(bs).replace("{t}",t);
+ const detail=g.len>=2?" "+pick(tn==="formel"?["Je demeure à votre disposition pour m'adapter à votre horaire.","Je reste disponible pour vous transmettre tout complément d'information."]:["Si c'est plus simple, je peux m'adapter à ton horaire.","Je reste disponible pour t'envoyer tout complément d'information."]):"";
+ const mid=g.len===0?"":pick(MID[tn]);const subj={relance:"Suivi — ",merci:"Merci — ",rdv:"Rendez-vous — ",refus:"Re : ",soumission:"Soumission — ",facture:"Rappel de facture — ",retard:"Mes excuses — "}[g.int]+cap(t).slice(0,50);
+ const txt=pick(GREET[tn]).replace("{n}",tn==="formel"?c.n:first)+"\n\n"+body+(g.len>=1?detail:"")+(mid?"\n\n"+mid:"")+"\n\n"+pick(CLOSE[tn])+"\n[Ton prénom]";
+ return{subj,txt,to:c}}
+function genPaint(){const o=$("#gOut");if(!o)return;const g=S.gen,r=genMail(g);o.style.opacity=.3;requestAnimationFrame(()=>{o.textContent="Objet : "+r.subj+"\nÀ : "+r.to.n+" <"+r.to.e+">\n\n"+r.txt;o.style.opacity=1});
+ const w=r.txt.split(/\s+/).length;$("#gStat").textContent=w+" mots · lecture ≈ "+Math.max(5,Math.round(w/3.3))+" s";const T=TONES[g.tone];[["f","Formalité"],["c","Chaleur"],["d","Franchise"]].forEach(([k])=>{const e=$("#tn-"+k);if(e)e.style.width=T[k]+"%"});
+ $$("[data-tone]").forEach(b=>b.setAttribute("aria-pressed",b.dataset.tone===g.tone));$$("[data-len]").forEach(b=>b.setAttribute("aria-pressed",+b.dataset.len===g.len))}
+/* ===== briefing audio ===== */
+function briefLines(){const L=[],d=new Date(),ev=dayEv(0).filter(e=>e.k!=="b"&&e.k!=="l").sort((a,b)=>a.s-b.s),mt=ev.filter(e=>e.k==="m"),m=metrics(dayEv(0)),n=S.tasks.filter(t=>t.s!=="done").length;
+ L.push(`Bonjour! Nous sommes ${DAYS[d.getDay()]} le ${d.getDate()} ${MONTHS[d.getMonth()]}. Voici ton briefing, avec des données d'exemple.`);
+ L.push(ev.length?`Tu as ${ev.length} blocs prévus aujourd'hui, dont ${mt.length} réunion${mt.length>1?"s":""}.`:"Ton agenda est vide aujourd'hui.");
+ if(mt[0])L.push(`Ta première réunion est « ${mt[0].t} » à ${H(mt[0].s)}.`);
+ L.push(m.conf?`Attention, il y a ${m.conf} conflit${m.conf>1?"s":""} d'horaire. Je te suggère de lancer ta journée parfaite.`:"Aucun conflit d'horaire. Bravo!");
+ L.push(`Ton score de journée est de ${m.score} sur 100.`);
+ const g=[...S.habits].map(h=>({n:h.n,s:streakOf(h)})).sort((a,b)=>b.s-a.s)[0];if(g&&g.s)L.push(`Ta plus belle série : « ${g.n} », ${g.s} jour${g.s>1?"s":""} de suite.`);
+ L.push(`Il te reste ${n} tâche${n>1?"s":""} ouverte${n>1?"s":""}.`);
+ const late=S.inv.filter(i=>i.s==="en retard");if(late.length)L.push(`La facture de ${late[0].c}, ${fmt(late[0].a).replace(/\u00a0/g," ")}, est en retard.`);
+ const cold=S.contacts.filter(c=>c.ds>=30).sort((a,b)=>b.ds-a.ds)[0];if(cold)L.push(`${cold.n} attend de tes nouvelles depuis ${cold.ds} jours.`);
+ L.push(`Il reste ${S.mz.q.length} courriel${S.mz.q.length>1?"s":""} à traiter dans ta boîte.`);L.push("Bonne journée!");return L}
+let spk={on:false,i:0,paused:false};
+const spoken=s=>s.replace(/(\d+) h (\d{2})/g,"$1 heures $2").replace(/(\d+) h\b/g,"$1 heures").replace(/«|»/g," ");
+function stopBrief(){if("speechSynthesis" in window)speechSynthesis.cancel();spk.on=false;spk.paused=false;audUI()}
+function audUI(){const a=$("#aud");if(a)a.classList.toggle("on",spk.on&&!spk.paused);const p=$("#bPause");if(p)p.textContent=spk.paused?"▶ Reprendre":"⏸ Pause";$$("#tr p").forEach((p,i)=>p.classList.toggle("cur",spk.on&&i===spk.i))}
+function speakBrief(){const L=briefLines();const tr=$("#tr");if(tr)tr.innerHTML=L.map(l=>`<p>${esc(l)}</p>`).join("");
+ if(!("speechSynthesis" in window)){toast("La synthèse vocale n'est pas disponible ici : lis la transcription.");return}
+ speechSynthesis.cancel();spk={on:true,i:0,paused:false};const rate=+($("#bRate")?$("#bRate").value:1),vsel=$("#bVoice")?$("#bVoice").value:"";const voices=speechSynthesis.getVoices();
+ L.forEach((l,i)=>{const u=new SpeechSynthesisUtterance(spoken(l));u.lang="fr-CA";u.rate=rate;const v=voices.find(x=>x.name===vsel)||voices.find(x=>/fr[-_]CA/i.test(x.lang))||voices.find(x=>/^fr/i.test(x.lang));if(v)u.voice=v;u.onstart=()=>{spk.i=i;audUI()};u.onend=()=>{if(i===L.length-1){spk.on=false;audUI();gain(2)}};u.onerror=()=>{};speechSynthesis.speak(u)});audUI()}
+function streakOf(h){let s=0;for(let i=27;i>=0;i--){if(h.h[i])s++;else if(i===27)continue;else break}return s}
+/* ===== graphiques canvas ===== */
+const css=n=>getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+function cv(id){const c=document.getElementById(id);if(!c)return null;const dpr=Math.min(2,devicePixelRatio||1),w=c.clientWidth||320,h=+c.dataset.h||200;c.width=w*dpr;c.height=h*dpr;c.style.height=h+"px";const x=c.getContext("2d");x.setTransform(dpr,0,0,dpr,0,0);x.clearRect(0,0,w,h);return{x,w,h,c}}
+const PAL=()=>[css("--ac"),css("--ac2"),css("--warn"),css("--ok"),"#ff7ac8","#9aa5c8"];
+const nice=m=>{const p=Math.pow(10,Math.floor(Math.log10(m)));return [1,2,2.5,4,5,8,10].map(k=>k*p).find(v=>v>=m)};
+function donut(id,data,ct){const g=cv(id);if(!g)return;const{x,w,h}=g,cx=w/2,cy=h/2,R=Math.min(w,h)/2-6,r=R*.6,tot=data.reduce((a,d)=>a+d.v,0)||1;let a0=-Math.PI/2;const arcs=[];
+ data.forEach(d=>{if(d.v<=0)return;const a1=a0+d.v/tot*Math.PI*2;x.beginPath();x.arc(cx,cy,R,a0,a1);x.arc(cx,cy,r,a1,a0,true);x.closePath();x.fillStyle=d.c;x.fill();arcs.push([a0,a1,d]);a0=a1});
+ x.textAlign="center";x.fillStyle=css("--tx");x.font="700 22px system-ui";x.fillText(ct[0],cx,cy+4);x.font="12px system-ui";x.fillStyle=css("--mut");x.fillText(ct[1],cx,cy+22);
+ g.c.onpointermove=e=>{const b=g.c.getBoundingClientRect(),dx=e.clientX-b.left-cx,dy=e.clientY-b.top-cy,dist=Math.hypot(dx,dy);let a=Math.atan2(dy,dx);if(a<-Math.PI/2)a+=Math.PI*2;const t=document.getElementById(id+"Tip");if(!t)return;const f=dist>=r&&dist<=R?arcs.find(z=>a>=z[0]&&a<z[1]):null;t.textContent=f?f[2].l+" : "+f[2].t+" ("+Math.round(f[2].v/tot*100)+" %)":"Survole le graphique pour voir le détail."}}
+function bars(id,labels,series,{stack=false,fmtv=v=>v,max}={}){const g=cv(id);if(!g)return;const{x,w,h}=g,P={l:40,r:6,t:8,b:22},iw=w-P.l-P.r,ih=h-P.t-P.b,n=labels.length;
+ const tot=labels.map((_,i)=>stack?series.reduce((a,s)=>a+s.d[i],0):Math.max(...series.map(s=>s.d[i])));const mx=max||nice(Math.max(1,...tot));
+ x.strokeStyle=css("--line");x.fillStyle=css("--mut");x.font="11px system-ui";x.textAlign="right";for(let i=0;i<=4;i++){const y=P.t+ih-ih*i/4;x.beginPath();x.moveTo(P.l,y);x.lineTo(w-P.r,y);x.stroke();x.fillText(fmtv(Math.round(mx*i/4)),P.l-4,y+4)}
+ const bw=iw/n,k=stack?1:series.length;labels.forEach((l,i)=>{x.textAlign="center";x.fillStyle=css("--mut");x.fillText(l,P.l+bw*i+bw/2,h-6);let acc=0;series.forEach((s,j)=>{const v=s.d[i],bh=v/mx*ih,bwid=bw*.7/k,bx=P.l+bw*i+bw*.15+(stack?0:j*bwid),by=stack?P.t+ih-acc-bh:P.t+ih-bh;x.fillStyle=s.c;x.beginPath();x.roundRect?x.roundRect(bx,by,bwid,bh,3):x.rect(bx,by,bwid,bh);x.fill();acc+=bh})})}
+function line(id,labels,series,{fmtv=v=>v,max}={}){const g=cv(id);if(!g)return;const{x,w,h}=g,P={l:40,r:10,t:10,b:22},iw=w-P.l-P.r,ih=h-P.t-P.b,n=labels.length;const mx=max||nice(Math.max(1,...series.flatMap(s=>s.d)));
+ x.strokeStyle=css("--line");x.fillStyle=css("--mut");x.font="11px system-ui";x.textAlign="right";for(let i=0;i<=4;i++){const y=P.t+ih-ih*i/4;x.beginPath();x.moveTo(P.l,y);x.lineTo(w-P.r,y);x.stroke();x.fillText(fmtv(Math.round(mx*i/4)),P.l-4,y+4)}
+ x.textAlign="center";labels.forEach((l,i)=>x.fillText(l,P.l+iw*i/(n-1||1),h-6));
+ series.forEach(s=>{const pts=s.d.map((v,i)=>[P.l+iw*i/(n-1||1),P.t+ih-v/mx*ih]);x.beginPath();pts.forEach((p,i)=>i?x.lineTo(...p):x.moveTo(...p));x.strokeStyle=s.c;x.lineWidth=2.5;x.stroke();if(s.fill){x.lineTo(pts[n-1][0],P.t+ih);x.lineTo(pts[0][0],P.t+ih);x.closePath();x.globalAlpha=.15;x.fillStyle=s.c;x.fill();x.globalAlpha=1}pts.forEach(p=>{x.beginPath();x.arc(p[0],p[1],3.5,0,7);x.fillStyle=s.c;x.fill()})});x.lineWidth=1}
+const legend=items=>`<div class="leg">${items.map(i=>`<span><i style="background:${i[1]}"></i>${i[0]}</span>`).join("")}</div>`;
+/* ===== analyse du temps ===== */
+const WK=[[6,14,7,5,3],[8,12,6,5,3],[7,16,8,5,2],[9,13,6,5,3],[11,10,7,6,2],[10,12,6,5,4],[12,9,5,5,3],[13,8,6,5,3]];
+let tPeriod="day";
+function timeData(){const c=metrics(dayEv(0));if(tPeriod==="day")return{f:c.focus/60,m:c.meet/60,a:c.adm/60,b:c.brk/60,p:dayEv(0).filter(e=>e.k==="p").reduce((a,e)=>a+e.d,0)/60};const w=WK.slice(-4);const av=i=>w.reduce((a,x)=>a+x[i],0)/4;return{f:av(0),m:av(1),a:av(2),b:av(3),p:av(4)}}
+function timeInit(){const d=timeData(),P=PAL(),tot=d.f+d.m+d.a+d.b+d.p;const data=[{l:"Concentration",v:d.f,c:P[1],t:d.f.toFixed(1)+" h"},{l:"Réunions",v:d.m,c:P[0],t:d.m.toFixed(1)+" h"},{l:"Courriels et admin",v:d.a,c:P[2],t:d.a.toFixed(1)+" h"},{l:"Pauses et repas",v:d.b,c:P[3],t:d.b.toFixed(1)+" h"},{l:"Perso",v:d.p,c:P[4],t:d.p.toFixed(1)+" h"}];
+ donut("cDon",data,[tot.toFixed(1)+" h",tPeriod==="day"?"aujourd'hui":"moy. / semaine"]);
+ $("#donLeg").innerHTML=legend(data.map(x=>[x.l+" "+x.t,x.c]));
+ const lb=WK.map((_,i)=>"S"+(i+1));bars("cTrend",lb,[{d:WK.map(w=>w[0]),c:P[1]},{d:WK.map(w=>w[1]),c:P[0]}],{fmtv:v=>v+" h"});
+ const day=dayEv(0),cap2=[];const lab=[],cur=[],cur2=[];for(let m=480;m<1080;m+=60){lab.push(Math.floor(m/60)+"");cur.push(nrg(m)*33);cur2.push(Math.min(99,day.filter(e=>e.k!=="b"&&e.k!=="l"&&e.s<m+60&&e.s+e.d>m).reduce((a,e)=>a+(e.e||2)*33*Math.min(60,e.s+e.d-m,m+60-e.s)/60,0)))}
+ line("cEn",lab,[{d:cur,c:P[1],fill:1},{d:cur2,c:P[2]}],{max:100,fmtv:v=>v+" %"});
+ const m=metrics(dayEv(0)),bal=clamp(Math.round(100-Math.abs(m.meet-m.focus)/6-(m.lunch?0:12)-m.conf*10),0,100);
+ $("#tInfo").innerHTML=`<div class="three"><div class="card"><div class="sub">Score d'énergie</div><div class="stat">${m.align}<small style="font-size:14px"> %</small></div><div class="sub">Tâches exigeantes placées aux bonnes heures</div></div><div class="card"><div class="sub">Équilibre focus / réunions</div><div class="stat">${bal}<small style="font-size:14px"> /100</small></div><div class="sub">Focus ${DUR(m.focus)} · réunions ${DUR(m.meet)}</div></div><div class="card"><div class="sub">Pauses</div><div class="stat">${DUR(m.brk)}</div><div class="sub">${m.long?m.long+" plage(s) de plus de 2 h sans pause":"Aucune plage trop longue"}</div></div></div>
+ <div class="card" style="margin-top:12px"><h3>Ce que je remarque (calcul local, données d'exemple)</h3><ul style="margin:0;padding-left:18px"><li>${d.m/tot>.4?"Les réunions occupent plus de 40 % de ton temps : essaie d'en raccourcir.":"Tes réunions restent sous 40 % de ton temps."}</li><li>${m.align<70?"Tes tâches exigeantes tombent dans tes creux d'énergie : lance « Ma journée parfaite ».":"Ton énergie est bien utilisée."}</li><li>${WK[7][0]>WK[0][0]?"Ton temps de concentration est en hausse sur 8 semaines (exemple).":"Ton temps de concentration baisse (exemple)."}</li></ul></div>`;
+ const hm=[["L",[2,3,3,2,1,1,2,3,2,1]],["M",[2,3,3,3,1,1,2,2,2,1]],["M",[1,2,3,3,2,1,2,2,1,1]],["J",[2,3,3,2,1,1,1,2,2,2]],["V",[2,2,3,2,1,1,2,2,1,0]]];
+ $("#tHm").innerHTML=`<div class="hm" role="img" aria-label="Carte de chaleur de la productivité par heure, exemple"><span></span>${Array.from({length:10},(_,i)=>`<span style="text-align:center">${8+i}</span>`).join("")}${hm.map(r=>`<span>${r[0]}</span>${r[1].map(v=>`<i style="opacity:${.12+v*.3}" title="Niveau ${v}/3"></i>`).join("")}`).join("")}</div><p class="sub" style="margin:6px 0 0">Productivité perçue par heure (simulée). Plus c'est foncé, plus tu es efficace.</p>`}
+/* ===== budget et finances ===== */
+function finInit(){const P=PAL(),cats=BC.map((c,i)=>({l:c,v:S.exp.filter(e=>(e.c||"Autre")===c).reduce((a,e)=>a+e.a,0),c:[P[0],P[1],P[2],P[3],"#ff7ac8","#9aa5c8"][i]}));const tot=cats.reduce((a,c)=>a+c.v,0);
+ cats.forEach(c=>c.t=fmt(c.v));donut("cExp",cats,[fmt(tot).replace(",00",""),"dépenses"]);$("#expLeg").innerHTML=legend(cats.map(c=>[c.l+" "+c.t,c.c]));
+ const paid=S.inv.filter(i=>i.s==="payée").reduce((a,i)=>a+i.a,0);const inc=[2100,1800,2600,2250,3100,paid],exp=[820,760,910,640,880,tot];const mo=Array.from({length:6},(_,i)=>MONTHS[(new Date().getMonth()-5+i+12)%12].slice(0,4));
+ bars("cCash",mo,[{d:inc,c:P[3]},{d:exp,c:P[2]}],{fmtv:v=>v>=1000?(v/1000).toLocaleString("fr-CA")+" k":v});
+ const prof=inc.map((v,i)=>v-exp[i]),cum=[];prof.reduce((a,v,i)=>(cum[i]=a+v,a+v),0);const proj=[...cum.slice(-1)];for(let i=1;i<=3;i++)proj.push(proj[0]+i*Math.round(prof.slice(0,5).reduce((a,v)=>a+v,0)/5));
+ line("cProj",["Auj.","+1 m.","+2 m.","+3 m."],[{d:proj,c:P[1],fill:1}],{fmtv:v=>v>=1000?(v/1000).toFixed(1)+" k":v});
+ $("#env").innerHTML=BC.map(c=>{const sp=cats.find(x=>x.l===c).v,lim=S.budget[c]||1,p=Math.round(sp/lim*100);return `<div class="env"><div class="row b"><label for="bl-${c}">${c}</label><span class="${p>100?"dl dn":""}">${fmt(sp)} / <input type="number" id="bl-${c}" data-bl="${c}" min="0" step="10" value="${lim}" style="width:84px;display:inline-block;padding:3px 6px" aria-label="Limite ${c}"> ${p>=100?"⚠":""}</span></div><div class="bar2 ${p>=100?"hot":p>=80?"warn":""}" role="progressbar" aria-valuenow="${Math.min(100,p)}" aria-valuemin="0" aria-valuemax="100"><div style="width:${Math.min(100,p)}%"></div></div></div>`}).join("")}
+/* ===== objectifs et séries ===== */
+const MILE=[3,7,14,21,30];
+function habitToggle(hid){const h=S.habits.find(a=>a.id==hid);if(!h)return;snap("habitude");const was=streakOf(h);h.h[27]=h.h[27]?0:1;const s=streakOf(h);save();
+ if(h.h[27]&&MILE.includes(s)&&s>was){confetti(160);notify(`🔥 Série de ${s} jours : « ${h.n} »!`,"b");gain(15);if(s>=7)badge("s7");fire("streak",{text:String(s)})}else if(h.h[27])gain(1);render()}
+function goalStep(gid,dv){const g=S.goals.find(a=>a.id==gid);if(!g)return;snap("objectif");const was=g.v;g.v=clamp(g.v+dv,0,100);save();if(was<100&&g.v>=100){confetti(220);notify("🏆 Objectif atteint : "+g.n,"b");badge("goal");gain(30)}render()}
+/* ===== carte relationnelle ===== */
+let G=null;
+function graphInit(){const c=$("#gcv");if(!c)return;const dpr=Math.min(2,devicePixelRatio||1),w=c.clientWidth||600,h=420;c.width=w*dpr;c.height=h*dpr;const x=c.getContext("2d");
+ const prev=G&&G.nodes?Object.fromEntries(G.nodes.map(n=>[n.id,n])):{};
+ const nodes=[{id:0,n:"Moi",me:1,x:w/2,y:h/2,vx:0,vy:0,r:16}].concat(S.contacts.map((c,i)=>({id:c.id,n:c.n,c,x:prev[c.id]?prev[c.id].x:w/2+Math.cos(i*.9)*140,y:prev[c.id]?prev[c.id].y:h/2+Math.sin(i*.9)*120,vx:0,vy:0,r:9+Math.max(0,(60-c.ds))/12})));
+ const idx=Object.fromEntries(nodes.map(n=>[n.id,n]));const edges=S.links.filter(l=>idx[l[0]]&&idx[l[1]]).map(l=>({a:idx[l[0]],b:idx[l[1]],l:l[2],me:0}));
+ S.contacts.filter(c=>c.ds<=30).forEach(c=>edges.push({a:idx[0],b:idx[c.id],l:"en contact",me:1}));
+ G={c,x,w,h,dpr,nodes,edges,idx,sel:G&&G.sel&&idx[G.sel.id]?idx[G.sel.id]:null,hov:null,path:[],heat:1,drag:null};
+ if(G.sel)G.path=bfs(G.sel.id);gDraw();gTick();
+ const pos=e=>{const b=c.getBoundingClientRect();return{x:(e.clientX-b.left)*(w/b.width),y:(e.clientY-b.top)*(h/b.height)}};
+ const hit=p=>[...nodes].reverse().find(n=>Math.hypot(n.x-p.x,n.y-p.y)<=n.r+5);
+ c.onpointerdown=e=>{const n=hit(pos(e));if(n){G.drag=n;G.moved=0;c.setPointerCapture(e.pointerId);c.style.cursor="grabbing"}};
+ c.onpointermove=e=>{const p=pos(e);if(G.drag){G.drag.x=p.x;G.drag.y=p.y;G.drag.vx=G.drag.vy=0;G.moved++;G.heat=Math.max(G.heat,.35);gTick()}else{const n=hit(p);if(n!==G.hov){G.hov=n;c.style.cursor=n?"pointer":"grab";gDraw();$("#gTip").textContent=n?(n.me?"C'est toi, au centre de ton réseau.":n.n+" · "+n.c.o+" · dernier contact il y a "+n.c.ds+" j"):"Clique un contact pour voir le chemin d'introduction."}}};
+ const up=()=>{if(G.drag){const n=G.drag;G.drag=null;c.style.cursor="grab";if(G.moved<3)gSelect(n.id)}};c.onpointerup=up;c.onpointercancel=up;
+ c.onkeydown=e=>{const i=nodes.indexOf(G.sel);if(e.key==="ArrowRight"||e.key==="ArrowDown"){e.preventDefault();gSelect(nodes[(i+1+nodes.length)%nodes.length].id)}if(e.key==="ArrowLeft"||e.key==="ArrowUp"){e.preventDefault();gSelect(nodes[(i-1+nodes.length)%nodes.length].id)}}}
+function bfs(to){if(!G||to===0)return[];const adj={};G.edges.forEach(e=>{(adj[e.a.id]=adj[e.a.id]||[]).push(e.b.id);(adj[e.b.id]=adj[e.b.id]||[]).push(e.a.id)});const prev={0:null},q=[0];while(q.length){const u=q.shift();if(u===to)break;(adj[u]||[]).forEach(v=>{if(!(v in prev)){prev[v]=u;q.push(v)}})}if(!(to in prev))return[];const p=[];for(let u=to;u!==null;u=prev[u])p.unshift(u);return p}
+function gSelect(i){if(!G)return;G.sel=G.idx[i]||null;G.path=G.sel?bfs(G.sel.id):[];gDraw();gInfo()}
+function gInfo(){const box=$("#gInfo");if(!box||!G)return;const n=G.sel;if(!n){box.innerHTML=`<p class="sub">Sélectionne un contact (clic, ou flèches quand la carte est active) pour voir sa fiche et le meilleur chemin d'introduction depuis toi.</p>`;return}
+ if(n.me){box.innerHTML=`<h3>Moi</h3><p class="sub">${G.edges.filter(e=>e.me).length} contacts directs récents (30 jours ou moins).</p>`;return}
+ const c=n.c,names=G.path.map(i=>G.idx[i].n.split(" ")[0]);const direct=G.path.length===2;
+ box.innerHTML=`<h3>${esc(c.n)}</h3><div class="sub" style="margin:0">${esc(c.o)} · ${esc(c.st)} · ${esc(c.city)}</div><p style="margin:8px 0">Dernier contact : <b>il y a ${c.ds} jours</b> ${c.ds>=30?'<span class="tag w">froid</span>':'<span class="tag ok">chaud</span>'}</p>
+ <p style="margin:6px 0">${G.path.length?(direct?"Tu es en contact direct.":"<b>Chemin d'introduction :</b> "+names.join(" → ")):"Aucun lien connu."}</p>
+ ${G.path.length>2?`<p class="sub" style="margin:4px 0">Suggestion : demande à ${esc(names[names.length-2])} de te présenter.</p>`:""}
+ <div class="row"><button class="btn sm p" data-act="followup" data-i="${c.id}">Préparer une relance</button><button class="btn sm" data-act="slotWith" data-i="${c.id}">Trouver un créneau</button></div>`}
+function gTick(){if(!G||G.run)return;G.run=true;const step=()=>{if(!G||!G.c.isConnected){if(G)G.run=false;return}const{nodes,edges,w,h}=G;
+  nodes.forEach(a=>{nodes.forEach(b=>{if(a===b)return;let dx=a.x-b.x,dy=a.y-b.y,d=Math.hypot(dx,dy)||1;if(d<150){const f=(150-d)/150*1.3;a.vx+=dx/d*f;a.vy+=dy/d*f}})});
+  edges.forEach(e=>{const dx=e.b.x-e.a.x,dy=e.b.y-e.a.y,d=Math.hypot(dx,dy)||1,t=e.me?110:90,f=(d-t)*.012;e.a.vx+=dx/d*f;e.a.vy+=dy/d*f;e.b.vx-=dx/d*f;e.b.vy-=dy/d*f});
+  nodes.forEach(n=>{if(n===G.drag)return;n.vx+=(w/2-n.x)*.0016;n.vy+=(h/2-n.y)*.0016;n.vx*=.82;n.vy*=.82;n.x=clamp(n.x+n.vx*G.heat,n.r,w-n.r);n.y=clamp(n.y+n.vy*G.heat,n.r,h-n.r)});
+  G.heat*=.985;gDraw();if(G.heat>.04||G.drag)requestAnimationFrame(step);else G.run=false};requestAnimationFrame(step)}
+function gDraw(){if(!G)return;const{x,w,h,nodes,edges,dpr}=G;x.setTransform(G.dpr,0,0,G.dpr,0,0);x.clearRect(0,0,w,h);const P=PAL(),pe=new Set();for(let i=0;i<G.path.length-1;i++)pe.add(G.path[i]+"-"+G.path[i+1]),pe.add(G.path[i+1]+"-"+G.path[i]);
+ edges.forEach(e=>{const on=pe.has(e.a.id+"-"+e.b.id);x.beginPath();x.moveTo(e.a.x,e.a.y);x.lineTo(e.b.x,e.b.y);x.strokeStyle=on?P[2]:css("--line");x.lineWidth=on?4:e.me?1:1.5;x.setLineDash(e.me?[4,4]:[]);x.stroke();x.setLineDash([]);if(on){x.fillStyle=css("--tx");x.font="11px system-ui";x.textAlign="center";x.fillText(e.l,(e.a.x+e.b.x)/2,(e.a.y+e.b.y)/2-4)}});x.lineWidth=1;
+ const col={"Client actif":P[3],Prospect:P[2],Partenaire:P[1],Fournisseur:P[4]};
+ nodes.forEach(n=>{x.beginPath();x.arc(n.x,n.y,n.r,0,7);x.fillStyle=n.me?P[0]:col[n.c.st]||P[5];x.globalAlpha=!n.me&&n.c.ds>=30?.45:1;x.fill();x.globalAlpha=1;if(n===G.sel||n===G.hov||G.path.includes(n.id)){x.lineWidth=3;x.strokeStyle=css("--tx");x.stroke();x.lineWidth=1}
+  x.fillStyle=css("--tx");x.font=(n.me?"700 ":"")+"12px system-ui";x.textAlign="center";x.fillText(n.me?"Moi":n.n.split(" ")[0],n.x,n.y+n.r+13)});}
+/* ===== automatisations ===== */
+const TRG={mail:"Un courriel arrive",invoice_late:"Une facture est en retard",invoice_paid:"Une facture est payée",task_done:"Une tâche est terminée",event_added:"Un événement est ajouté",event_moved:"Un événement est déplacé",note_saved:"Une note de réunion est enregistrée",streak:"Une série atteint un palier",zero:"Je atteins la boîte zéro",morning:"Chaque matin (à simuler)"};
+const ACTN={task:"Créer une tâche",notify:"M'envoyer une notification",draft:"Préparer un brouillon de relance",focus:"Réserver un bloc de focus demain",confetti:"Célébrer avec des confettis"};
+const SAMPLE={mail:{text:"Marie Tremblay : question sur la soumission client"},invoice_late:{text:"Facture Coop Horizon"},invoice_paid:{text:"Facture Atelier Lune"},task_done:{text:"Envoyer le plan de contenu"},event_added:{text:"Rencontre client Atelier Lune"},event_moved:{text:"Démo client"},note_saved:{text:"Rencontre Atelier Lune"},streak:{text:"7"},zero:{text:""},morning:{text:""}};
+const RPRE=[{when:"task_done",cond:"",then:"confetti",arg:"",n:"Fête chaque tâche terminée"},{when:"note_saved",cond:"",then:"task",arg:"Envoyer le compte rendu",n:"Compte rendu après chaque réunion"},{when:"morning",cond:"",then:"focus",arg:"",n:"Bloc de focus chaque matin"},{when:"invoice_paid",cond:"",then:"notify",arg:"Paiement reçu 🎉",n:"Alerte de paiement"},{when:"mail",cond:"urgent",then:"notify",arg:"Courriel urgent à traiter",n:"Alerte courriel urgent"}];
+let firing=0;
+function fire(when,ctx={}){if(firing>2)return;firing++;try{S.rules.filter(r=>r.on&&r.when===when).forEach(r=>{if(r.cond&&!flat(ctx.text||"").includes(flat(r.cond)))return;let out="";
+  if(r.then==="task"){S.tasks.push({id:id(),t:(r.arg||"Tâche automatique")+(ctx.text?" — "+ctx.text.slice(0,40):""),s:"todo",p:"Automatisations"});out="Tâche créée"}
+  else if(r.then==="notify"){notify((r.arg||"Notification")+(ctx.text&&when!=="streak"?" ("+ctx.text.slice(0,40)+")":""),"a");out="Notification envoyée"}
+  else if(r.then==="draft"){S.drafts.push({id:id(),to:ctx.text||"Contact",s:r.arg||"Relance",b:"(brouillon automatique, simulé)"});out="Brouillon préparé (non envoyé)";notify("Brouillon de relance prêt : approuve-le pour l'envoyer (simulé)","a",true)}
+  else if(r.then==="focus"){const s=findFree(dayEv(1),90,{e:3});if(s>=0){S.cal.push({id:id(),o:1,s,d:90,t:"Bloc de focus (automatique)",k:"f",fx:false,e:3});out="Bloc de focus réservé demain à "+H(s)}else out="Aucun créneau libre demain"}
+  else if(r.then==="confetti"){confetti(120);out="Confettis!"}
+  S.alog.unshift({ts:Date.now(),t:`${TRG[when]} → ${ACTN[r.then]} : ${out}`});S.alog=S.alog.slice(0,25)});save()}finally{firing--}}
+const SEL=(o,v,a)=>Object.entries(o).map(([k,l])=>`<option value="${k}" ${k===v?"selected":""}>${l}</option>`).join("");
+/* ===== réunion en direct ===== */
+const PT={equipe:["Réunion d'équipe",[["Tour de table",5],["Priorités de la semaine",10],["Blocages",10],["Prochaines étapes",5]]],standup:["Point éclair",[["Hier",5],["Aujourd'hui",5],["Blocages",5]]],demo:["Démo client",[["Accueil et objectifs",5],["Démonstration",20],["Questions",15],["Suite et décisions",5]]],retro:["Rétrospective",[["Ce qui a bien été",10],["À améliorer",15],["Idées",15],["Actions",10]]]};
+let pa=[["Tour de table",5],["Priorités de la semaine",10],["Blocages",10],["Prochaines étapes",5]],ptitle="Réunion d'équipe";
+let P=null,ptm=null;
+const mmss=s=>(s<0?"+":"")+String(Math.floor(Math.abs(s)/60)).padStart(2,"0")+":"+String(Math.abs(s)%60).padStart(2,"0");
+function presStart(){if(!pa.length){toast("Ajoute au moins un point à l'ordre du jour");return}P={items:pa.map(x=>({t:x[0],min:x[1],spent:0})),i:0,left:pa[0][1]*60,run:true,park:[],dec:[],act:[],done:false,t:ptitle};$("#pres").classList.add("on");document.body.style.overflow="hidden";presPaint();clearInterval(ptm);ptm=setInterval(presTick,1000);setTimeout(()=>{const b=$("#pres button");b&&b.focus()},50)}
+function presTick(){if(!P||!P.run||P.done)return;P.left--;P.items[P.i].spent++;presTime()}
+function presTime(){const t=$("#pTm");if(!t)return;t.textContent=mmss(P.left);t.classList.toggle("over",P.left<0);const tot=P.items.reduce((a,i)=>a+i.spent,0),pl=P.items.reduce((a,i)=>a+i.min*60,0);$("#pTot").textContent="Écoulé "+mmss(tot)+" sur "+mmss(pl)+" prévues";const sg=$$("#pSeg i");sg.forEach((s,i)=>s.className=i<P.i?(P.items[i].spent>P.items[i].min*60?"o":"d"):i===P.i?(P.left<0?"o":"c"):"")}
+function presPaint(){const el=$("#pres");if(!P){el.classList.remove("on");return}
+ if(P.done){const pl=P.items.reduce((a,i)=>a+i.min*60,0),sp=P.items.reduce((a,i)=>a+i.spent,0);el.innerHTML=`<div class="row b"><h2 style="margin:0">✅ ${esc(P.t)} : terminée</h2><button class="btn" data-act="presClose">Fermer</button></div><div class="card"><p>Durée réelle <b>${mmss(sp)}</b> pour <b>${mmss(pl)}</b> prévues (${sp<=pl?"dans les temps 👏":"dépassement de "+mmss(sp-pl)}).</p><table><tr><th>Point</th><th>Prévu</th><th>Réel</th></tr>${P.items.map(i=>`<tr><td>${esc(i.t)}</td><td>${mmss(i.min*60)}</td><td ${i.spent>i.min*60?'style="color:var(--bad)"':""}>${mmss(i.spent)}</td></tr>`).join("")}</table></div><div class="three"><div class="card"><h3>Décisions</h3>${P.dec.length?`<ul>${P.dec.map(d=>`<li>${esc(d)}</li>`).join("")}</ul>`:"<p class=sub>Aucune</p>"}</div><div class="card"><h3>Actions</h3>${P.act.length?`<ul>${P.act.map(d=>`<li>${esc(d)}</li>`).join("")}</ul>`:"<p class=sub>Aucune</p>"}</div><div class="card"><h3>Idées gardées</h3>${P.park.length?`<ul>${P.park.map(d=>`<li>${esc(d)}</li>`).join("")}</ul>`:"<p class=sub>Aucune</p>"}</div></div><div class="row"><button class="btn p" data-act="presSave">Enregistrer en note + créer les tâches</button></div>`;return}
+ el.innerHTML=`<div class="row b"><div><b>${esc(P.t)}</b> <span class="tag s">démo</span><div class="sub" style="margin:0" id="pTot"></div></div><span class="row"><button class="btn" data-act="presClose">Quitter (Échap)</button></span></div>
+ <div class="segs" id="pSeg" aria-label="Progression de l'ordre du jour">${P.items.map(()=>"<i></i>").join("")}</div>
+ <div class="sub" style="text-align:center;margin:0">Point ${P.i+1} sur ${P.items.length}</div><div class="big" id="pCur">${esc(P.items[P.i].t)}</div><div class="timer" id="pTm" role="timer" aria-live="off"></div>
+ <div class="row" style="justify-content:center"><button class="btn" data-act="presPrev">← Précédent</button><button class="btn p" data-act="presPause" id="pPause">${P.run?"⏸ Pause (espace)":"▶ Reprendre (espace)"}</button><button class="btn" data-act="presPlus">+2 min</button><button class="btn p" data-act="presNext">${P.i===P.items.length-1?"Terminer ✔":"Suivant →"}</button></div>
+ <div class="sub" style="text-align:center">${P.items[P.i+1]?"À suivre : "+esc(P.items[P.i+1].t)+" ("+P.items[P.i+1].min+" min)":"Dernier point."}</div>
+ <form class="three" data-f="presCap"><div><label class="l" for="pk">Idée à garder pour plus tard</label><input type="text" id="pk" name="park" placeholder="Entrée pour ajouter"><div class="chips" style="margin-top:4px">${P.park.map(x=>`<span class="chip">${esc(x)}</span>`).join("")}</div></div><div><label class="l" for="pd">Décision prise</label><input type="text" id="pd" name="dec" placeholder="Entrée pour ajouter"><div class="chips" style="margin-top:4px">${P.dec.map(x=>`<span class="chip">${esc(x)}</span>`).join("")}</div></div><div><label class="l" for="pa">Action à faire (qui / quoi)</label><input type="text" id="pa" name="act" placeholder="Entrée pour ajouter"><div class="chips" style="margin-top:4px">${P.act.map(x=>`<span class="chip">${esc(x)}</span>`).join("")}</div></div><button class="btn" hidden>ok</button></form>`;presTime()}
+function presMove(d){if(!P||P.done)return;const n=P.i+d;if(n<0)return;if(n>=P.items.length){P.done=true;P.run=false;clearInterval(ptm);badge("pres");confetti(100);presPaint();return}P.i=n;P.left=P.items[n].min*60-P.items[n].spent;presPaint()}
+function presClose(){clearInterval(ptm);P=null;$("#pres").classList.remove("on");document.body.style.overflow=""}
+/* ===== visite guidée ===== */
+const TOUR=[
+ {sel:"#tabs",t:"Bienvenue dans Agendo 👋",x:"Voici toutes les sections. Elles sont regroupées : Planifier, Communiquer, Piloter, Automatiser."},
+ {tab:"day",sel:"#perfBtn",t:"Ma journée parfaite ✨",x:"Un seul clic replanifie ta journée selon ton énergie : conflits réglés, pauses et dîner ajoutés, avant/après animé."},
+ {tab:"assist",sel:"#cin",t:"Parle-lui en français",x:"Essaie : « planifie une réunion avec Marie demain à 14 h pendant 45 min, puis bloque 2 heures de focus jeudi matin ». Tu peux tout annuler avec ↶."},
+ {tab:"mail",sel:"#mzBox",t:"Boîte zéro",x:"Balaye tes courriels : ← archiver, → répondre, ↑ reporter, ↓ créer une tâche. Au clavier ou à la souris."},
+ {sel:"#gsBtn",t:"Palette de commandes",x:"Ctrl/Cmd + K : navigue, lance des actions ou donne un ordre à l'assistant."},
+ {sel:"#bellBtn",t:"Notifications",x:"Tes automatisations et rappels (simulés) arrivent ici."},
+ {tab:"look",sel:"#palRow",t:"À ton image",x:"Choisis une palette de couleurs, la taille du texte ou le contraste élevé."},
+ {tab:"home",sel:"#demo",t:"À toi de jouer!",x:"Tout est en données d'exemple et reste dans ton navigateur. Amuse-toi!"}];
+let tourI=-1;
+function tourShow(i){const c=$("#tourCard");$$(".tour-hl").forEach(e=>e.classList.remove("tour-hl"));if(i<0||i>=TOUR.length){tourI=-1;c.hidden=true;S.tour=true;save();return}tourI=i;const s=TOUR[i];if(s.tab&&S.tab!==s.tab)go(s.tab,true);
+ setTimeout(()=>{const el=$(s.sel);if(!el){return}el.classList.add("tour-hl");el.scrollIntoView({block:"center",behavior:"auto"});c.hidden=false;
+  c.innerHTML=`<b>${s.t}</b><p style="margin:6px 0 10px">${s.x}</p><div class="row b"><span class="sub" style="margin:0">${i+1} / ${TOUR.length}</span><span class="row"><button class="btn sm" data-act="tourEnd">Passer</button>${i?'<button class="btn sm" data-act="tourPrev">←</button>':""}<button class="btn sm p" data-act="tourNext" id="tnb">${i===TOUR.length-1?"Terminer":"Suivant"}</button></span></div>`;
+  setTimeout(()=>{const b=el.getBoundingClientRect(),ch=c.offsetHeight,cw=c.offsetWidth;let top=b.bottom+12,left=clamp(b.left,8,innerWidth-cw-8);if(top+ch>innerHeight-8)top=Math.max(8,b.top-ch-12);if(top<8||b.height>innerHeight*.6)top=innerHeight-ch-12;c.style.top=top+"px";c.style.left=left+"px";const tb=$("#tnb");tb&&tb.focus({preventScroll:true})},350)},S.reduce?50:120)}
+/* ===== sections ===== */
+const TABS=[["home","🏠","Accueil","Aperçu"],["day","✨","Ma journée parfaite","Planifier"],["whatif","🔮","Et si ?"],["slots","🌍","Trouveur de créneaux"],["agenda","📅","Agenda"],["assist","💬","Assistant"],
+ ["mail","📭","Boîte zéro","Communiquer"],["compose","✍️","Rédacteur de courriels"],["brief","🔊","Briefing audio"],["present","🎤","Réunion en direct"],["notes","📝","Notes de réunion"],
+ ["proj","🗂️","Projets","Piloter"],["crm","🕸️","Contacts et réseau"],["fin","💰","Budget et finances"],["time","📊","Analyse du temps"],["habits","🔥","Objectifs et séries"],["focus","⏱️","Concentration"],
+ ["auto","🤖","Automatisations et modèles","Automatiser"],["integ","🔌","Intégrations"],["look","🎨","Apparence","Réglages"],["priv","🔒","Données et vie privée"]];
 const tabs=$("#tabs");
-tabs.innerHTML=TABS.map(t=>`<button role="tab" data-t="${t[0]}" id="tab-${t[0]}">${t[1]} <span>${t[2]}</span></button>`).join("");
+tabs.innerHTML=TABS.map(t=>(t[3]?`<div class="gh" role="presentation">${t[3]}</div>`:"")+`<button role="tab" data-t="${t[0]}" id="tab-${t[0]}">${t[1]} <span>${t[2]}</span></button>`).join("");
 tabs.addEventListener("click",e=>{const b=e.target.closest("button");if(b)go(b.dataset.t)});
 tabs.addEventListener("keydown",e=>{const bs=$$("button",tabs),i=bs.indexOf(document.activeElement);if(i<0)return;let n=-1;if(e.key==="ArrowDown"||e.key==="ArrowRight")n=(i+1)%bs.length;if(e.key==="ArrowUp"||e.key==="ArrowLeft")n=(i-1+bs.length)%bs.length;if(n>=0){e.preventDefault();bs[n].focus()}});
-function go(t,noscroll){S.tab=t;save();render();if(!noscroll)$("#demo").scrollIntoView({block:"start"})}
-
-const MAILS=[["Marie Tremblay","Soumission — questions","urgent","Brouillon prêt : confirmer le délai de 2 semaines."],["Infolettre Design Hebdo","10 outils à essayer","info","Archiver automatiquement."],["Banque (exemple)","Relevé disponible","info","Classer dans Finances."],["Samuel Gagnon","Rendez-vous jeudi?","action","Proposer jeudi 14 h (agenda libre)."]];
-const WEEK=[["Lun",[["9 h","Réunion d'équipe",""],["13 h","Bloc focus : maquette","f"]]],["Mar",[["10 h","Appel Studio Nord",""]]],["Mer",[["14 h","Démo client",""],["14 h","Dentiste (conflit)","c"]]],["Jeu",[["9 h","Bloc focus : rédaction","f"]]],["Ven",[["11 h","Bilan de la semaine",""]]]];
-
+function go(t,noscroll){if(t!==S.tab&&S.tab==="brief")stopBrief();S.tab=t;save();render();if(!noscroll)$("#demo").scrollIntoView({block:"start"})}
+const ring=(v,l)=>`<div class="row" style="flex-wrap:nowrap;gap:12px"><div class="ring" style="--v:${v};width:84px;height:84px"><div style="width:62px;height:62px;font-size:22px">${v}</div></div><div>${l}</div></div>`;
+const FEAT=[["day","✨","Ma journée parfaite","Replanifie toute ta journée en un clic, avec animation avant/après."],["assist","💬","Assistant en français","« Planifie une réunion avec Marie demain à 14 h, puis bloque 2 h de focus jeudi matin. »"],["whatif","🔮","Scénarios « et si »","Teste une réunion urgente ou un dîner sauté avant de t'engager."],["slots","🌍","Créneaux multi-fuseaux","Trouve l'heure qui marche de Montréal à Tokyo."],["mail","📭","Boîte zéro","Balaye tes courriels comme des cartes. Combos et confettis."],["compose","✍️","Rédacteur de courriels","Choisis le ton, réécris en un clic."],["brief","🔊","Briefing audio","Ta journée lue à voix haute par ton navigateur."],["crm","🕸️","Carte du réseau","Un graphe vivant de tes contacts et des chemins d'introduction."],["time","📊","Analyse du temps","Répartition, tendances et score d'énergie."],["fin","💰","Budget en graphiques","Enveloppes, flux de trésorerie et projection."],["habits","🔥","Séries et objectifs","Flammes, paliers et célébrations."],["present","🎤","Réunion en direct","Plein écran avec minuteur par point d'ordre du jour."],["auto","🤖","Automatisations","Si ceci, alors cela : crée tes propres règles."]];
 const V={
-home(){const open=S.tasks.filter(t=>t.s!=="done").length,paid=S.inv.filter(i=>i.s==="payée").reduce((a,i)=>a+i.a,0),due=S.inv.filter(i=>i.s!=="payée").reduce((a,i)=>a+i.a,0);
- const hd=S.habits.reduce((a,h)=>a+h.days.slice(0,5).filter(Boolean).length,0);
- return `<h2>Bonjour 👋</h2><p class="sub">Voici ta journée en un coup d'œil. <span class="tag s">Données d'exemple</span></p>
- <div class="grid"><div class="card"><div class="sub">Tâches ouvertes</div><div class="stat">${open}</div></div>
- <div class="card"><div class="sub">Courriels à traiter</div><div class="stat">${MAILS.length}</div></div>
- <div class="card"><div class="sub">Facturé / à encaisser</div><div class="stat">${fmt(paid)}</div><div class="sub">${fmt(due)} en attente</div></div>
- <div class="card"><div class="sub">Concentration (démo)</div><div class="stat">${S.focusMin} min</div></div></div>
- <h3 style="margin-top:18px">Résumé du matin (simulé)</h3><div class="card"><ul style="margin:0;padding-left:18px"><li>Un conflit d'horaire mercredi à 14 h : <a href="#" data-go="agenda">résoudre</a></li><li>Une facture en retard : Coop Horizon</li><li>Samuel Gagnon attend une réponse depuis 12 jours</li><li>Habitudes : ${hd} cochées cette semaine</li></ul></div>
- <h3 style="margin-top:18px">Actions rapides</h3><div class="row"><button class="btn" data-go="assist">💬 Demander à Agendo</button><button class="btn" data-go="focus">⏱️ Lancer 25 min</button><button class="btn" data-go="notes">📝 Nouvelle note de réunion</button><button class="btn" data-go="fin">🧾 Nouvelle facture</button></div>
- <h3 style="margin-top:18px">Liste du jour</h3><ul class="list">${S.todo.map(t=>`<li class="${t.d?"done":""}"><input type="checkbox" data-todo="${t.id}" ${t.d?"checked":""} aria-label="${esc(t.t)}"><span class="t">${esc(t.t)}</span></li>`).join("")}</ul>
- <form class="row" data-f="todo" style="margin-top:8px"><input type="text" name="t" placeholder="Ajouter à la liste du jour" aria-label="Nouvelle tâche du jour" style="flex:1"><button class="btn">Ajouter</button></form>`},
-agenda(){return `<h2>Agenda de la semaine</h2><p class="sub">Blocs de concentration proposés et conflits détectés. <span class="tag s">Données d'exemple</span></p>
- <div class="week">${WEEK.map(d=>`<div class="day"><b>${d[0]}</b>${d[1].map(e=>`<div class="ev ${e[2]}">${e[0]} · ${e[1]}</div>`).join("")}</div>`).join("")}</div>
- <div class="row" style="margin-top:12px"><button class="btn p" data-act="resolve">Résoudre le conflit de mercredi</button><button class="btn" data-act="blocks">Proposer des blocs de focus</button></div>`},
-mail(){return `<h2>Courriels triés</h2><p class="sub">L'IA propose, tu approuves. Aucun envoi réel. <span class="tag s">Données d'exemple</span></p><ul class="list">${MAILS.map((m,i)=>`<li><span class="tag ${m[2]==="urgent"?"w":""}">${m[2]}</span><span class="t"><b>${m[0]}</b> — ${m[1]}<br><small style="color:var(--mut)">${m[3]}</small></span><button class="btn sm" data-act="approve" data-i="${i}">Approuver (simulé)</button></li>`).join("")}</ul>`},
-assist(){return `<h2>Assistant</h2><p class="sub">Réponses par mots-clés (pas une vraie IA dans ce prototype). Voix : ${("webkitSpeechRecognition" in window||"SpeechRecognition" in window)?"disponible dans ton navigateur":"non disponible ici, utilise le clavier"}.</p>
- <div class="chat" id="chat" aria-live="polite">${S.chat.map(m=>`<div class="m ${m.r==="u"?"u":""}">${esc(m.t)}</div>`).join("")}</div>
- <div class="row" style="margin:10px 0">${["Résume ma journée","Ajoute une tâche : appeler Samuel","Que dois-je facturer?","Lance une session de concentration"].map(c=>`<button class="btn sm" data-chip="${esc(c)}">${esc(c)}</button>`).join("")}</div>
- <form class="row" data-f="chat"><input type="text" id="cin" name="q" placeholder="Écris ou parle à Agendo…" aria-label="Message" style="flex:1"><button type="button" class="btn" id="mic" aria-label="Dicter (microphone)">🎤</button><button class="btn p">Envoyer</button></form>`},
+home(){const m=metrics(dayEv(0)),open=S.tasks.filter(t=>t.s!=="done").length,next=dayEv(0).filter(e=>e.k==="m").sort((a,b)=>a.s-b.s)[0];
+ return `<h2>Bonjour 👋</h2><p class="sub">${cap(dlabel(0).replace("aujourd'hui",DAYS[new Date().getDay()]+" "+new Date().getDate()+" "+MONTHS[new Date().getMonth()]))} · niveau ${lvl()} <span class="tag s">Données d'exemple</span></p>
+ <div class="grid"><div class="card">${ring(m.score,`<b>Score de ma journée</b><div class="sub" style="margin:0">${m.conf} conflit(s)</div><button class="btn sm p" data-act="perfect" style="margin-top:6px">✨ L'améliorer</button>`)}</div>
+ <div class="card"><div class="sub">Prochaine réunion</div><div class="stat" style="font-size:22px">${next?esc(next.t):"Aucune"}</div><div class="sub">${next?H(next.s):""}</div></div>
+ <div class="card"><div class="sub">Tâches ouvertes · Courriels</div><div class="stat">${open} · ${S.mz.q.length}</div><div class="sub">${S.mz.q.length?"<a href='#' data-go='mail'>vider la boîte</a>":"Boîte zéro 🎉"}</div></div>
+ <div class="card"><div class="sub">Expérience</div><div class="stat">${S.xp} XP</div><div class="bar2" role="progressbar" aria-valuenow="${S.xp%100}" aria-valuemin="0" aria-valuemax="100"><div style="width:${S.xp%100}%"></div></div><div class="sub">${S.badges.length} badge(s)</div></div></div>
+ <h3 style="margin-top:18px">Fonctions à essayer</h3><div class="hs">${FEAT.map(f=>`<div class="card"><b>${f[1]} ${f[2]}</b><p>${f[3]}</p><button class="btn sm" data-go="${f[0]}">Ouvrir</button></div>`).join("")}</div>
+ <h3 style="margin-top:18px">Liste du jour</h3><ul class="list">${S.todo.map(t=>`<li class="${t.d?"done":""}"><input type="checkbox" data-todo="${t.id}" ${t.d?"checked":""} aria-label="${esc(t.t)}"><span class="t">${esc(t.t)}${t.due!=null&&t.due!==undefined?` <span class="tag">${dlabel(t.due)}</span>`:""}</span></li>`).join("")}</ul>
+ <form class="row" data-f="todo" style="margin-top:8px"><input type="text" name="t" placeholder="Ajouter à la liste du jour" aria-label="Nouvelle tâche du jour" style="flex:1"><button class="btn">Ajouter</button></form>
+ <h3 style="margin-top:18px">Badges</h3><div class="row">${Object.entries(BADGES).map(([k,b])=>`<span class="bd ${S.badges.includes(k)?"":"off"}" title="${S.badges.includes(k)?"Débloqué":"À débloquer"}">${b[0]} ${b[1]}</span>`).join("")}</div>`},
+day(){return `<h2>Ma journée parfaite</h2><p class="sub">Un clic : Agendo replanifie ta journée selon ton énergie (concentration le matin, admin dans le creux de l'après-midi), règle les conflits, ajoute dîner et pauses. Glisse les blocs pour les déplacer. <span class="tag s">Données d'exemple</span></p>
+ <div class="row" style="margin-bottom:12px"><button class="btn p" id="perfBtn" data-act="perfect">✨ Créer ma journée parfaite</button><button class="btn" id="cmpBtn" data-act="cmpToggle" hidden>👁 Voir l'avant</button><span class="sel"><label for="tplSel" class="sub" style="margin:0">Modèle :</label><select id="tplSel"><option value="">Choisir…</option>${Object.entries(TPL).map(([k,v])=>`<option value="${k}">${v[0]}</option>`).join("")}</select></span><button class="btn" data-act="brief2">🔊 Écouter le briefing</button></div>
+ <div class="two"><div class="card"><div class="tl" id="tl" aria-label="Chronologie de la journée"></div></div><div id="dayInfo"></div></div>`},
+whatif(){return `<h2>Et si ?</h2><p class="sub">Compare ta journée actuelle à un scénario, sans rien modifier tant que tu n'appliques pas. <span class="tag s">Données d'exemple</span></p>
+ <div class="chips" role="group" aria-label="Scénarios">${SC.map(s=>`<button class="chip ${scSel===s.id?"on":""}" data-act="sc" data-i="${s.id}" aria-pressed="${scSel===s.id}">${s.t}</button>`).join("")}</div>
+ <form class="row" data-f="scc" style="margin:12px 0"><span>Et si j'ajoute</span><input type="text" name="t" placeholder="Une tâche" aria-label="Titre de la tâche" style="flex:1;min-width:140px"><label class="sr" for="scd" style="position:absolute;left:-999px">Durée</label><select id="scd" name="d" style="width:auto"><option value="30">30 min</option><option value="60" selected>1 h</option><option value="90">1 h 30</option><option value="120">2 h</option></select><select name="e" aria-label="Énergie requise" style="width:auto"><option value="3">Exigeante</option><option value="2">Moyenne</option><option value="1">Légère</option></select><button class="btn p">Simuler</button></form>
+ <div id="wi"><div id="wiOut"></div></div>`},
+slots(){const pc=S.contacts;return `<h2>Trouveur de créneaux</h2><p class="sub">Choisis les participants (simulés) : Agendo trouve les heures qui respectent les fuseaux horaires et ton agenda. Ton fuseau : Montréal.</p>
+ <div class="chips" role="group" aria-label="Participants" style="margin-bottom:10px">${pc.map(c=>`<button class="chip ${S.sp.includes(c.id)?"on":""}" data-act="slP" data-i="${c.id}" aria-pressed="${S.sp.includes(c.id)}">${esc(c.n.split(" ")[0])} · ${esc(c.city)}</button>`).join("")}</div>
+ <div class="row" style="margin-bottom:12px"><span class="sel"><label for="sld" class="sub" style="margin:0">Durée</label><select id="sld">${[30,45,60,90].map(d=>`<option value="${d}" ${S.sd===d?"selected":""}>${DUR(d)}</option>`).join("")}</select></span><span class="sel"><label for="slo" class="sub" style="margin:0">À partir de</label><select id="slo">${[0,1,2,3,7].map(o=>`<option value="${o}" ${S.so===o?"selected":""}>${dlabel(o)}</option>`).join("")}</select></span><span class="sel"><label for="sln" class="sub" style="margin:0">Sur</label><select id="sln">${[3,5,10].map(o=>`<option value="${o}" ${S.sn===o?"selected":""}>${o} jours</option>`).join("")}</select></span><label class="sel"><input type="checkbox" id="slt" ${S.tol?"checked":""}> Accepter ±1 h hors des heures de travail (9 h à 17 h)</label></div>
+ <div id="slOut" aria-live="polite"></div>`},
+agenda(){const days=Array.from({length:7},(_,i)=>i);return `<h2>Agenda</h2><p class="sub">Conflits détectés automatiquement. <span class="tag s">Données d'exemple</span></p>
+ <div class="row" style="margin-bottom:10px"><button class="btn p" data-act="resolve">Résoudre les conflits</button><button class="btn" data-act="blocks">Proposer des blocs de focus</button><button class="btn" data-go="day">✨ Journée parfaite</button></div>
+ <div class="scroll"><div class="week" style="grid-template-columns:repeat(7,minmax(130px,1fr))">${days.map(o=>{const ev=dayEv(o).sort((a,b)=>a.s-b.s),mt=metrics(ev);return `<div class="day"><b>${cap(dlabel(o))}</b>${mt.conf?` <span class="tag w">${mt.conf} conflit(s)</span>`:""}${ev.map(e=>`<div class="ev ${e.k==="f"?"f":""} ${ev.some(x=>x!==e&&x.k!=="b"&&x.k!=="l"&&e.k!=="b"&&e.k!=="l"&&ovl(x,e))?"c":""}">${H(e.s)} · ${esc(e.t)} <button class="btn sm d" style="min-height:22px;padding:0 6px" data-act="delEv" data-i="${e.id}" aria-label="Supprimer ${esc(e.t)}">✕</button></div>`).join("")}</div>`}).join("")}</div></div>
+ <h3 style="margin-top:16px">Ajouter un événement</h3><form data-f="ev" class="grid"><input type="text" name="t" placeholder="Titre" aria-label="Titre" required><select name="o" aria-label="Jour">${days.map(o=>`<option value="${o}">${cap(dlabel(o))}</option>`).join("")}</select><input type="text" name="h" placeholder="Heure (ex. 14 h 30)" aria-label="Heure"><select name="d" aria-label="Durée"><option value="30">30 min</option><option value="45">45 min</option><option value="60" selected>1 h</option><option value="90">1 h 30</option><option value="120">2 h</option></select><select name="k" aria-label="Type"><option value="m">Réunion</option><option value="f">Focus</option><option value="a">Admin</option><option value="p">Perso</option></select><button class="btn p">Ajouter</button></form>`},
+assist(){const SR="webkitSpeechRecognition" in window||"SpeechRecognition" in window;return `<h2>Assistant</h2><p class="sub">Je comprends les dates, heures, durées et personnes en français, j'enchaîne plusieurs actions, et tu peux tout annuler (↶). Ce n'est pas une vraie IA : c'est un moteur de règles local. Voix : ${SR?"dictée disponible":"non disponible ici"}.</p>
+ <div class="chat" id="chat" aria-live="polite">${S.chat.map(m=>m.r==="u"?`<div class="m u">${esc(m.lines[0])}</div>`:`<div class="m">${m.chips&&m.chips.length?`<div class="chips">${m.chips.map(c=>`<span class="chip">${esc(c)}</span>`).join("")}</div>`:""}${m.lines.map((l,i)=>`<span class="ln ${m.oks&&m.oks[i]===false?"er":m.oks?"ok":""}">${esc(l)}</span>`).join("")}</div>`).join("")}</div>
+ <div class="row" style="margin:10px 0"><button class="btn sm" data-act="undo2">↶ Annuler</button>${["Planifie une réunion avec Marie demain à 14 h pendant 45 min, puis bloque 2 heures de focus jeudi matin, et rappelle-moi d'appeler Samuel vendredi","Déplace la démo client à jeudi 10 h","Annule mes réunions de demain","Facture 500 $ à Studio Nord","Dépense 40 $ café avec un client","Trouve un créneau avec Inès et Kenji","Écris un courriel formel à Marie sur la soumission","Optimise ma journée","Résous les conflits","Lance 50 minutes de focus","Thème océan"].map(c=>`<button class="btn sm" data-chip="${esc(c)}">${esc(c.length>48?c.slice(0,46)+"…":c)}</button>`).join("")}</div>
+ <form class="row" data-f="chat"><input type="text" id="cin" name="q" placeholder="Ex. : planifie un appel avec Samuel après-demain à 10 h 30, puis…" aria-label="Message" style="flex:1" autocomplete="off"><button type="button" class="btn" id="mic" aria-label="Dicter (microphone)">🎤</button><button class="btn p">Envoyer</button></form><div class="pv chips" id="pv" aria-live="polite"></div>`},
+mail(){return `<h2>Boîte zéro</h2><p class="sub">Balaye tes courriels : ← archiver · → répondre · ↑ reporter · ↓ créer une tâche. Au clavier : A, R, S, T, Z pour annuler. Aucun envoi réel. <span class="tag s">Données d'exemple</span></p>
+ <div class="row b"><div id="mzStats" class="row"></div></div><div class="bar2" style="margin:8px 0" role="progressbar" aria-label="Progression" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div id="mzBar" style="width:0"></div></div><div id="mzBox"></div>
+ ${S.drafts.length?`<h3 style="margin-top:16px">Brouillons à approuver (simulés)</h3><ul class="list">${S.drafts.slice(-5).map(d=>`<li><span class="t"><b>${esc(d.to)}</b> — ${esc(d.s)}<br><small style="color:var(--mut)">${esc(d.b)}</small></span><button class="btn sm" data-act="approveDraft" data-i="${d.id}">Approuver (simulé)</button></li>`).join("")}</ul>`:""}`},
+compose(){const g=S.gen;return `<h2>Rédacteur de courriels</h2><p class="sub">Choisis l'intention, le ton et la longueur : le texte se réécrit instantanément. Modèles locaux, sans envoi réel.</p>
+ <div class="two"><div><label class="l" for="gTo">Destinataire</label><select id="gTo">${S.contacts.map(c=>`<option value="${c.id}" ${c.id==g.to?"selected":""}>${esc(c.n)} — ${esc(c.o)}</option>`).join("")}</select>
+ <label class="l" for="gInt">Intention</label><select id="gInt">${SEL(INTS,g.int)}</select>
+ <label class="l" for="gPts">Sujet ou points clés</label><input type="text" id="gPts" value="${esc(g.pts)}" placeholder="ex. la soumission du site vitrine">
+ <label class="l">Ton</label><div class="chips" role="group" aria-label="Ton">${Object.entries(TONES).map(([k,v])=>`<button class="chip" data-tone="${k}" aria-pressed="${g.tone===k}">${v.l}</button>`).join("")}</div>
+ <label class="l">Longueur</label><div class="chips" role="group" aria-label="Longueur">${["Court","Standard","Détaillé"].map((l,i)=>`<button class="chip" data-len="${i}" aria-pressed="${g.len===i}">${l}</button>`).join("")}</div>
+ <div style="margin-top:12px"><div class="sub" style="margin:0">Formalité</div><div class="tone"><div id="tn-f"></div></div><div class="sub" style="margin:4px 0 0">Chaleur</div><div class="tone"><div id="tn-c"></div></div><div class="sub" style="margin:4px 0 0">Franchise</div><div class="tone"><div id="tn-d"></div></div></div></div>
+ <div><div class="out" id="gOut" aria-live="polite"></div><div class="sub" id="gStat"></div><div class="row"><button class="btn p" data-act="gAgain">🔄 Réécrire autrement</button><button class="btn" data-act="gCopy">📋 Copier</button><button class="btn" data-act="gSave">💾 Enregistrer le brouillon (simulé)</button></div></div></div>`},
+brief(){const ok="speechSynthesis" in window;return `<h2>Briefing audio</h2><p class="sub">Ta journée lue par la synthèse vocale de ton navigateur (rien n'est envoyé à un serveur par Agendo). ${ok?"":"<b>Non disponible dans ce navigateur : utilise la transcription.</b>"}</p>
+ <div class="row" style="margin-bottom:10px"><button class="btn p" data-act="bPlay" ${ok?"":"disabled"}>▶ Écouter</button><button class="btn" id="bPause" data-act="bPause" ${ok?"":"disabled"}>⏸ Pause</button><button class="btn" data-act="bStop" ${ok?"":"disabled"}>⏹ Arrêter</button><div class="aud" id="aud" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
+ <div class="row" style="margin-bottom:10px"><span class="sel"><label for="bRate" class="sub" style="margin:0">Vitesse</label><input type="range" id="bRate" min="0.7" max="1.4" step="0.1" value="1"></span><span class="sel"><label for="bVoice" class="sub" style="margin:0">Voix</label><select id="bVoice"><option value="">Automatique (français)</option></select></span></div>
+ <div class="card tr" id="tr" aria-label="Transcription"></div>`},
+present(){return `<h2>Réunion en direct</h2><p class="sub">Prépare un ordre du jour minuté, puis passe en plein écran : minuteur par point, dépassements, idées à garder, décisions et actions, résumé à la fin.</p>
+ <div class="row" style="margin-bottom:10px"><span class="sel"><label for="pTpl" class="sub" style="margin:0">Modèle</label><select id="pTpl"><option value="">Choisir…</option>${Object.entries(PT).map(([k,v])=>`<option value="${k}">${v[0]}</option>`).join("")}</select></span><span class="sel"><label for="pTitle" class="sub" style="margin:0">Titre</label><input type="text" id="pTitle" value="${esc(ptitle)}"></span></div>
+ <ul class="list" id="pList">${pa.map((x,i)=>`<li><span class="t">${i+1}. ${esc(x[0])}</span><span class="tag">${x[1]} min</span><button class="btn sm" data-act="pUp" data-i="${i}" aria-label="Monter">▲</button><button class="btn sm" data-act="pDn" data-i="${i}" aria-label="Descendre">▼</button><button class="btn sm d" data-act="pDel" data-i="${i}" aria-label="Supprimer">✕</button></li>`).join("")}</ul>
+ <form class="row" data-f="pAdd" style="margin:10px 0"><input type="text" name="t" placeholder="Nouveau point" aria-label="Nouveau point" style="flex:2;min-width:140px" required><input type="number" name="m" value="5" min="1" max="120" aria-label="Minutes" style="flex:0 0 90px"><button class="btn">Ajouter</button></form>
+ <p class="sub">Total prévu : <b>${pa.reduce((a,x)=>a+x[1],0)} min</b></p><button class="btn p" data-act="presGo">🎤 Démarrer le mode présentation</button>`},
 notes(){return `<h2>Notes de réunion</h2><p class="sub">Colle ou écris des notes : Agendo (simulé) en tire un résumé et des tâches. L'analyse est locale et très simple.</p>
  <form data-f="note"><label class="l" for="nt">Titre</label><input type="text" id="nt" name="ti" placeholder="Ex. : Rencontre Atelier Lune"><label class="l" for="nb">Notes (une idée par ligne; « à faire : » ou « - [ ] » crée une tâche)</label><textarea id="nb" name="b" rows="5" placeholder="On a validé le budget.&#10;À faire : envoyer la maquette vendredi&#10;À faire : confirmer le délai"></textarea><div class="row" style="margin-top:8px"><button class="btn p">Résumer et extraire</button><button type="button" class="btn" data-act="sample">Remplir un exemple</button></div></form>
  <h3 style="margin-top:18px">Notes enregistrées</h3>${S.notes.length?S.notes.map(n=>`<div class="card" style="margin-bottom:8px"><div class="row b"><b>${esc(n.ti)}</b><button class="btn sm d" data-del="notes" data-i="${n.id}">Supprimer</button></div><p style="margin:6px 0"><i>Résumé :</i> ${esc(n.sum)}</p>${n.tasks.length?`<ul style="margin:0;padding-left:18px">${n.tasks.map(t=>`<li>${esc(t)}</li>`).join("")}</ul>`:""}</div>`).join(""):`<p class="sub">Aucune note pour l'instant.</p>`}`},
-proj(){const cols=[["todo","À faire"],["doing","En cours"],["done","Terminé"]];return `<h2>Projets et tâches</h2><p class="sub">Tableau kanban. Déplace les cartes avec les boutons ◀ ▶ (accessible au clavier).</p>
+proj(){const cols=[["todo","À faire"],["doing","En cours"],["done","Terminé"]];return `<h2>Projets et tâches</h2><p class="sub">Tableau kanban. Déplace les cartes avec les boutons ◀ ▶ (accessible au clavier). Terminer une tâche peut déclencher une automatisation.</p>
  <form class="row" data-f="task" style="margin-bottom:12px"><input type="text" name="t" placeholder="Nouvelle tâche" aria-label="Nouvelle tâche" style="flex:2;min-width:160px"><input type="text" name="p" placeholder="Projet" aria-label="Projet" style="flex:1;min-width:110px"><button class="btn p">Ajouter</button></form>
  <div class="kan">${cols.map(c=>`<div class="col"><h3>${c[1]} <span class="tag">${S.tasks.filter(t=>t.s===c[0]).length}</span></h3>${S.tasks.filter(t=>t.s===c[0]).map(t=>`<div class="k"><div>${esc(t.t)}</div><div class="row b"><span class="tag">${esc(t.p||"Sans projet")}</span><span class="row"><button class="btn sm" data-mv="-1" data-i="${t.id}" aria-label="Reculer">◀</button><button class="btn sm" data-mv="1" data-i="${t.id}" aria-label="Avancer">▶</button><button class="btn sm d" data-del="tasks" data-i="${t.id}" aria-label="Supprimer">✕</button></span></div></div>`).join("")}</div>`).join("")}</div>`},
-habits(){const D=["L","M","M","J","V","S","D"];return `<h2>Habitudes et objectifs</h2><p class="sub">Coche les jours réussis. Sans pression : le but est la régularité.</p>
- <div class="scroll"><table><tr><th>Habitude</th>${D.map(d=>`<th>${d}</th>`).join("")}<th></th></tr>${S.habits.map(h=>`<tr><td>${esc(h.n)}</td>${h.days.map((v,i)=>`<td><input type="checkbox" data-h="${h.id}" data-d="${i}" ${v?"checked":""} aria-label="${esc(h.n)} jour ${i+1}"></td>`).join("")}<td><button class="btn sm d" data-del="habits" data-i="${h.id}" aria-label="Supprimer">✕</button></td></tr>`).join("")}</table></div>
+habits(){const D=["D","L","M","M","J","V","S"],tdy=new Date().getDay();return `<h2>Objectifs et séries</h2><p class="sub">Coche aujourd'hui : ta série grandit. Paliers à 3, 7, 14, 21 et 30 jours : célébration garantie. Niveau ${lvl()} · ${S.xp} XP.</p>
+ <div class="grid">${S.habits.map(h=>{const s=streakOf(h),best=(()=>{let b=0,c=0;h.h.forEach(v=>{c=v?c+1:0;b=Math.max(b,c)});return b})(),nx=MILE.find(m=>m>s);return `<div class="card"><div class="row b"><b>${esc(h.n)}</b><button class="btn sm d" data-del="habits" data-i="${h.id}" aria-label="Supprimer ${esc(h.n)}">✕</button></div><div class="row" style="margin:6px 0"><span class="flame" style="font-size:26px">🔥 ${s}</span><span class="sub" style="margin:0">jour${s>1?"s":""} de suite · record ${best}${nx?` · prochain palier : ${nx}`:""}</span></div>
+ <div class="heat" role="img" aria-label="28 derniers jours">${h.h.map((v,i)=>`<i class="${v?"on":""}" title="Il y a ${27-i} j"></i>`).join("")}</div><div style="margin-top:8px"><label class="row" style="gap:8px"><input type="checkbox" data-h="${h.id}" ${h.h[27]?"checked":""}> Fait aujourd'hui (${D[tdy]})</label></div></div>`}).join("")}</div>
  <form class="row" data-f="habit" style="margin:10px 0"><input type="text" name="n" placeholder="Nouvelle habitude" aria-label="Nouvelle habitude" style="flex:1"><button class="btn">Ajouter</button></form>
- <h3 style="margin-top:18px">Objectifs</h3>${S.goals.map(g=>`<div class="card" style="margin-bottom:8px"><div class="row b"><b>${esc(g.n)}</b><span>${g.v} %</span></div><div class="bar2" role="progressbar" aria-valuenow="${g.v}" aria-valuemin="0" aria-valuemax="100"><div style="width:${g.v}%"></div></div><div class="row" style="margin-top:8px"><button class="btn sm" data-g="${g.id}" data-v="-10">−10</button><button class="btn sm" data-g="${g.id}" data-v="10">+10</button></div></div>`).join("")}
- <form class="row" data-f="goal"><input type="text" name="n" placeholder="Nouvel objectif" aria-label="Nouvel objectif" style="flex:1"><button class="btn">Ajouter</button></form>`},
-crm(){return `<h2>Contacts</h2><p class="sub">Un petit CRM : qui relancer, et quand. Personnes fictives.</p>
- <div class="grid">${S.contacts.map(c=>`<div class="card"><div class="row b"><b>${esc(c.n)}</b><span class="tag">${esc(c.st)}</span></div><div class="sub" style="margin:2px 0">${esc(c.o)} · ${esc(c.e)}</div><div class="sub" style="margin:2px 0">Dernier contact : ${esc(c.last)}</div>${c.nt?`<p style="margin:6px 0;font-size:14px">${esc(c.nt)}</p>`:""}<div class="row"><button class="btn sm" data-act="followup" data-i="${c.id}">Préparer une relance</button><button class="btn sm d" data-del="contacts" data-i="${c.id}">Supprimer</button></div></div>`).join("")}</div>
- <h3 style="margin-top:18px">Ajouter un contact</h3><form data-f="contact" class="grid"><input type="text" name="n" placeholder="Nom" aria-label="Nom" required><input type="text" name="o" placeholder="Entreprise" aria-label="Entreprise"><select name="st" aria-label="Statut"><option>Prospect</option><option>Client actif</option><option>Partenaire</option></select><button class="btn p">Ajouter</button></form>`},
+ <h3 style="margin-top:18px">Objectifs</h3>${S.goals.map(g=>`<div class="card" style="margin-bottom:8px"><div class="row b"><b>${esc(g.n)} ${g.v>=100?"🏆":""}</b><span>${g.v} %</span></div><div class="bar2" role="progressbar" aria-valuenow="${g.v}" aria-valuemin="0" aria-valuemax="100"><div style="width:${g.v}%"></div></div><div class="row" style="margin-top:8px"><button class="btn sm" data-g="${g.id}" data-v="-10">−10</button><button class="btn sm" data-g="${g.id}" data-v="10">+10</button><button class="btn sm d" data-del="goals" data-i="${g.id}" aria-label="Supprimer">✕</button></div></div>`).join("")}
+ <form class="row" data-f="goal"><input type="text" name="n" placeholder="Nouvel objectif" aria-label="Nouvel objectif" style="flex:1"><button class="btn">Ajouter</button></form>
+ <div class="row" style="margin-top:12px"><button class="btn" data-act="party">🎉 Tester une célébration</button></div>`},
+crm(){const cold=S.contacts.filter(c=>c.ds>=30);return `<h2>Contacts et réseau</h2><p class="sub">Carte relationnelle interactive : glisse les contacts, clique pour voir le chemin d'introduction. Personnes fictives.</p>
+ <div class="two"><div><canvas class="gcv" id="gcv" tabindex="0" role="application" aria-label="Carte relationnelle. Flèches pour parcourir les contacts, Entrée ou clic pour sélectionner."></canvas><div class="tip" id="gTip">Clique un contact pour voir le chemin d'introduction.</div><div class="leg"><span><i style="background:var(--ac)"></i>Moi</span><span><i style="background:var(--ok)"></i>Client actif</span><span><i style="background:var(--warn)"></i>Prospect</span><span><i style="background:var(--ac2)"></i>Partenaire</span><span><i style="background:#ff7ac8"></i>Fournisseur</span><span>Pâle = contact froid (30 j et plus)</span></div></div><div class="card" id="gInfo"></div></div>
+ ${cold.length?`<div class="card" style="margin-top:12px"><b>${cold.length} contact(s) froid(s)</b> : ${cold.map(c=>esc(c.n.split(" ")[0])).join(", ")}. <button class="btn sm p" data-act="relanceAll">Préparer des relances pour tous</button></div>`:""}
+ <h3 style="margin-top:18px">Fiches</h3><div class="grid">${S.contacts.map(c=>`<div class="card"><div class="row b"><b>${esc(c.n)}</b><span class="tag">${esc(c.st)}</span></div><div class="sub" style="margin:2px 0">${esc(c.o)} · ${esc(c.city)}</div><div class="sub" style="margin:2px 0">Dernier contact : il y a ${c.ds} jour${c.ds>1?"s":""}</div>${c.nt?`<p style="margin:6px 0;font-size:14px">${esc(c.nt)}</p>`:""}<div class="row"><button class="btn sm" data-act="gSel" data-i="${c.id}">Voir sur la carte</button><button class="btn sm" data-act="followup" data-i="${c.id}">Relance</button><button class="btn sm d" data-del="contacts" data-i="${c.id}" aria-label="Supprimer ${esc(c.n)}">✕</button></div></div>`).join("")}</div>
+ <h3 style="margin-top:18px">Ajouter un contact</h3><form data-f="contact" class="grid"><input type="text" name="n" placeholder="Nom" aria-label="Nom" required><input type="text" name="o" placeholder="Entreprise" aria-label="Entreprise"><select name="st" aria-label="Statut"><option>Prospect</option><option>Client actif</option><option>Partenaire</option><option>Fournisseur</option></select><button class="btn p">Ajouter</button></form>`},
 fin(){const tot=S.inv.reduce((a,i)=>a+i.a,0),paid=S.inv.filter(i=>i.s==="payée").reduce((a,i)=>a+i.a,0),ex=S.exp.reduce((a,e)=>a+e.a,0);
- return `<h2>Finances de travailleur autonome</h2><p class="sub">Suivi simple. Montants fictifs. Ceci n'est pas un conseil fiscal ou comptable.</p>
+ return `<h2>Budget et finances</h2><p class="sub">Suivi simple avec graphiques. Montants fictifs. Ceci n'est pas un conseil fiscal ou comptable.</p>
  <div class="grid"><div class="card"><div class="sub">Facturé</div><div class="stat">${fmt(tot)}</div></div><div class="card"><div class="sub">Encaissé</div><div class="stat">${fmt(paid)}</div></div><div class="card"><div class="sub">Dépenses</div><div class="stat">${fmt(ex)}</div></div><div class="card"><div class="sub">Solde encaissé − dépenses</div><div class="stat">${fmt(paid-ex)}</div></div></div>
- <h3 style="margin-top:18px">Factures</h3><div class="scroll"><table><tr><th>Client</th><th>Montant</th><th>Date</th><th>Statut</th><th></th></tr>${S.inv.map(i=>`<tr><td>${esc(i.c)}</td><td>${fmt(i.a)}</td><td>${i.d}</td><td><span class="tag ${i.s==="payée"?"ok":i.s==="en retard"?"w":""}">${i.s}</span></td><td class="row">${i.s!=="payée"?`<button class="btn sm" data-act="paid" data-i="${i.id}">Marquer payée</button>`:""}<button class="btn sm d" data-del="inv" data-i="${i.id}" aria-label="Supprimer">✕</button></td></tr>`).join("")}</table></div>
+ <div class="grid" style="margin-top:12px"><div class="card"><h3>Dépenses par catégorie</h3><canvas id="cExp" data-h="210" aria-label="Dépenses par catégorie"></canvas><div class="tip" id="cExpTip">Survole le graphique pour voir le détail.</div><div id="expLeg"></div></div><div class="card"><h3>Revenus et dépenses (6 mois, simulés)</h3><canvas id="cCash" data-h="210" aria-label="Revenus et dépenses sur six mois"></canvas>${legend([["Revenus","var(--ok)"],["Dépenses","var(--warn)"]])}</div><div class="card"><h3>Projection de trésorerie (exemple)</h3><canvas id="cProj" data-h="210" aria-label="Projection de trésorerie"></canvas><p class="sub" style="margin:4px 0 0">Extrapolation simple de la moyenne : pas une prévision.</p></div></div>
+ <h3 style="margin-top:18px">Enveloppes du mois</h3><div class="card" id="env"></div>
+ <h3 style="margin-top:18px">Factures</h3><div class="scroll"><table><tr><th>Client</th><th>Montant</th><th>Date</th><th>Statut</th><th></th></tr>${S.inv.map(i=>`<tr><td>${esc(i.c)}</td><td>${fmt(i.a)}</td><td>${i.d}</td><td><span class="tag ${i.s==="payée"?"ok":i.s==="en retard"?"w":""}">${i.s}</span></td><td class="row">${i.s!=="payée"?`<button class="btn sm" data-act="paid" data-i="${i.id}">Marquer payée</button>`:""}${i.s==="en retard"?`<button class="btn sm" data-act="lateFire" data-i="${i.id}">Relancer</button>`:""}<button class="btn sm d" data-del="inv" data-i="${i.id}" aria-label="Supprimer">✕</button></td></tr>`).join("")}</table></div>
  <form class="row" data-f="inv" style="margin-top:10px"><input type="text" name="c" placeholder="Client" aria-label="Client" required style="flex:2;min-width:120px"><input type="number" name="a" placeholder="Montant $" min="0" step="0.01" aria-label="Montant" required style="flex:1;min-width:100px"><button class="btn p">Créer la facture (démo)</button></form>
- <h3 style="margin-top:18px">Dépenses</h3><ul class="list">${S.exp.map(e=>`<li><span class="t">${esc(e.n)}</span><b>${fmt(e.a)}</b><button class="btn sm d" data-del="exp" data-i="${e.id}" aria-label="Supprimer">✕</button></li>`).join("")}</ul>
- <form class="row" data-f="exp" style="margin-top:8px"><input type="text" name="n" placeholder="Dépense" aria-label="Dépense" required style="flex:2"><input type="number" name="a" placeholder="$" min="0" step="0.01" aria-label="Montant" required style="flex:1"><button class="btn">Ajouter</button></form>`},
+ <h3 style="margin-top:18px">Dépenses</h3><ul class="list">${S.exp.map(e=>`<li><span class="t">${esc(e.n)} <span class="tag">${esc(e.c||"Autre")}</span></span><b>${fmt(e.a)}</b><button class="btn sm d" data-del="exp" data-i="${e.id}" aria-label="Supprimer">✕</button></li>`).join("")}</ul>
+ <form class="row" data-f="exp" style="margin-top:8px"><input type="text" name="n" placeholder="Dépense" aria-label="Dépense" required style="flex:2;min-width:120px"><input type="number" name="a" placeholder="$" min="0" step="0.01" aria-label="Montant" required style="flex:1;min-width:80px"><select name="c" aria-label="Catégorie" style="flex:1;min-width:110px">${BC.map(c=>`<option>${c}</option>`).join("")}</select><button class="btn">Ajouter</button></form>`},
+time(){return `<h2>Analyse du temps</h2><p class="sub">Où va ton temps? Aujourd'hui vient de ton agenda; les semaines passées sont simulées. <span class="tag s">Données d'exemple</span></p>
+ <div class="sw" role="group" aria-label="Période" style="margin-bottom:12px"><button data-act="tPer" data-i="day" aria-pressed="${tPeriod==="day"}">Aujourd'hui</button><button data-act="tPer" data-i="wk" aria-pressed="${tPeriod==="wk"}">4 dernières semaines</button></div>
+ <div class="grid"><div class="card"><h3>Répartition</h3><canvas id="cDon" data-h="220" aria-label="Répartition du temps"></canvas><div class="tip" id="cDonTip">Survole le graphique pour voir le détail.</div><div id="donLeg"></div></div><div class="card"><h3>Tendance sur 8 semaines (heures)</h3><canvas id="cTrend" data-h="220" aria-label="Tendance du focus et des réunions"></canvas>${legend([["Focus","var(--ac2)"],["Réunions","var(--ac)"]])}</div><div class="card"><h3>Énergie vs charge (aujourd'hui)</h3><canvas id="cEn" data-h="220" aria-label="Courbe d'énergie et charge de travail"></canvas>${legend([["Énergie disponible","var(--ac2)"],["Charge planifiée","var(--warn)"]])}</div></div>
+ <div id="tInfo" style="margin-top:12px"></div><h3 style="margin-top:16px">Carte de chaleur</h3><div class="card" id="tHm"></div>`},
 focus(){return `<h2>Mode concentration</h2><p class="sub">Un minuteur pour travailler sans distraction. Le temps compte dans ton accueil (démo).</p>
  <div class="timer" id="tm" role="timer" aria-live="off">25:00</div><div class="row" style="justify-content:center;margin:10px 0"><button class="btn p" id="tStart">Démarrer</button><button class="btn" id="tPause">Pause</button><button class="btn" id="tReset">Réinitialiser</button></div>
  <div class="row" style="justify-content:center"><label for="tdur" class="sub" style="margin:0">Durée :</label><select id="tdur" style="width:auto"><option value="25">25 min</option><option value="50">50 min</option><option value="5">5 min (test)</option></select></div>
  <p class="sub" style="text-align:center;margin-top:12px">Total cumulé (démo) : <b>${S.focusMin} min</b></p>`},
+auto(){return `<h2>Automatisations et modèles</h2><p class="sub">« Si ceci, alors cela » : construis tes règles, simule un événement et vois le résultat. Tout est local et simulé.</p>
+ <h3>Nouvelle règle</h3><form data-f="rule" class="card"><div class="sel" style="width:100%"><b>SI</b><select name="when" aria-label="Déclencheur">${SEL(TRG,"mail")}</select><input type="text" name="cond" placeholder="… contient (optionnel)" aria-label="Contient" style="min-width:150px"></div><div class="sel" style="width:100%;margin-top:8px"><b>ALORS</b><select name="then" aria-label="Action">${SEL(ACTN,"notify")}</select><input type="text" name="arg" placeholder="Texte (optionnel)" aria-label="Texte" style="min-width:180px"><button class="btn p">Ajouter la règle</button></div></form>
+ <h3 style="margin-top:16px">Mes règles</h3>${S.rules.length?S.rules.map(r=>`<div class="rule"><label class="tg"><input type="checkbox" data-rule="${r.id}" ${r.on?"checked":""} aria-label="Activer la règle"><span></span></label><div class="t"><b>SI</b> ${esc(TRG[r.when])}${r.cond?` contenant « ${esc(r.cond)} »`:""}<br><b>ALORS</b> ${esc(ACTN[r.then])}${r.arg?` : « ${esc(r.arg)} »`:""}</div><button class="btn sm" data-act="ruleTest" data-i="${r.id}">Tester</button><button class="btn sm d" data-act="ruleDel" data-i="${r.id}" aria-label="Supprimer la règle">✕</button></div>`).join(""):`<p class="sub">Aucune règle. Ajoutes-en une ou pars d'un modèle.</p>`}
+ <h3 style="margin-top:16px">Simuler un événement</h3><div class="chips">${Object.entries(TRG).map(([k,l])=>`<button class="chip" data-act="sim" data-i="${k}">${l}</button>`).join("")}</div>
+ <h3 style="margin-top:16px">Modèles d'automatisation</h3><div class="hs">${RPRE.map((r,i)=>`<div class="card"><b>${r.n}</b><p>SI ${TRG[r.when].toLowerCase()}${r.cond?` (« ${r.cond} »)`:""} → ${ACTN[r.then].toLowerCase()}</p><button class="btn sm" data-act="ruleTpl" data-i="${i}">Ajouter</button></div>`).join("")}</div>
+ <h3 style="margin-top:16px">Modèles de journée</h3><div class="hs">${Object.entries(TPL).map(([k,v])=>`<div class="card"><b>${v[0]}</b><p>${v[1].map(x=>x[0]+" ("+x[1]+" min)").join(" · ")}</p><button class="btn sm" data-act="tplDay" data-i="${k}">Appliquer à aujourd'hui</button></div>`).join("")}</div>
+ <h3 style="margin-top:16px">Journal d'exécution</h3>${S.alog.length?`<ul class="list">${S.alog.slice(0,8).map(l=>`<li><span class="t">${esc(l.t)}</span><small style="color:var(--mut)">${ago(l.ts)}</small></li>`).join("")}</ul>`:`<p class="sub">Rien d'exécuté pour l'instant.</p>`}`},
 integ(){const L=[["gmail","Gmail","✉️"],["gcal","Google Agenda","📅"],["outlook","Outlook","📧"],["slack","Slack","💬"]];return `<h2>Intégrations</h2><p class="sub">Aucune connexion réelle n'existe dans ce prototype. Les boutons simulent le parcours futur.</p><div class="grid">${L.map(l=>`<div class="card"><div class="row b"><b>${l[2]} ${l[1]}</b><span class="tag ${S.integ[l[0]]?"s":"w"}">${S.integ[l[0]]?"Simulée":"Bientôt"}</span></div><p class="sub" style="margin:8px 0">${S.integ[l[0]]?"Connexion simulée avec des données d'exemple.":"Lecture seule d'abord, envoi seulement avec ton approbation."}</p><button class="btn sm" data-int="${l[0]}">${S.integ[l[0]]?"Déconnecter (simulé)":"Simuler la connexion"}</button></div>`).join("")}</div>`},
+look(){const PL=[["aurore","Aurore","#7c6cff"],["ocean","Océan","#2f8cff"],["foret","Forêt","#2ea96b"],["soleil","Soleil","#f2652b"],["rose","Rose","#e5489b"],["contraste","Contraste élevé","#ffe600"]];return `<h2>Apparence</h2><p class="sub">Fais d'Agendo ton espace. Les réglages restent dans ton navigateur.</p>
+ <h3>Palette</h3><div class="row" id="palRow" role="group" aria-label="Palette de couleurs">${PL.map(p=>`<button class="sw2" style="background:${p[2]}" data-act="pal" data-i="${p[0]}" aria-pressed="${S.pal===p[0]}" aria-label="${p[1]}" title="${p[1]}"></button>`).join("")}</div>
+ <h3 style="margin-top:16px">Mode</h3><div class="sw" role="group" aria-label="Mode"><button data-act="mode" data-i="dark" aria-pressed="${S.theme==="dark"}">Sombre</button><button data-act="mode" data-i="light" aria-pressed="${S.theme==="light"}">Clair</button></div>
+ <h3 style="margin-top:16px">Texte</h3><div class="row"><label for="fs" class="sub" style="margin:0">Taille : <span id="fsv">${S.fs}</span> %</label><input type="range" id="fs" min="90" max="130" step="5" value="${S.fs}" style="max-width:260px"></div>
+ <h3 style="margin-top:16px">Mouvement</h3><label class="row" style="gap:8px"><input type="checkbox" id="rm" ${S.reduce?"checked":""}> Réduire les animations (et les confettis)</label>
+ <h3 style="margin-top:16px">Visite guidée</h3><button class="btn" data-act="tourStart">🧭 Relancer la visite guidée</button>`},
 priv(){return `<h2>Données et vie privée</h2><p class="sub">Pensé en tenant compte de la Loi 25 (Québec). Cette page décrit le prototype; une vraie politique de confidentialité serait requise au lancement.</p>
- <div class="grid"><div class="card"><h3>Dans ce prototype</h3><ul style="padding-left:18px;margin:0;color:var(--mut)"><li>Aucune donnée envoyée à un serveur</li><li>Tout est stocké dans ton navigateur</li><li>Aucun témoin de suivi ni publicité</li></ul></div><div class="card"><h3>Principes visés</h3><ul style="padding-left:18px;margin:0;color:var(--mut)"><li>Consentement clair et révocable</li><li>Accès, export et suppression en un clic</li><li>Minimisation : seulement ce qui est nécessaire</li><li>Responsable de la protection des renseignements à désigner</li></ul></div></div>
+ <div class="grid"><div class="card"><h3>Dans ce prototype</h3><ul style="padding-left:18px;margin:0;color:var(--mut)"><li>Aucune donnée envoyée à un serveur</li><li>Tout est stocké dans ton navigateur</li><li>La synthèse vocale est celle de ton navigateur</li><li>Aucun témoin de suivi ni publicité</li></ul></div><div class="card"><h3>Principes visés</h3><ul style="padding-left:18px;margin:0;color:var(--mut)"><li>Consentement clair et révocable</li><li>Accès, export et suppression en un clic</li><li>Minimisation : seulement ce qui est nécessaire</li><li>Responsable de la protection des renseignements à désigner</li></ul></div></div>
  <div class="row" style="margin-top:14px"><button class="btn p" data-act="export">⬇️ Exporter mes données (JSON)</button><button class="btn d" data-act="wipe">🗑️ Tout effacer et réinitialiser</button></div>`}
 };
-
+function applyLook(){const r=document.documentElement;r.dataset.theme=S.theme;r.dataset.pal=S.pal;r.style.fontSize=S.fs+"%";if(S.reduce)r.dataset.reduce="1";else delete r.dataset.reduce}
 function render(){
  $$("#tabs button").forEach(b=>{const on=b.dataset.t===S.tab;b.setAttribute("aria-selected",on);b.tabIndex=on?0:-1});
  const m=$("#main");m.setAttribute("role","tabpanel");m.setAttribute("aria-labelledby","tab-"+S.tab);
- m.innerHTML=V[S.tab]();
- if(S.tab==="focus")bindTimer();
- if(S.tab==="assist"){bindMic();const c=$("#chat");c.scrollTop=c.scrollHeight}
- document.documentElement.dataset.theme=S.theme;
-}
-
-/* assistant */
-function reply(q){const s=q.toLowerCase();let r;
- const m=s.match(/(?:ajoute|ajouter|cr[ée]e)[^:]*:\s*(.+)/);
- if(m){S.tasks.push({id:id(),t:m[1].trim(),s:"todo",p:""});r=`C'est ajouté au tableau Projets : « ${m[1].trim()} ». (simulé)`}
- else if(/r[ée]sum|journ[ée]e|matin/.test(s))r=`Aujourd'hui (exemple) : ${S.tasks.filter(t=>t.s!=="done").length} tâches ouvertes, 4 courriels triés, 1 conflit mercredi 14 h.`;
- else if(/factur|argent|paiement/.test(s)){const d=S.inv.filter(i=>i.s!=="payée");r=d.length?`À encaisser (exemple) : ${d.map(i=>i.c+" "+fmt(i.a)).join(", ")}.`:"Tout est payé dans les données d'exemple."}
- else if(/concentr|focus|pomodoro/.test(s)){r="Ouvre l'onglet Concentration pour démarrer le minuteur.";setTimeout(()=>go("focus",true),700)}
- else if(/r[ée]union|note/.test(s)){r="Ouvre l'onglet Réunions pour résumer tes notes.";setTimeout(()=>go("notes",true),700)}
- else if(/contact|relanc/.test(s))r="Samuel Gagnon (prospect) n'a pas eu de nouvelles depuis 12 jours (exemple). Je peux préparer une relance dans Contacts.";
- else r="Je comprends quelques commandes seulement dans cette démo : résumer la journée, ajouter une tâche, facturer, concentration, réunions.";
- S.chat.push({r:"u",t:q},{r:"a",t:r});S.saved+=1;save();render()}
-function bindMic(){const b=$("#mic");const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+ m.innerHTML=V[S.tab]();applyLook();bell();syncUR();INIT[S.tab]&&INIT[S.tab]()}
+const INIT={
+ day(){paintDay();dayDrag()},whatif(){whatifOut()},slots(){slotsOut()},
+ assist(){bindMic();const c=$("#chat");c.scrollTop=c.scrollHeight;const i=$("#cin");i.addEventListener("input",()=>{const E=parseEnt(i.value||"");$("#pv").innerHTML=i.value?chipsOf(E).map(x=>`<span class="chip">${esc(x)}</span>`).join(""):""})},
+ mail(){mzPaint();mzT0=Date.now();const s=$("#mzStack");s&&s.focus({preventScroll:true})},
+ compose(){genPaint()},
+ brief(){const tr=$("#tr");tr.innerHTML=briefLines().map(l=>`<p>${esc(l)}</p>`).join("");const fill=()=>{const v=$("#bVoice");if(!v||!("speechSynthesis" in window))return;const vs=speechSynthesis.getVoices().filter(x=>/^fr/i.test(x.lang));v.innerHTML='<option value="">Automatique (français)</option>'+vs.map(x=>`<option value="${esc(x.name)}">${esc(x.name)} (${x.lang})</option>`).join("")};fill();if("speechSynthesis" in window)speechSynthesis.onvoiceschanged=fill;audUI()},
+ crm(){graphInit();gInfo()},focus(){bindTimer()},
+ time(){timeInit();const c=$("#cDon");c&&0},fin(){finInit()},
+ look(){}};
+/* ===== minuteur, micro, notes ===== */
+let tmr=null,focusLeft=(S.fd||25)*60;
+function paint(){const t=$("#tm");if(t)t.textContent=String(Math.floor(focusLeft/60)).padStart(2,"0")+":"+String(focusLeft%60).padStart(2,"0")}
+function bindTimer(){const sel=$("#tdur");if(![5,25,50].includes(S.fd||25)){const o=document.createElement("option");o.value=S.fd;o.textContent=S.fd+" min";sel.appendChild(o)}sel.value=String(S.fd||25);if(!tmr&&focusLeft!==(S.fd||25)*60&&focusLeft>(S.fd||25)*60)focusLeft=(S.fd||25)*60;paint();
+ sel.onchange=e=>{S.fd=+e.target.value;focusLeft=S.fd*60;paint()};
+ $("#tStart").onclick=()=>{if(tmr)return;tmr=setInterval(()=>{focusLeft--;paint();if(focusLeft<=0){clearInterval(tmr);tmr=null;const d=+$("#tdur").value;S.focusMin+=d;gain(10);save();toast("Session terminée! +"+d+" min (démo)");confetti(60);focusLeft=d*60;render()}},1000)};
+ $("#tPause").onclick=()=>{clearInterval(tmr);tmr=null};$("#tReset").onclick=()=>{clearInterval(tmr);tmr=null;focusLeft=+$("#tdur").value*60;paint()}}
+function bindMic(){const b=$("#mic");if(!b)return;const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
  b.onclick=()=>{if(!SR){toast("La dictée vocale n'est pas disponible dans ce navigateur. Utilise le clavier.");return}
-  try{const r=new SR();r.lang="fr-CA";r.onresult=e=>{$("#cin").value=e.results[0][0].transcript};r.onerror=()=>toast("Micro indisponible ou refusé.");r.onend=()=>b.textContent="🎤";b.textContent="🔴";r.start()}catch(e){toast("Dictée impossible ici.")}}}
-
-/* timer */
-let tmr=null,left=25*60,run=false;
-function paint(){const t=$("#tm");if(t){t.textContent=String(Math.floor(left/60)).padStart(2,"0")+":"+String(left%60).padStart(2,"0")}}
-function bindTimer(){left=Math.min(left,3600);paint();
- $("#tdur").onchange=e=>{left=+e.target.value*60;paint()};
- $("#tStart").onclick=()=>{if(tmr)return;tmr=setInterval(()=>{left--;paint();if(left<=0){clearInterval(tmr);tmr=null;const d=+$("#tdur").value;S.focusMin+=d;save();toast("Session terminée! +"+d+" min (démo)");left=d*60;render()}},1000)};
- $("#tPause").onclick=()=>{clearInterval(tmr);tmr=null};
- $("#tReset").onclick=()=>{clearInterval(tmr);tmr=null;left=+$("#tdur").value*60;paint()}}
-
-/* notes analysis */
-function analyse(b){const lines=b.split(/\n+/).map(x=>x.trim()).filter(Boolean),tasks=[],other=[];
- lines.forEach(l=>{const m=l.match(/^(?:[-*]\s*\[ \]\s*|à faire\s*:\s*|a faire\s*:\s*)(.+)/i);m?tasks.push(m[1]):other.push(l)});
- const sum=other.length?other.slice(0,3).join(" · "):"Aucun point de discussion détecté.";return{sum,tasks}}
-
-/* events */
+  try{const r=new SR();r.lang="fr-CA";r.onresult=e=>{const i=$("#cin");i.value=e.results[0][0].transcript;i.dispatchEvent(new Event("input"))};r.onerror=()=>toast("Micro indisponible ou refusé.");r.onend=()=>b.textContent="🎤";b.textContent="🔴";r.start()}catch(e){toast("Dictée impossible ici.")}}}
+function analyse(b){const lines=b.split(/\n+/).map(x=>x.trim()).filter(Boolean),tasks=[],other=[];lines.forEach(l=>{const m=l.match(/^(?:[-*]\s*\[ \]\s*|à faire\s*:\s*|a faire\s*:\s*)(.+)/i);m?tasks.push(m[1]):other.push(l)});return{sum:other.length?other.slice(0,3).join(" · "):"Aucun point de discussion détecté.",tasks}}
+/* ===== actions ===== */
+const dl=(name,txt)=>{const u=URL.createObjectURL(new Blob([txt],{type:"application/json"})),l=document.createElement("a");l.href=u;l.download=name;l.click();setTimeout(()=>URL.revokeObjectURL(u),500)};
+const ACT={
+ perfect:()=>doPerfect(),
+ cmpToggle:()=>{showBefore=!showBefore;paintDay()},
+ brief2:()=>{go("brief",true);setTimeout(speakBrief,300)},
+ sc:el=>{scSel=el.dataset.i;render()},
+ scApply:()=>{if(!scRes)return;snap("scénario");const r=scRes;S.cal=S.cal.filter(e=>e.o!==0).concat(r.after.map(e=>({...e,o:0,id:e.id<0?id():e.id})));r.pushed.forEach(p=>{const s=findFree(dayEv(1),p.d,{e:p.e||2});S.cal.push({...p,o:1,s:s<0?540:s,id:id()})});save();cmp=null;toast("Scénario appliqué à ta journée. ↶ pour annuler.");render()},
+ slP:el=>{const i=+el.dataset.i;S.sp=S.sp.includes(i)?S.sp.filter(x=>x!==i):[...S.sp,i];save();$$("[data-act=slP]").forEach(b=>{const on=S.sp.includes(+b.dataset.i);b.classList.toggle("on",on);b.setAttribute("aria-pressed",on)});slotsOut()},
+ slotBook:el=>{const s=slotRes[+el.dataset.i];if(!s)return;snap("réunion");const who=s.ls.map(x=>x.c.n);S.cal.push({id:id(),o:s.o,s:s.m,d:S.sd,t:"Réunion avec "+who.map(w=>w.split(" ")[0]).join(", "),k:"m",fx:true,e:2,who});save();badge("slot");confetti(70);notify("Réunion réservée "+dlabel(s.o)+" à "+H(s.m)+" (simulé)","a");fire("event_added",{text:"réunion "+who.join(" ")});slotsOut()},
+ slotWith:el=>{S.sp=[+el.dataset.i];save();go("slots")},
+ resolve:()=>{snap("conflits");let n=0;for(let o=0;o<7;o++)n+=resolveDay(o);save();render();toast(n?n+" conflit(s) résolu(s)":"Aucun conflit")},
+ blocks:()=>{snap("blocs de focus");let n=0;for(let o=0;o<5;o++){const ev=dayEv(o);if(ev.filter(e=>e.k==="f").reduce((a,e)=>a+e.d,0)<90){const s=findFree(ev,90,{e:3});if(s>=0){S.cal.push({id:id(),o,s,d:90,t:"Bloc focus (suggéré)",k:"f",fx:false,e:3});n++}}}save();render();toast(n+" bloc(s) de focus ajouté(s) aux meilleurs créneaux")},
+ delEv:el=>{snap("suppression");S.cal=S.cal.filter(e=>e.id!=el.dataset.i);save();render()},
+ undo2:()=>undo(),
+ approveDraft:el=>{S.drafts=S.drafts.filter(d=>d.id!=el.dataset.i);save();render();toast("Brouillon approuvé (envoi simulé, rien n'est parti)")},
+ mz:el=>mzAct(el.dataset.i),mzUndo:()=>mzUndo(),
+ mzReset:()=>{S.mz={q:MAILS.map(m=>m[0]),snz:[],log:[],streak:0,best:S.mz.best,done:0,times:[]};save();mzT0=Date.now();mzPaint()},
+ gAgain:()=>{S.gen.v=(S.gen.v||0)+1;save();genPaint()},
+ gCopy:async()=>{const r=genMail(S.gen),t="Objet : "+r.subj+"\n\n"+r.txt;try{await navigator.clipboard.writeText(t);toast("Copié dans le presse-papiers")}catch(e){const ta=document.createElement("textarea");ta.value=t;document.body.appendChild(ta);ta.select();try{document.execCommand("copy");toast("Copié")}catch(e2){toast("Copie impossible : sélectionne le texte à la main")}ta.remove()}},
+ gSave:()=>{const r=genMail(S.gen);snap("brouillon");S.drafts.push({id:id(),to:r.to.n,s:r.subj,b:"(brouillon du rédacteur, simulé)"});save();toast("Brouillon enregistré (simulé). Il apparaît dans Boîte zéro.")},
+ bPlay:()=>speakBrief(),
+ bPause:()=>{if(!("speechSynthesis" in window)||!spk.on)return;if(spk.paused){speechSynthesis.resume();spk.paused=false}else{speechSynthesis.pause();spk.paused=true}audUI()},
+ bStop:()=>stopBrief(),
+ pUp:el=>{const i=+el.dataset.i;if(i>0){[pa[i-1],pa[i]]=[pa[i],pa[i-1]];render()}},pDn:el=>{const i=+el.dataset.i;if(i<pa.length-1){[pa[i+1],pa[i]]=[pa[i],pa[i+1]];render()}},pDel:el=>{pa.splice(+el.dataset.i,1);render()},
+ presGo:()=>presStart(),presClose:()=>{presClose()},
+ presPrev:()=>presMove(-1),presNext:()=>presMove(1),presPause:()=>{if(P){P.run=!P.run;presPaint()}},presPlus:()=>{if(P){P.left+=120;presTime()}},
+ presSave:()=>{if(!P)return;snap("réunion");const sum=P.items.map(i=>i.t).join(" · ");S.notes.unshift({id:id(),ti:P.t+" (mode présentation)",sum:sum+(P.dec.length?". Décisions : "+P.dec.join("; "):""),tasks:P.act});const nA=P.act.length,ttl=P.t;P.act.forEach(a=>S.tasks.push({id:id(),t:a,s:"todo",p:"Réunions"}));save();fire("note_saved",{text:ttl});presClose();go("notes");toast("Note enregistrée et "+nA+" tâche(s) créée(s)")},
+ followup:el=>{const c=S.contacts.find(x=>x.id==el.dataset.i);if(!c)return;S.gen=Object.assign(S.gen,{to:c.id,int:"relance",pts:"notre dernier échange",v:0});save();go("compose",true);toast("Relance préparée pour "+c.n+" dans le Rédacteur (rien n'est envoyé).")},
+ gSel:el=>{window.scrollTo({top:$("#gcv").getBoundingClientRect().top+scrollY-120});gSelect(+el.dataset.i)},
+ relanceAll:()=>{snap("relances");S.contacts.filter(c=>c.ds>=30).forEach(c=>S.drafts.push({id:id(),to:c.n,s:"Petit suivi",b:"(relance préparée, simulée)"}));save();toast("Relances préparées dans Boîte zéro (simulé)")},
+ paid:el=>{snap("facture payée");const i=S.inv.find(z=>z.id==el.dataset.i);i.s="payée";save();fire("invoice_paid",{text:"Facture "+i.c});render();confetti(60)},
+ lateFire:el=>{const i=S.inv.find(z=>z.id==el.dataset.i);fire("invoice_late",{text:i.c});render();toast("Relance préparée via tes automatisations (simulé)")},
+ tPer:el=>{tPeriod=el.dataset.i;render()},
+ ruleTest:el=>{const r=S.rules.find(x=>x.id==el.dataset.i);fire(r.when,{text:(SAMPLE[r.when].text||"")+(r.cond?" "+r.cond:"")});render();toast("Règle testée avec un événement d'exemple")},
+ ruleDel:el=>{snap("règle");S.rules=S.rules.filter(r=>r.id!=el.dataset.i);save();render()},
+ sim:el=>{fire(el.dataset.i,SAMPLE[el.dataset.i]);render();toast("Événement simulé : "+TRG[el.dataset.i])},
+ ruleTpl:el=>{const r=RPRE[+el.dataset.i];snap("règle");S.rules.push({id:id(),on:true,when:r.when,cond:r.cond,then:r.then,arg:r.arg});save();badge("auto");render()},
+ tplDay:el=>{go("day",true);applyTpl(el.dataset.i)},
+ pal:el=>{S.pal=el.dataset.i;save();applyLook();$$("[data-act=pal]").forEach(b=>b.setAttribute("aria-pressed",b.dataset.i===S.pal))},
+ mode:el=>{S.theme=el.dataset.i;save();render()},
+ tourStart:()=>tourShow(0),tourNext:()=>tourShow(tourI+1),tourPrev:()=>tourShow(tourI-1),tourEnd:()=>tourShow(-1),
+ party:()=>confetti(160),
+ perfectHome:()=>doPerfect(),
+ sample:()=>{$("#nt").value="Rencontre Atelier Lune (exemple)";$("#nb").value="On a validé le budget global.\nLe lancement vise la fin du mois.\nÀ faire : envoyer la maquette vendredi\nÀ faire : confirmer le délai avec Marie"},
+ export:()=>{dl("agendo-donnees-demo.json",JSON.stringify(S,null,2));toast("Export créé")},
+ wipe:()=>{if(confirm("Effacer toutes les données de la démo?")){try{localStorage.removeItem(KEY)}catch(e){}S=seed();HS.u=[];HS.r=[];cmp=null;render();toast("Données effacées")}}};
 document.addEventListener("click",e=>{const t=e.target;let x;
  if((x=t.closest("[data-go]"))){e.preventDefault();go(x.dataset.go);return}
- if((x=t.closest("[data-chip]"))){reply(x.dataset.chip);return}
- if((x=t.closest("[data-mv]"))){const k=S.tasks.find(a=>a.id==x.dataset.i),o=["todo","doing","done"];k.s=o[Math.max(0,Math.min(2,o.indexOf(k.s)+ +x.dataset.mv))];save();render();return}
- if((x=t.closest("[data-del]"))){const a=S[x.dataset.del];const i=a.findIndex(z=>z.id==x.dataset.i);if(i>=0)a.splice(i,1);save();render();toast("Supprimé");return}
- if((x=t.closest("[data-g]"))){const g=S.goals.find(a=>a.id==x.dataset.g);g.v=Math.max(0,Math.min(100,g.v+ +x.dataset.v));save();render();return}
+ if((x=t.closest("[data-chip]"))){chat(x.dataset.chip);return}
+ if((x=t.closest("[data-tone]"))){S.gen.tone=x.dataset.tone;save();genPaint();return}
+ if((x=t.closest("[data-len]"))){S.gen.len=+x.dataset.len;save();genPaint();return}
+ if((x=t.closest("[data-mv]"))){snap("tâche");const k=S.tasks.find(a=>a.id==x.dataset.i),o=["todo","doing","done"],was=k.s;k.s=o[clamp(o.indexOf(k.s)+ +x.dataset.mv,0,2)];save();render();if(k.s==="done"&&was!=="done"){gain(5);fire("task_done",{text:k.t})}return}
+ if((x=t.closest("[data-del]"))){snap("suppression");const a=S[x.dataset.del],i=a.findIndex(z=>z.id==x.dataset.i);if(i>=0)a.splice(i,1);save();render();toast("Supprimé (↶ pour annuler)");return}
+ if((x=t.closest("[data-g]"))){goalStep(x.dataset.g,+x.dataset.v);return}
  if((x=t.closest("[data-int]"))){S.integ[x.dataset.int]=!S.integ[x.dataset.int];save();render();toast("Simulé : aucune connexion réelle");return}
- if((x=t.closest("[data-act]"))){act(x.dataset.act,x.dataset.i)}});
+ if((x=t.closest("[data-act]"))){const f=ACT[x.dataset.act];f&&f(x)}});
 document.addEventListener("change",e=>{const t=e.target;
- if(t.dataset.todo){const k=S.todo.find(a=>a.id==t.dataset.todo);k.d=t.checked;S.saved+=t.checked?1:0;save();render()}
- if(t.dataset.h){const h=S.habits.find(a=>a.id==t.dataset.h);h.days[+t.dataset.d]=t.checked?1:0;save()}});
-document.addEventListener("submit",e=>{const f=e.target.closest("form[data-f]");if(!f)return;e.preventDefault();const d=Object.fromEntries(new FormData(f));
+ if(t.dataset.todo){const k=S.todo.find(a=>a.id==t.dataset.todo);k.d=t.checked;if(t.checked)gain(2);save();render()}
+ else if(t.dataset.h){habitToggle(t.dataset.h)}
+ else if(t.dataset.rule){const r=S.rules.find(a=>a.id==t.dataset.rule);r.on=t.checked;save()}
+ else if(t.dataset.bl){S.budget[t.dataset.bl]=Math.max(0,+t.value||0);save();finInit()}
+ else if(t.id==="tplSel"&&t.value)applyTpl(t.value);
+ else if(t.id==="pTpl"&&t.value){ptitle=PT[t.value][0];pa=PT[t.value][1].map(x=>[...x]);render()}
+ else if(t.id==="gTo"){S.gen.to=+t.value;save();genPaint()}
+ else if(t.id==="gInt"){S.gen.int=t.value;S.gen.v=0;save();genPaint()}
+ else if(t.id==="sld"){S.sd=+t.value;save();slotsOut()}
+ else if(t.id==="slo"){S.so=+t.value;save();slotsOut()}
+ else if(t.id==="sln"){S.sn=+t.value;save();slotsOut()}
+ else if(t.id==="slt"){S.tol=t.checked;save();slotsOut()}
+ else if(t.id==="rm"){S.reduce=t.checked;save();applyLook()}
+ else if(t.id==="pTitle"){ptitle=t.value||"Réunion"}});
+document.addEventListener("input",e=>{const t=e.target;if(t.id==="gPts"){S.gen.pts=t.value;save();genPaint()}else if(t.id==="fs"){S.fs=+t.value;$("#fsv").textContent=S.fs;save();applyLook()}else if(t.id==="bRate"&&"speechSynthesis" in window&&spk.on){}});
+document.addEventListener("submit",e=>{const f=e.target.closest("form[data-f]");if(!f)return;e.preventDefault();const d=Object.fromEntries(new FormData(f));let fresh=true;
  switch(f.dataset.f){
- case"chat":if(d.q.trim())reply(d.q.trim());break;
- case"todo":if(d.t.trim()){S.todo.push({id:id(),t:d.t.trim(),d:false})}break;
- case"task":if(d.t.trim())S.tasks.push({id:id(),t:d.t.trim(),s:"todo",p:(d.p||"").trim()});break;
- case"habit":if(d.n.trim())S.habits.push({id:id(),n:d.n.trim(),days:[0,0,0,0,0,0,0]});break;
- case"goal":if(d.n.trim())S.goals.push({id:id(),n:d.n.trim(),v:0});break;
- case"contact":S.contacts.push({id:id(),n:d.n.trim(),o:d.o||"",e:"—",st:d.st,last:"aujourd'hui",nt:""});break;
- case"inv":S.inv.push({id:id(),c:d.c.trim(),a:+d.a,s:"envoyée",d:new Date().toISOString().slice(0,10)});toast("Facture créée (démo, rien n'est envoyé)");break;
- case"exp":S.exp.push({id:id(),n:d.n.trim(),a:+d.a});break;
- case"note":{const b=(d.b||"").trim();if(!b){toast("Écris quelques notes d'abord.");return}const r=analyse(b);S.notes.unshift({id:id(),ti:(d.ti||"Sans titre").trim()||"Sans titre",sum:r.sum,tasks:r.tasks});r.tasks.forEach(t=>S.tasks.push({id:id(),t,s:"todo",p:"Réunions"}));toast(r.tasks.length+" tâche(s) ajoutée(s) à Projets");break}}
+ case"chat":if(d.q.trim()){chat(d.q.trim());return}break;
+ case"scc":scCustom={t:(d.t||"Nouvelle tâche").trim()||"Nouvelle tâche",d:+d.d,e:+d.e};scSel="custom";render();return;
+ case"pAdd":pa.push([d.t.trim(),clamp(+d.m||5,1,120)]);render();return;
+ case"presCap":{const added=[["park","park"],["dec","dec"],["act","act"]];let ch=false;added.forEach(([n,k])=>{const v=(d[n]||"").trim();if(v){P[k].push(v);ch=true}});if(ch){const i=P.i,left=P.left;presPaint();const el=$("#pk");el&&el.focus()}return}
+ case"rule":snap("règle");S.rules.push({id:id(),on:true,when:d.when,cond:(d.cond||"").trim(),then:d.then,arg:(d.arg||"").trim()});badge("auto");break;
+ case"ev":{snap("événement");const E=parseEnt(d.h||"");const o=+d.o,k=d.k,dur=+d.d;const E2={o,time:E.time,dur,who:[],hint:null};S.cal.push({id:id(),o,s:E.time!=null?E.time:(()=>{const s=findFree(dayEv(o),dur,{e:EN[k]});return s<0?540:s})(),d:dur,t:d.t.trim(),k,fx:k==="m"||k==="p",e:EN[k]});fire("event_added",{text:d.t});break}
+ case"todo":if(d.t.trim()){snap("tâche");S.todo.push({id:id(),t:d.t.trim(),d:false})}break;
+ case"task":if(d.t.trim()){snap("tâche");S.tasks.push({id:id(),t:d.t.trim(),s:"todo",p:(d.p||"").trim()})}break;
+ case"habit":if(d.n.trim()){snap("habitude");S.habits.push({id:id(),n:d.n.trim(),h:Array(28).fill(0)})}break;
+ case"goal":if(d.n.trim()){snap("objectif");S.goals.push({id:id(),n:d.n.trim(),v:0})}break;
+ case"contact":snap("contact");S.contacts.push({id:id(),n:d.n.trim(),o:d.o||"",e:"—",st:d.st,ds:0,tz:"America/Toronto",city:"Montréal",nt:""});break;
+ case"inv":snap("facture");S.inv.push({id:id(),c:d.c.trim(),a:+d.a,s:"envoyée",d:dateOf(0).toISOString().slice(0,10)});toast("Facture créée (démo, rien n'est envoyé)");break;
+ case"exp":snap("dépense");S.exp.push({id:id(),n:d.n.trim(),a:+d.a,c:d.c||"Autre"});break;
+ case"note":{const b=(d.b||"").trim();if(!b){toast("Écris quelques notes d'abord.");return}snap("note");const r=analyse(b);S.notes.unshift({id:id(),ti:(d.ti||"Sans titre").trim()||"Sans titre",sum:r.sum,tasks:r.tasks});r.tasks.forEach(t=>S.tasks.push({id:id(),t,s:"todo",p:"Réunions"}));toast(r.tasks.length+" tâche(s) ajoutée(s) à Projets");fire("note_saved",{text:d.ti||""});break}}
  save();render()});
-function act(a,i){
- if(a==="resolve")toast("Simulé : « Dentiste » déplacé à 16 h.");
- else if(a==="blocks")toast("Simulé : 3 blocs de focus proposés.");
- else if(a==="approve"){S.saved+=1;toast("Brouillon approuvé (envoi simulé, rien n'est parti)")}
- else if(a==="followup")toast("Brouillon de relance préparé (simulé). Rien n'est envoyé.");
- else if(a==="paid"){S.inv.find(z=>z.id==i).s="payée";save();render()}
- else if(a==="sample"){$("#nt").value="Rencontre Atelier Lune (exemple)";$("#nb").value="On a validé le budget global.\nLe lancement vise la fin du mois.\nÀ faire : envoyer la maquette vendredi\nÀ faire : confirmer le délai avec Marie"}
- else if(a==="export"){const u=URL.createObjectURL(new Blob([JSON.stringify(S,null,2)],{type:"application/json"})),l=document.createElement("a");l.href=u;l.download="agendo-donnees-demo.json";l.click();setTimeout(()=>URL.revokeObjectURL(u),500);toast("Export créé")}
- else if(a==="wipe"){if(confirm("Effacer toutes les données de la démo?")){try{localStorage.removeItem(KEY)}catch(e){}S=seed();render();toast("Données effacées")}}}
-
-/* search */
-const gsd=$("#gsd"),gs=$("#gs");
+/* ===== palette de commandes ===== */
+const gsd=$("#gsd"),gs=$("#gs");let pItems=[],pAct=0;
+const CMDS=[["✨ Créer ma journée parfaite",()=>{go("day",true);setTimeout(doPerfect,200)}],["🔊 Écouter mon briefing",()=>ACT.brief2()],["🎉 Lancer des confettis",()=>confetti(160)],["↶ Annuler",()=>undo()],["↷ Rétablir",()=>redo()],["🎤 Démarrer une réunion en direct",()=>{go("present")}],["🧭 Visite guidée",()=>tourShow(0)],["⏱️ Lancer 25 min de concentration",()=>{S.fd=25;focusLeft=1500;go("focus",true);setTimeout(()=>$("#tStart")&&$("#tStart").click(),200)}],["🔔 Ouvrir les notifications",()=>openNotifs()],["🌓 Basculer clair/sombre",()=>$("#themeBtn").click()],["🎨 Palette : Océan",()=>{S.pal="ocean";applyLook();save()}],["🎨 Palette : Forêt",()=>{S.pal="foret";applyLook();save()}],["🎨 Palette : Soleil",()=>{S.pal="soleil";applyLook();save()}],["🎨 Palette : Rose",()=>{S.pal="rose";applyLook();save()}],["🎨 Palette : Contraste élevé",()=>{S.pal="contraste";applyLook();save()}],["🎨 Palette : Aurore",()=>{S.pal="aurore";applyLook();save()}],["📭 Remplir la boîte courriel (démo)",()=>{ACT.mzReset();go("mail")}],["⬇️ Exporter mes données",()=>ACT.export()]];
 function openSearch(){if(!gsd.open){try{gsd.showModal()}catch(e){gsd.setAttribute("open","")}}gs.value="";doSearch();gs.focus()}
-function doSearch(){const q=gs.value.trim().toLowerCase();let items=[];
- TABS.forEach(t=>items.push({l:t[1]+" "+t[2],k:"Section",tab:t[0]}));
- S.tasks.forEach(t=>items.push({l:t.t,k:"Tâche",tab:"proj"}));S.contacts.forEach(c=>items.push({l:c.n+" — "+c.o,k:"Contact",tab:"crm"}));S.notes.forEach(n=>items.push({l:n.ti,k:"Note",tab:"notes"}));S.inv.forEach(i=>items.push({l:"Facture "+i.c+" "+fmt(i.a),k:"Facture",tab:"fin"}));S.habits.forEach(h=>items.push({l:h.n,k:"Habitude",tab:"habits"}));
- items=items.filter(i=>!q||(i.l+i.k).toLowerCase().includes(q)).slice(0,12);
- $("#gres").innerHTML=items.length?items.map((i,n)=>`<button data-tab="${i.tab}"><span class="tag">${i.k}</span> ${esc(i.l)}</button>`).join(""):`<p class="sub">Aucun résultat.</p>`}
+function doSearch(){let q=gs.value.trim(),onlyCmd=q.startsWith(">");if(onlyCmd)q=q.slice(1).trim();const ql=flat(q);let items=[];
+ CMDS.forEach(c=>items.push({l:c[0],k:"Action",run:c[1]}));
+ if(!onlyCmd){TABS.forEach(t=>items.push({l:t[1]+" "+t[2],k:"Section",run:()=>go(t[0])}));S.tasks.forEach(t=>items.push({l:t.t,k:"Tâche",run:()=>go("proj")}));S.contacts.forEach(c=>items.push({l:c.n+" — "+c.o,k:"Contact",run:()=>{go("crm");setTimeout(()=>gSelect(c.id),150)}}));S.notes.forEach(n=>items.push({l:n.ti,k:"Note",run:()=>go("notes")}));S.inv.forEach(i=>items.push({l:"Facture "+i.c+" "+fmt(i.a),k:"Facture",run:()=>go("fin")}));S.habits.forEach(h=>items.push({l:h.n,k:"Habitude",run:()=>go("habits")}));S.cal.forEach(e=>items.push({l:e.t+" ("+dlabel(e.o)+", "+H(e.s)+")",k:"Événement",run:()=>go("agenda")}))}
+ items=items.filter(i=>!ql||flat(i.l+" "+i.k).includes(ql)).slice(0,10);
+ if(q&&!onlyCmd)items.push({l:"💬 Demander à l'assistant : « "+q+" »",k:"Assistant",run:()=>{go("assist",true);chat(q)}});
+ pItems=items;pAct=0;pPaint()}
+function pPaint(){$("#gres").innerHTML=pItems.length?pItems.map((i,n)=>`<button role="option" id="po${n}" data-p="${n}" aria-selected="${n===pAct}" style="${n===pAct?"border-color:var(--ac);background:color-mix(in srgb,var(--ac) 18%,var(--card))":""}"><span class="tag">${i.k}</span> ${esc(i.l)}</button>`).join(""):`<p class="sub">Aucun résultat.</p>`;gs.setAttribute("aria-activedescendant",pItems.length?"po"+pAct:"");const a=$("#po"+pAct);a&&a.scrollIntoView({block:"nearest"})}
+function pRun(n){const i=pItems[n];if(!i)return;gsd.close();setTimeout(i.run,50)}
 gs.addEventListener("input",doSearch);
-$("#gres").addEventListener("click",e=>{const b=e.target.closest("button");if(b){gsd.close();go(b.dataset.tab)}});
-gs.addEventListener("keydown",e=>{if(e.key==="Escape"){e.preventDefault();gsd.close();return}if(e.key==="Enter"){const b=$("#gres button");if(b){gsd.close();go(b.dataset.tab)}}});
+$("#gres").addEventListener("click",e=>{const b=e.target.closest("[data-p]");if(b)pRun(+b.dataset.p)});
+gs.addEventListener("keydown",e=>{if(e.key==="Escape"){e.preventDefault();gsd.close();return}if(e.key==="ArrowDown"){e.preventDefault();pAct=Math.min(pItems.length-1,pAct+1);pPaint()}else if(e.key==="ArrowUp"){e.preventDefault();pAct=Math.max(0,pAct-1);pPaint()}else if(e.key==="Enter"){e.preventDefault();pRun(pAct)}});
 $("#gsx").onclick=()=>gsd.close();$("#gsBtn").onclick=openSearch;
+function openNotifs(){notifList();const d=$("#nd");if(!d.open){try{d.showModal()}catch(e){d.setAttribute("open","")}}S.notifs.forEach(n=>n.r=true);save();bell()}
+$("#bellBtn").onclick=openNotifs;$("#ndx").onclick=()=>$("#nd").close();$("#ndRead").onclick=()=>{S.notifs.forEach(n=>n.r=true);save();bell();notifList()};$("#ndSim").onclick=()=>{simNotif();notifList()};
+$("#undoBtn").onclick=undo;$("#redoBtn").onclick=redo;
 document.addEventListener("keydown",e=>{
  if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==="k"){e.preventDefault();openSearch();return}
- if(/INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName)||e.ctrlKey||e.metaKey||e.altKey)return;
+ const inField=/INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName);
+ if($("#pres").classList.contains("on")){if(e.key==="Escape"){presClose();return}if(inField)return;if(e.key===" "){e.preventDefault();ACT.presPause()}else if(e.key==="ArrowRight")presMove(1);else if(e.key==="ArrowLeft")presMove(-1);return}
+ if(e.key==="Escape"&&tourI>=0){tourShow(-1);return}
+ if((e.ctrlKey||e.metaKey)&&!inField&&e.key.toLowerCase()==="z"){e.preventDefault();e.shiftKey?redo():undo();return}
+ if((e.ctrlKey||e.metaKey)&&!inField&&e.key.toLowerCase()==="y"){e.preventDefault();redo();return}
+ if(inField||e.ctrlKey||e.metaKey||e.altKey||gsd.open||$("#nd").open)return;
+ if(S.tab==="mail"&&S.mz.q.length){const m={ArrowLeft:"archive",a:"archive",A:"archive",ArrowRight:"reply",r:"reply",R:"reply",ArrowUp:"snooze",s:"snooze",S:"snooze",ArrowDown:"task",t:"task",T:"task"}[e.key];if(m&&(document.activeElement.id==="mzStack"||e.key.length===1)){e.preventDefault();const top=$(".mc.top");if(top&&!S.reduce){const ax=m==="archive"||m==="reply";top.style.transition="transform .25s,opacity .25s";top.style.transform=`translate(${m==="archive"?-500:m==="reply"?500:0}px,${m==="snooze"?-400:m==="task"?400:0}px) rotate(${m==="archive"?-12:m==="reply"?12:0}deg)`;top.style.opacity=0;setTimeout(()=>mzAct(m),200)}else mzAct(m);return}if(e.key==="z"||e.key==="Z"){mzUndo();return}}
+ if(S.tab==="mail"&&(e.key==="z"||e.key==="Z")){mzUndo();return}
  if(e.key==="t"||e.key==="T")$("#themeBtn").click();
- if(e.key==="?")toast("Raccourcis : Ctrl/Cmd+K recherche · T thème · flèches pour naviguer entre sections")});
-
-/* theme + plans */
+ if(e.key==="?")toast("Raccourcis : Ctrl/Cmd+K commandes · Ctrl+Z annuler · T thème · flèches pour naviguer entre sections")});
+/* ===== thème + forfaits ===== */
 $("#themeBtn").onclick=()=>{S.theme=S.theme==="dark"?"light":"dark";save();render()};
-$("#tryBtn").onclick=()=>$("#demo").scrollIntoView();
+$("#tryBtn").onclick=()=>$("#demo").scrollIntoView();$("#tourBtn").onclick=()=>tourShow(0);
 const toPlans=()=>$("#plans").scrollIntoView();$("#goPlans").onclick=toPlans;$("#goPlans2").onclick=toPlans;
 let annual=false;
 const PL=[
- {n:"Gratuit",m:0,a:0,d:"Pour essayer Agendo.",f:["Liste du jour et agenda","Tri de courriels limité (démo : 1 compte)","Habitudes et objectifs","Mode concentration","Export de tes données"],c:"Commencer gratuitement"},
- {n:"Essentiel",m:15,a:12,d:"Pour une personne occupée.",f:["Tout du forfait Gratuit","Résumé du matin","Brouillons de courriels à approuver","Notes de réunion avec tâches extraites","Projets en kanban","Gmail ou Outlook (bientôt)"],c:"Choisir Essentiel"},
- {n:"Pro",m:29,a:24,d:"Pour travailleurs autonomes.",f:["Tout du forfait Essentiel","Contacts et relances (CRM léger)","Finances et factures","Assistant vocal","Plusieurs agendas et courriels (bientôt)","Soutien prioritaire"],c:"Choisir Pro",hot:1},
- {n:"Équipe",m:39,a:32,d:"Par siège, minimum à valider.",f:["Tout du forfait Pro","Projets et contacts partagés (bientôt)","Rôles et permissions (bientôt)","Slack (bientôt)","Journal d'audit (bientôt)","Facturation centralisée"],c:"Parler à l'équipe",seat:1}];
+ {n:"Gratuit",m:0,a:0,d:"Pour découvrir Agendo.",f:["Liste du jour, agenda et projets","Assistant en français (commandes de base)","Boîte zéro (limite quotidienne à valider)","Habitudes, séries et confettis","Thèmes de couleurs et mode sombre","Export de tes données"],c:"Commencer gratuitement"},
+ {n:"Essentiel",m:15,a:12,d:"Pour une personne occupée.",f:["Tout du forfait Gratuit","Ma journée parfaite et scénarios « et si »","Assistant : commandes enchaînées, annuler/rétablir","Rédacteur de courriels avec choix du ton","Briefing audio quotidien","Notes de réunion avec tâches extraites","Gmail ou Outlook (bientôt)"],c:"Choisir Essentiel"},
+ {n:"Pro",m:29,a:24,d:"Pour travailleurs autonomes.",f:["Tout du forfait Essentiel","Trouveur de créneaux multi-fuseaux","Carte du réseau et relances (CRM léger)","Budget, factures et graphiques","Analyse du temps et score d'énergie","Automatisations « si ceci, alors cela »","Réunion en direct avec minuteur","Soutien prioritaire"],c:"Choisir Pro",hot:1},
+ {n:"Équipe",m:39,a:32,d:"Par siège, minimum à valider.",f:["Tout du forfait Pro","Créneaux communs entre collègues (bientôt)","Projets et contacts partagés (bientôt)","Rôles et permissions (bientôt)","Slack (bientôt)","Journal d'audit (bientôt)","Facturation centralisée"],c:"Parler à l'équipe",seat:1}];
 function plans(){$("#bm").setAttribute("aria-pressed",!annual);$("#ba").setAttribute("aria-pressed",annual);
  $("#planCards").innerHTML=PL.map(p=>{const v=annual?p.a:p.m;return `<div class="plan ${p.hot?"hot":""}">${p.hot?'<span class="ribbon">Populaire (exemple)</span>':""}<h3>${p.n}</h3><div class="sub" style="margin:0">${p.d}</div><div class="pr">${v?v+" $":"0 $"}<small style="font-size:14px;font-weight:400;color:var(--mut)"> CA${v?(p.seat?" / siège":"")+" / mois":""}</small></div><div><span class="tag w">Prix à valider</span> ${annual&&v?'<span class="tag">facturé annuellement</span>':""}</div><ul>${p.f.map(x=>`<li>${x}</li>`).join("")}</ul><button class="btn ${p.hot?"p":""}" data-plan="${p.n}">${p.c}</button></div>`}).join("")}
 document.addEventListener("click",e=>{const b=e.target.closest("[data-plan]");if(b)toast("Démo : aucun paiement ni inscription réels. Forfait « "+b.dataset.plan+" » non disponible.")});
 $("#bm").onclick=()=>{annual=false;plans()};$("#ba").onclick=()=>{annual=true;plans()};
-const CM=[["Liste du jour, agenda, habitudes","y","y","y","y"],["Concentration et export des données","y","y","y","y"],["Comptes courriel connectés","1 (démo)","1","3 (bientôt)","Illimité (bientôt)"],["Résumé du matin","n","y","y","y"],["Brouillons à approuver","n","y","y","y"],["Notes de réunion et tâches","n","y","y","y"],["Projets kanban","3 max","y","y","y"],["Contacts (CRM léger)","n","n","y","y"],["Finances et factures","n","n","y","y"],["Assistant vocal","n","n","y","y"],["Projets et contacts partagés","n","n","n","bientôt"],["Rôles, audit, Slack","n","n","n","bientôt"],["Soutien","Communauté","Courriel","Prioritaire","Dédié (à valider)"]];
+const CM=[["Liste du jour, agenda, projets","y","y","y","y"],["Habitudes, séries, objectifs et célébrations","y","y","y","y"],["Thèmes de couleurs, mode sombre, accessibilité","y","y","y","y"],["Export des données","y","y","y","y"],["Assistant en français","Base","y","y","y"],["Commandes enchaînées, annuler et rétablir","n","y","y","y"],["Boîte zéro (balayage)","Limité","y","y","y"],["Ma journée parfaite et « et si »","n","y","y","y"],["Rédacteur de courriels (tons)","n","y","y","y"],["Briefing audio","n","y","y","y"],["Notes de réunion et tâches","n","y","y","y"],["Réunion en direct (minuteur d'ordre du jour)","n","n","y","y"],["Trouveur de créneaux multi-fuseaux","n","n","y","y"],["Carte du réseau et relances","n","n","y","y"],["Budget, factures et graphiques","n","n","y","y"],["Analyse du temps et énergie","n","n","y","y"],["Automatisations configurables","n","Limité","y","y"],["Comptes courriel connectés","Aucun","1 (bientôt)","3 (bientôt)","Illimité (bientôt)"],["Projets, contacts et créneaux partagés","n","n","n","bientôt"],["Rôles, audit, Slack","n","n","n","bientôt"],["Soutien","Communauté","Courriel","Prioritaire","Dédié (à valider)"]];
 $("#cmp").innerHTML=`<tr><th>Fonction</th>${PL.map(p=>`<th>${p.n}</th>`).join("")}</tr>`+CM.map(r=>`<tr><td>${r[0]}</td>${r.slice(1).map(v=>v==="y"?'<td class="y" aria-label="inclus">✓</td>':v==="n"?'<td class="n" aria-label="non inclus">—</td>':`<td>${v}</td>`).join("")}</tr>`).join("");
-plans();render();
+let rz;window.addEventListener("resize",()=>{clearTimeout(rz);rz=setTimeout(()=>{if(S.tab==="time")timeInit();else if(S.tab==="fin")finInit();else if(S.tab==="crm")graphInit()},200)});
+plans();applyLook();render();bell();
+setTimeout(()=>{if(!S.tour&&tourI<0)toast("Nouveau ici? Clique « 🧭 Visite guidée » en haut de page.")},2500);
+let nt=0;const ntm=setInterval(()=>{if(document.hidden)return;if(++nt>3){clearInterval(ntm);return}simNotif();},60000);
+window.__agendo={chat,runCmd,S:()=>S,go,doPerfect,dbg:{zoned,parts,localOf,slotCalc,comfort}};
 })();
 </script>
 </body>
