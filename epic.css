@@ -136,3 +136,69 @@ html[data-reduce] .ep-intro,html[data-reduce] .ep-warp{display:none}
 @media(max-width:480px){#xpChip{display:none}}
 .ep-lay{flex-wrap:wrap}.ep-lay .btn{min-width:0}
 .ep-flempty[hidden]{display:none}[hidden]{display:none!important}
+/* ---------- Agendo Live ---------- */
+.lv-in textarea{width:100%;min-height:110px;resize:vertical;font:inherit;line-height:1.5}
+.lv-ex{cursor:pointer}
+.lv-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:8px;margin:8px 0}
+.lv-stats div{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px;text-align:center}
+.lv-stats b{display:block;font-size:22px}.lv-stats span{font-size:12.5px;color:var(--mut)}
+.lv-h4{margin:18px 0 6px;font-size:15px}
+.lv-days{display:flex;gap:10px;min-width:min-content;padding-bottom:6px}
+.lv-day{flex:1 0 132px;min-width:132px}.lv-day>b{display:block;font-size:13px;margin-bottom:4px}
+.lv-col{position:relative;height:340px;border:1px solid var(--line);border-radius:12px;background:var(--bg2);overflow:hidden}
+.lv-h{position:absolute;left:0;right:0;border-top:1px dashed var(--line);font-style:normal}
+.lv-h span{position:absolute;right:3px;top:1px;font-size:10px;color:var(--mut)}
+.lv-b{position:absolute;left:4px;right:30px;border-radius:7px;padding:1px 5px;font-size:11px;line-height:1.25;overflow:hidden;border-left:3px solid var(--mut);background:color-mix(in srgb,var(--mut) 22%,var(--bg2));color:var(--tx)}
+.lv-b span{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lv-b.new{left:8px;right:26px;z-index:2;border-left-color:var(--c,var(--ac));background:color-mix(in srgb,var(--c,var(--ac)) 38%,var(--bg2));box-shadow:0 2px 10px -4px var(--c,var(--ac));font-weight:600}
+.lv-b.new.event,.lv-b.new.call{--c:var(--ac)}.lv-b.new.focus{--c:var(--ac2)}.lv-b.new.errand{--c:var(--ok)}.lv-b.new.trip{--c:var(--warn)}
+.lv-b.new.cf{outline:2px solid var(--bad)}.lv-b.new.off,.lv-card.off{opacity:.4}
+.lv-list{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.lv-card{display:flex;gap:10px;align-items:flex-start;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 12px}
+.lv-card.cf{border-color:var(--bad)}
+.lv-ck{position:relative;display:grid;place-items:center;width:44px;height:44px;flex:0 0 44px;border-radius:12px;background:color-mix(in srgb,var(--ac) 18%,transparent);font-size:22px;cursor:pointer}
+.lv-ck input{position:absolute;inset:0;opacity:0;margin:0;cursor:pointer;width:100%;height:100%}
+.lv-ck:has(input:focus-visible){outline:3px solid var(--ac2);outline-offset:2px}
+.lv-ck:has(input:checked){box-shadow:inset 0 0 0 2px var(--ok)}
+.lv-bd{min-width:0;flex:1}.lv-t{overflow-wrap:anywhere}.lv-w{margin:2px 0}
+.lv-why summary{cursor:pointer;color:var(--ac2);font-size:13px;min-height:24px}.lv-why p{margin:4px 0 0;font-size:13.5px;color:var(--mut);overflow-wrap:anywhere}
+.lv-ins{margin:0;padding-left:20px}.lv-ins li{margin:3px 0;overflow-wrap:anywhere}
+.lv-act{margin-top:14px;flex-wrap:wrap}
+@keyframes lvPop{from{opacity:0;transform:translateY(14px) scale(.96)}to{opacity:1;transform:none}}
+@keyframes lvGrow{from{opacity:0;transform:scaleY(.1) translateX(-12px);transform-origin:top}to{opacity:1;transform:none}}
+.lv-anim .lv-card,.lv-anim .lv-stats div{animation:lvPop .55s cubic-bezier(.2,.8,.2,1) both}
+.lv-anim .lv-stats div:nth-child(2){animation-delay:.08s}.lv-anim .lv-stats div:nth-child(3){animation-delay:.16s}.lv-anim .lv-stats div:nth-child(4){animation-delay:.24s}.lv-anim .lv-stats div:nth-child(5){animation-delay:.32s}
+.lv-anim .lv-b.new{animation:lvGrow .6s cubic-bezier(.2,.8,.2,1) both}
+@media (prefers-reduced-motion:reduce){.lv-anim .lv-card,.lv-anim .lv-stats div,.lv-anim .lv-b.new{animation:none}}
+/* forfaits, FAQ, accessibilité */
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.faq{margin:8px 0;padding:0}.faq summary{cursor:pointer;padding:14px 16px;font-weight:600;min-height:44px;list-style-position:inside}
+.faq summary:focus-visible,.lv-why summary:focus-visible{outline:3px solid var(--ac2);outline-offset:2px;border-radius:8px}
+.faq p{margin:0;padding:0 16px 14px}
+#cmp th.rh{text-align:left;font-weight:400;position:sticky;left:0;background:var(--card);z-index:1}
+#cmp th[scope=col]{position:sticky;top:0;background:var(--card)}
+#cmp td,#cmp th{padding:7px 10px;border-bottom:1px solid var(--line)}
+#cmp td{text-align:center}
+.plans{grid-template-columns:repeat(auto-fit,minmax(245px,1fr))}
+.plans{grid-template-columns:repeat(auto-fit,minmax(min(100%,270px),1fr))!important}
+.plan{min-width:0}.plan .tag{white-space:normal;display:inline-block;margin:2px 2px 2px 0}
+@media(max-width:900px){.plans{grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr))!important}}
+/* robustesse mobile */
+.ep-two>*,main.panel>*{min-width:0}
+main.panel select,main.panel input:not([type=checkbox]):not([type=radio]):not([type=range]),main.panel textarea{max-width:100%}
+.card{overflow-wrap:anywhere}
+/* contraste (WCAG AA) */
+:root,.bkp{--acd:color-mix(in srgb,var(--ac) 70%,#000)}
+html[data-pal=contraste]{--acd:var(--ac)}
+.btn.p{background:linear-gradient(135deg,var(--acd),color-mix(in srgb,#9a5cff 62%,#000))}
+.chip.on,.btn[aria-pressed=true],.sw button[aria-pressed=true],.ribbon,.m.u,.bkp .btn.p{background:var(--acd);border-color:var(--acd)}
+.btn.p:hover{filter:brightness(1.12)}
+html[data-theme=light]{--ok:#0b7347;--warn:#855400;--bad:#b81d3a}
+html[data-theme=light] .tag.s,html[data-theme=light] .stat.s{color:color-mix(in srgb,var(--ac2) 62%,#000)}
+html[data-theme=light] [style*="--rc"] small,html[data-theme=light] .ep-dr,html[data-theme=light] .ep-achc small{color:color-mix(in srgb,var(--rc) 50%,#000)}
+html[data-theme=light] .btn.d{color:var(--bad)}
+html .chip.on,html button[aria-pressed=true]:not(.sw2):not(.ep-pre){background:var(--acd);border-color:var(--acd);color:#fff}
+html[data-pal=contraste] .chip.on,html[data-pal=contraste] button[aria-pressed=true]:not(.sw2){color:#000}
+html[data-theme=light] a:not(.btn){color:color-mix(in srgb,var(--ac) 80%,#000)}
+html[data-theme=light] [style*="color:var(--ac2)"]{color:color-mix(in srgb,var(--ac2) 62%,#000)!important}
+.ep-lvlup,.ep-ach{pointer-events:none}

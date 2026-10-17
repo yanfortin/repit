@@ -205,17 +205,18 @@ canvas{max-width:100%;display:block}
 <section class="hero wrap">
 <div class="ep-kick"><span>✨ Nouveau : l'édition Épique</span></div>
 <h1>Ton assistant IA qui <span>s'occupe de tout</span>, pour que tu fasses ce qui compte.</h1>
-<p>Replanifie ta journée en un clic, parle-lui en français, trouve des plages horaires entre fuseaux horaires, planifie tes déplacements, vide ta boîte courriel en quelques balayages et laisse un copilote prendre ton compte rendu. Fonctionne même hors ligne. Toi seul approuves chaque action.</p>
+<p><b>Raconte-lui ta journée en vrac, il bâtit le plan.</b> Replanifie ta journée en un clic, parle-lui en français, trouve des plages horaires entre fuseaux horaires, planifie tes déplacements, vide ta boîte courriel en quelques balayages et laisse un copilote prendre ton compte rendu. Fonctionne même hors ligne. Toi seul approuves chaque action.</p>
 <div class="row" style="justify-content:center"><button class="btn p" id="tryBtn">Essayer la démo</button><button class="btn" id="tourBtn">🧭 Visite guidée</button><button class="btn" id="goPlans2">Voir les forfaits</button></div>
-<div class="badges"><span class="tag s">Données d'exemple</span><span class="tag">Rien ne part sans ton accord</span><span class="tag">Pensé pour la Loi 25</span><span class="tag">Tout reste dans ton navigateur</span><span class="tag s">Installable · hors ligne</span></div>
+<div class="badges"><span class="tag s">Données d'exemple</span><span class="tag">Rien ne part sans ton accord</span><span class="tag">Pensé pour la Loi 25</span><span class="tag">Tout reste dans ton navigateur</span><span class="tag s">Installable · hors ligne</span><span class="tag w">Forfaits dès 0 $ ou licence À vie : prix à valider</span></div>
 </section>
 
 
 <section class="wrap ep-show" id="epicShow" aria-labelledby="epH">
 <h2 id="epH">L'édition <span class="ep-grad">Épique</span> : un cockpit pour ta vie</h2>
 <p class="sub" style="text-align:center;max-width:720px;margin:0 auto 20px">Un centre de commande déplaçable, un jumeau numérique qui prédit ton épuisement, un coach IA, une machine à remonter le temps et bien plus. Tout est simulé, rien ne quitte ton navigateur.</p>
-<div class="ep-stats" id="epStats"><div><b data-n="47">47</b><span>outils</span></div><div><b data-n="13">13</b><span>nouveautés épiques</span></div><div><b data-n="8">8</b><span>sons ambiants générés</span></div><div><b data-n="365">365</b><span>jours de chaleur</span></div></div>
+<div class="ep-stats" id="epStats"><div><b data-n="48">48</b><span>outils</span></div><div><b data-n="14">14</b><span>nouveautés</span></div><div><b data-n="9">9</b><span>sons ambiants générés</span></div><div><b data-n="365">365</b><span>jours de chaleur</span></div></div>
 <div class="ep-tiles">
+<button class="ep-tile" data-go="live"><i>⚡</i><b>Agendo Live</b><span>Raconte ta journée en vrac : agenda, trajets, rappels, tâches et courriels, à approuver en un clic.</span></button>
 <button class="ep-tile" data-go="cmd"><i>🛰️</i><b>Centre de commande</b><span>Widgets déplaçables et redimensionnables, style cockpit.</span></button>
 <button class="ep-tile" data-go="twin"><i>🧬</i><b>Jumeau numérique</b><span>Simule ta semaine et prédit la surcharge et l'épuisement.</span></button>
 <button class="ep-tile" data-go="coach"><i>🧠</i><b>Coach IA</b><span>Bilans quotidiens et défis personnalisés.</span></button>
@@ -233,13 +234,20 @@ canvas{max-width:100%;display:block}
 <main class="panel" id="main" tabindex="-1"></main>
 </div>
 
-<section class="wrap" id="plans" style="padding-bottom:40px">
-<h2 style="text-align:center;font-size:34px">Des forfaits pour chaque façon de travailler</h2>
-<p class="sub" style="text-align:center">Prix en $ CA, <b>à valider</b> : ils ne sont pas définitifs et aucun paiement n'est possible dans ce prototype.</p>
+<section class="wrap" id="plans" style="padding-bottom:40px" aria-labelledby="plH">
+<h2 id="plH" style="text-align:center;font-size:34px">Des forfaits pour chaque façon de travailler</h2>
+<p class="sub" style="text-align:center">Prix en $ CA, tous <b>à valider</b> : ils ne sont pas définitifs, les taxes s'ajoutent, et aucun paiement n'est possible dans ce prototype.</p>
 <div style="text-align:center;margin-bottom:18px"><div class="sw" role="group" aria-label="Facturation"><button id="bm" aria-pressed="true">Mensuel</button><button id="ba" aria-pressed="false">Annuel <span class="tag s">économie à valider</span></button></div></div>
 <div class="plans" id="planCards"></div>
+<div class="card" id="lifeBox" style="margin-top:18px">
+<h3>Comment fonctionne le forfait « À vie »</h3>
+<div class="ep-two">
+<div><h4 style="margin:6px 0">✅ Ce qui est inclus</h4><ul class="lv-ins"><li>Toutes les fonctions qui s'exécutent dans ton navigateur (celles du forfait Épique), sans abonnement.</li><li>Les mises à jour de ces fonctions locales, tant que le produit existe.</li><li>Une licence personnelle, pour une personne.</li></ul></div>
+<div><h4 style="margin:6px 0">⛔ Ce qui n'est pas inclus</h4><ul class="lv-ins"><li>Tout ce qui coûte de l'argent à chaque utilisation : IA réelle, comptes Gmail ou Outlook connectés, synchronisation, stockage en ligne.</li><li>Le tableau de bord d'équipe, le mode équipe en direct, Slack.</li><li>Ces services en ligne, s'ils existent un jour, seront en option payante ou avec un plafond d'usage équitable (limite mensuelle à valider).</li></ul></div></div>
+<p class="sub"><b>Pourquoi ce prix?</b> Il correspond à environ 8 mois du forfait Épique au tarif mensuel (hypothèse de travail, voir le plan de tarification). Il est limité à 500 licences (à valider) pour garder une logique économique saine. « À vie » veut dire la durée de vie du produit, pas une garantie éternelle. <b>Politique de remboursement à définir.</b> Taxes en sus.</p></div>
 <div class="cmpwrap card scroll"><h3>Comparatif détaillé</h3><table id="cmp"></table></div>
-<p class="sub" style="margin-top:12px">Les limites et inclusions ci-dessus sont une proposition de travail. Les fonctions « bientôt » ne sont pas encore disponibles. Taxes en sus, s'il y a lieu.</p>
+<p class="sub" style="margin-top:12px">Les limites et inclusions ci-dessus sont une proposition de travail. Les fonctions « bientôt » ne sont pas encore offertes. Les prix annuels sont affichés par mois et facturés en un seul paiement. Taxes en sus, s'il y a lieu.</p>
+<div id="faq" style="margin-top:28px" aria-labelledby="faqH"><h2 id="faqH" style="text-align:center">Questions fréquentes</h2><div id="faqList" style="max-width:820px;margin:0 auto"></div></div>
 </section>
 
 <footer><div class="wrap">Agendo — prototype de démonstration. Aucune donnée réelle collectée : tout reste dans ton navigateur (localStorage). Raccourcis : Ctrl/Cmd+K commandes, Ctrl+Z annuler, T thème, ? aide. Fait au Québec, en français d'ici. Mode vim : Alt+V · aide : ?</div></footer>
@@ -326,12 +334,14 @@ const seed=()=>({theme:"dark",pal:"aurore",fs:100,reduce:false,tab:"home",tour:f
   {id:2,on:true,when:"event_added",cond:"client",then:"task",arg:"Préparer la réunion"}],
  alog:[],notifs:[{id:2,t:"Bienvenue dans Agendo! Essaie « Ma journée parfaite » ou le copilote de réunion.",k:"i",ts:Date.now(),r:false}],
  focusMin:0,saved:0,nid:100,pw:[9,17],tol:true,sp:[1,3,5],sd:45,so:1,sn:5,fd:25,...seedX(),gen:{to:1,int:"relance",tone:"chaleureux",len:1,pts:"",v:0}});
-let S;try{S=Object.assign(seed(),JSON.parse(localStorage.getItem(KEY)||"{}"))}catch(e){S=seed()}
+const okT=(dv,rv)=>{if(Array.isArray(dv)!==Array.isArray(rv))return false;if(dv===null||dv===undefined)return true;if(typeof dv!==typeof rv)return false;if(typeof dv==="object"&&rv===null)return false;return true};
+let S;try{const d=seed(),raw=JSON.parse(localStorage.getItem(KEY)||"{}");S=d;if(raw&&typeof raw==="object"&&!Array.isArray(raw))for(const k in raw){const dv=d[k],rv=raw[k];if(dv===undefined){S[k]=rv;continue}if(!okT(dv,rv))continue;if(Array.isArray(rv)&&dv.length&&typeof dv[0]==="object"){const r2=rv.filter(x=>x&&typeof x==="object"&&!Array.isArray(x));S[k]=r2;continue}S[k]=rv}}catch(e){S=seed()}
+if(!S||typeof S!=="object")S=seed();
 const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}};
 const id=()=>++S.nid;
 let tt;const toast=m=>{const t=$("#toast");t.textContent=m;t.classList.add("on");clearTimeout(tt);tt=setTimeout(()=>t.classList.remove("on"),2800)};
 /* historique annuler / rétablir */
-const DK=["cal","tasks","todo","inv","exp","contacts","habits","goals","notes","rules","drafts","mz","budget"];
+const DK=["cal","tasks","todo","inv","exp","contacts","habits","goals","notes","rules","drafts","mz","budget","rem"];
 const HS={u:[],r:[]};
 const pick=()=>JSON.stringify(DK.reduce((a,k)=>(a[k]=S[k],a),{}));
 function syncUR(){const u=$("#undoBtn"),r=$("#redoBtn");if(u)u.disabled=!HS.u.length;if(r)r.disabled=!HS.r.length}
@@ -1266,14 +1276,14 @@ function bkShow(m,o){if(bkTz===TZME)return H(m);const d=dateOf(o),t=zoned(d.getF
 const LOCS={visio:"📹 Appel vidéo",tel:"📞 Appel téléphonique",cafe:"☕ Café en personne"};
 function bkPaint(){const box=$("#bkPrev");if(!box)return;const B=S.bk,ds=bkDays();if(bkSel.o==null||!ds.includes(bkSel.o))bkSel={o:ds[0]??null,s:null,done:null};
  const ini=(B.name||"A").split(" ").map(x=>x[0]).join("").slice(0,2).toUpperCase();
- const head=`<div class="row" style="gap:12px;margin-bottom:8px">${B.logo?`<img src="${B.logo}" alt="Logo" style="width:48px;height:48px;border-radius:12px;object-fit:cover">`:`<div style="width:48px;height:48px;border-radius:12px;background:${B.color};color:#fff;display:grid;place-items:center;font-weight:800">${esc(ini)}</div>`}<div><b>${esc(B.name)}</b><div class="sub" style="margin:0">${esc(B.title)}</div></div></div>`;
+ const head=`<div class="row" style="gap:12px;margin-bottom:8px">${B.logo?`<img src="${B.logo}" alt="Logo" style="width:48px;height:48px;border-radius:12px;object-fit:cover">`:`<div style="width:48px;height:48px;border-radius:12px;background:color-mix(in srgb,${B.color} 68%,#000);color:#fff;display:grid;place-items:center;font-weight:800">${esc(ini)}</div>`}<div><b>${esc(B.name)}</b><div class="sub" style="margin:0">${esc(B.title)}</div></div></div>`;
  if(!B.on){box.innerHTML=head+`<p class="sub">Cette page est désactivée : les visiteurs voient « Page non disponible ».</p>`;return}
  if(bkSel.done){const d=bkSel.done;box.innerHTML=head+`<div style="text-align:center;padding:10px"><div style="font-size:42px">✅</div><h3>C'est confirmé!</h3><p>${esc(d.nm)}, ta rencontre avec ${esc(B.name)} est réservée : <b>${ofFull(d.o).replace(/ 20\d\d$/,"")} à ${H(d.s)}</b> (${DUR(B.dur)}).</p><p class="sub">${esc(B.conf)}</p><div class="row" style="justify-content:center"><button class="btn sm" data-act="bkIcs">⬇️ Ajouter à mon calendrier (.ics)</button><button class="btn sm" data-act="bkAgain">Nouvelle réservation</button></div></div>`;return}
  box.innerHTML=head+`<p style="margin:0 0 8px">${esc(B.desc)}</p><div class="chips" style="margin-bottom:8px"><span class="chip">⏱ ${DUR(B.dur)}</span><span class="chip">${LOCS[B.loc]}</span></div>
  <div class="row" style="margin-bottom:8px"><label class="sel"><span class="sub" style="margin:0">Fuseau du visiteur</span><select data-chg="bkTz" aria-label="Fuseau du visiteur"><option value="America/Toronto" ${bkTz==="America/Toronto"?"selected":""}>Montréal</option><option value="America/Vancouver" ${bkTz==="America/Vancouver"?"selected":""}>Vancouver</option><option value="Europe/Paris" ${bkTz==="Europe/Paris"?"selected":""}>Paris</option><option value="Asia/Tokyo" ${bkTz==="Asia/Tokyo"?"selected":""}>Tokyo</option></select></label></div>
- <div class="chips" role="group" aria-label="Jours disponibles" style="margin-bottom:8px">${ds.map(o=>`<button class="chip ${o===bkSel.o?"on":""}" data-act="bkDay" data-i="${o}" aria-pressed="${o===bkSel.o}" style="${o===bkSel.o?"background:"+B.color+";border-color:"+B.color:""}">${odl(o)}</button>`).join("")||"<span class='sub'>Aucune disponibilité prochainement.</span>"}</div>
- <div class="chips" role="group" aria-label="Heures disponibles">${bkSel.o!=null?bkSlots(bkSel.o).map(m=>`<button class="chip ${bkSel.s===m?"on":""}" data-act="bkSlot" data-i="${m}" aria-pressed="${bkSel.s===m}" style="${bkSel.s===m?"background:"+B.color+";border-color:"+B.color:""}">${bkShow(m,bkSel.o)}</button>`).join(""):""}</div>
- ${bkSel.s!=null?`<form data-f="bkConf" class="card" style="margin-top:10px"><b>${odl(bkSel.o)} à ${H(bkSel.s)}</b><label class="l" for="bkN">Ton nom</label><input type="text" id="bkN" name="nm" required><label class="l" for="bkE">Ton courriel</label><input type="text" id="bkE" name="em" required placeholder="nom@exemple.invalid">${B.qs.map((q,i)=>`<label class="l" for="bkQ${i}">${esc(q)}</label><input type="text" id="bkQ${i}" name="q${i}">`).join("")}<button class="btn p" style="margin-top:10px;background:${B.color}">Confirmer la réservation</button></form>`:""}
+ <div class="chips" role="group" aria-label="Jours disponibles" style="margin-bottom:8px">${ds.map(o=>`<button class="chip ${o===bkSel.o?"on":""}" data-act="bkDay" data-i="${o}" aria-pressed="${o===bkSel.o}" style="${o===bkSel.o?"background:color-mix(in srgb,"+B.color+" 68%,#000);border-color:transparent":""}">${odl(o)}</button>`).join("")||"<span class='sub'>Aucune disponibilité prochainement.</span>"}</div>
+ <div class="chips" role="group" aria-label="Heures disponibles">${bkSel.o!=null?bkSlots(bkSel.o).map(m=>`<button class="chip ${bkSel.s===m?"on":""}" data-act="bkSlot" data-i="${m}" aria-pressed="${bkSel.s===m}" style="${bkSel.s===m?"background:color-mix(in srgb,"+B.color+" 68%,#000);border-color:transparent":""}">${bkShow(m,bkSel.o)}</button>`).join(""):""}</div>
+ ${bkSel.s!=null?`<form data-f="bkConf" class="card" style="margin-top:10px"><b>${odl(bkSel.o)} à ${H(bkSel.s)}</b><label class="l" for="bkN">Ton nom</label><input type="text" id="bkN" name="nm" required><label class="l" for="bkE">Ton courriel</label><input type="text" id="bkE" name="em" required placeholder="nom@exemple.invalid">${B.qs.map((q,i)=>`<label class="l" for="bkQ${i}">${esc(q)}</label><input type="text" id="bkQ${i}" name="q${i}">`).join("")}<button class="btn p" style="margin-top:10px;background:color-mix(in srgb,${B.color} 68%,#000)">Confirmer la réservation</button></form>`:""}
  ${B.busy?`<h4 style="margin:14px 0 6px">Mes disponibilités cette semaine</h4><div class="row" style="gap:4px">${wkdays.slice(0,5).map(o=>`<div class="card" style="flex:1;min-width:70px;padding:6px;text-align:center;font-size:12px"><b>${odl(o).slice(0,3)}</b><br>${bkSlots(o).length} plages</div>`).join("")}</div>`:""}`}
 Object.assign(V,{book(){const B=S.bk,DN=["Dim","Lun","Mar","Mer","Jeu","Ven","Sam"];return `<h2>Page de réservation</h2><p class="sub">Partage ton agenda avec une page publique (comme Calendly) : les visiteurs réservent seulement dans tes plages libres. Personnalise-la à gauche, vois le résultat à droite. Lien fictif, rien n'est publié. <span class="tag s">Simulé</span></p>
  <div class="two"><div class="card"><div class="row b"><b>Ma page publique</b><label class="tg"><input type="checkbox" data-chg="bkOn" ${B.on?"checked":""} aria-label="Page active"><span></span></label></div>
@@ -1360,8 +1370,8 @@ function tmPaint(){const o=$("#tmOut");if(!o)return;const T=S.tm,mean=Math.round
  <div class="card" style="margin-top:12px"><h3>Fil d'activité</h3><ul class="list">${["Léa a réservé une plage de concentration de 2 h demain.","Mathieu a refusé 2 invitations cette semaine (charge élevée).","Camille a terminé 5 tâches du projet « Site Atelier Lune ».","Yacine a ajouté une réponse rapide à la bibliothèque d'équipe.","Aiko a atteint une série de 7 jours."].map(x=>`<li>${x}</li>`).join("")}</ul></div>`;
  tmCost();const P=PAL();bars("cTm",T.map(m=>m.n.split(" ")[0]),[{d:T.map(m=>m.m),c:P[0]},{d:T.map(m=>m.f),c:P[1]}],{fmtv:v=>v+" h"})}
 Object.assign(V,{team(){const ok=S.planSim==="team";return `<h2>Tableau de bord d'équipe</h2><p class="sub">Réservé au forfait <b>Équipe</b> : vois la charge, la disponibilité (avec les fuseaux horaires) et le coût des réunions de toute l'équipe. <span class="tag s">Données d'exemple</span></p>
- <div class="row" style="margin-bottom:12px"><label class="sel"><span class="sub" style="margin:0">Forfait simulé</span><select data-chg="planSim" aria-label="Forfait simulé">${optS([["free","Gratuit"],["ess","Essentiel"],["pro","Pro"],["team","Équipe"]],S.planSim)}</select></label></div>
- ${ok?`<div id="tmOut"></div>`:`<div class="card" style="text-align:center;padding:30px"><div style="font-size:44px" aria-hidden="true">🔒</div><h3>Fonction du forfait Équipe</h3><p class="sub">Ton forfait simulé (${{free:"Gratuit",ess:"Essentiel",pro:"Pro"}[S.planSim]}) n'inclut pas le tableau de bord d'équipe.</p><button class="btn p" data-act="tmUp">Passer au forfait Équipe (simulé)</button> <button class="btn" id="tmPl" data-act="tmPlans">Voir les forfaits</button></div>`}`}});
+ <div class="row" style="margin-bottom:12px"><label class="sel"><span class="sub" style="margin:0">Forfait simulé</span><select data-chg="planSim" aria-label="Forfait simulé">${optS([["free","Gratuit"],["ess","Essentiel"],["pro","Pro"],["epic","Épique"],["life","À vie"],["team","Équipe"]],S.planSim)}</select></label></div>
+ ${ok?`<div id="tmOut"></div>`:`<div class="card" style="text-align:center;padding:30px"><div style="font-size:44px" aria-hidden="true">🔒</div><h3>Fonction du forfait Équipe</h3><p class="sub">Ton forfait simulé (${{free:"Gratuit",ess:"Essentiel",pro:"Pro",epic:"Épique",life:"À vie"}[S.planSim]||"actuel"}) n'inclut pas le tableau de bord d'équipe.</p><button class="btn p" data-act="tmUp">Passer au forfait Équipe (simulé)</button> <button class="btn" id="tmPl" data-act="tmPlans">Voir les forfaits</button></div>`}`}});
 Object.assign(INIT,{team(){tmPaint()}});
 Object.assign(INP,{tmc:t=>{S.tmc[t.dataset.k]=+t.value||0;save();tmCost()}});
 Object.assign(CHG,{planSim:t=>{S.planSim=t.value;save();render()}});
@@ -1401,16 +1411,73 @@ $("#tryBtn").onclick=()=>$("#demo").scrollIntoView();$("#tourBtn").onclick=()=>t
 const toPlans=()=>$("#plans").scrollIntoView();$("#goPlans").onclick=toPlans;$("#goPlans2").onclick=toPlans;
 let annual=false;
 const PL=[
- {n:"Gratuit",m:0,a:0,d:"Pour découvrir Agendo.",f:["Liste du jour, agenda et projets","Assistant en français (commandes de base)","Boîte zéro (limite quotidienne à valider)","Habitudes, séries et défis de la semaine","Réponses rapides (5 modèles)","Mode hors ligne et installation sur le téléphone","Widget d'accueil (aperçu)","Thèmes de couleurs et mode sombre","Export de tes données"],c:"Commencer gratuitement"},
- {n:"Essentiel",m:15,a:12,d:"Pour une personne occupée.",f:["Tout du forfait Gratuit","Ma journée parfaite et scénarios « et si »","Assistant : commandes enchaînées, annuler/rétablir","Rédacteur de courriels avec choix du ton","Récap audio quotidien","Notes de réunion avec tâches extraites","Rappels intelligents contextuels (10 actifs)","Mode vacances avec réponse automatique","Santé, sommeil et énergie","Page de réservation (1 type de rencontre)","Rapport hebdomadaire imprimable (PDF)","Gmail ou Outlook (bientôt)"],c:"Choisir Essentiel"},
- {n:"Pro",m:29,a:24,d:"Pour les travailleurs autonomes.",f:["Tout du forfait Essentiel","Copilote de réunion (transcription et décisions en direct)","Déplacements : trajets, arrêts, stationnement et météo","Abonnements : doublons et hausses de prix repérés","Page de réservation personnalisable (logo, couleurs, questions)","Réponses rapides illimitées et raccourcis","Plages horaires multi-fuseaux","Carte du réseau et relances (gestion de contacts légère)","Budget, factures et graphiques","Analyse du temps et cote d'énergie","Automatisations « si ceci, alors cela »","Réunion en direct avec minuteur","Soutien prioritaire"],c:"Choisir Pro",hot:1},
- {n:"Équipe",m:39,a:32,d:"Par utilisateur, minimum à valider.",f:["Tout du forfait Pro","Tableau de bord d'équipe : charge, disponibilité, fuseaux","Calculateur du coût des réunions","Rééquilibrage de la charge de travail","Plages communes entre collègues (bientôt)","Pages de réservation d'équipe en rotation (bientôt)","Projets et contacts partagés (bientôt)","Rôles et permissions (bientôt)","Slack (bientôt)","Journal d'audit (bientôt)","Facturation centralisée"],c:"Parler à l'équipe",seat:1}];
+ {id:"free",n:"Gratuit",m:0,a:0,d:"Pour découvrir Agendo.",f:["Liste du jour, agenda et projets","Agendo Live : 3 plans par jour","Assistant en français (commandes de base)","Boîte zéro (limite quotidienne à valider)","Habitudes, séries et défis de la semaine","Réponses rapides (5 modèles)","Hors ligne et installation sur le téléphone","Thèmes, mode sombre et export de tes données","Centre de commande (4 widgets)","Progression : niveaux, XP et succès"],c:"Commencer gratuitement"},
+ {id:"ess",n:"Essentiel",m:15,a:12,d:"Pour une personne occupée.",f:["Tout du forfait Gratuit","Agendo Live illimité (analyse locale)","Ma journée parfaite et scénarios « et si »","Rédacteur de courriels et récap audio","Notes de réunion avec tâches extraites","Rappels intelligents (10 actifs)","Mode vacances, santé et énergie","Page de réservation (1 type de rencontre)","Rapport hebdomadaire imprimable","Centre de commande (12 widgets), coach et recherche sémantique limités","Un compte Gmail ou Outlook (bientôt)"],c:"Choisir Essentiel"},
+ {id:"pro",n:"Pro",m:29,a:24,d:"Pour les travailleurs autonomes.",f:["Tout du forfait Essentiel","Copilote de réunion et déplacements","Abonnements : doublons et hausses repérés","Page de réservation personnalisable","Budget, factures et analyse du temps","Carte du réseau et relances","Automatisations « si ceci, alors cela »","Jumeau numérique : prévision d'énergie","Machine à remonter le temps (30 jours)","Éditeur de flux (10 blocs) et marché d'extensions","Jusqu'à 3 comptes courriel et IA à usage équitable (bientôt)","Soutien prioritaire"],c:"Choisir Pro"},
+ {id:"epic",n:"Épique",m:49,a:39,d:"Tout le catalogue, sans compromis.",f:["Tout du forfait Pro","Jumeau numérique : optimisation de la semaine","Machine à remonter le temps (1 an)","Éditeur de flux illimité","Marché premium : thèmes, sons et widgets","Mode équipe en direct (3 invités)","Accès anticipé aux nouveautés","Jusqu'à 5 comptes courriel et IA à usage équitable élargi (bientôt)","Soutien prioritaire"],c:"Choisir Épique",hot:1},
+ {id:"team",n:"Équipe",m:55,a:45,d:"Par utilisateur, minimum de sièges à valider.",f:["Tout du forfait Épique","Tableau de bord d'équipe : charge, fuseaux, coût des réunions","Rééquilibrage de la charge de travail","Mode équipe en direct illimité (bientôt)","Plages communes et pages de réservation d'équipe (bientôt)","Projets et contacts partagés (bientôt)","Rôles, journal d'audit et Slack (bientôt)","Facturation centralisée","Soutien dédié (à valider)"],c:"Parler à l'équipe",seat:1},
+ {id:"life",n:"À vie",once:399,d:"Licence personnelle à paiement unique, quantité limitée.",f:["Toutes les fonctions locales du forfait Épique, sans abonnement","Agendo Live, jumeau numérique, flux, coach, marché et mises à jour des fonctions locales","Fonctionne dans ton navigateur, hors ligne, sans serveur","Non inclus : IA réelle, comptes Gmail ou Outlook connectés, synchronisation, tableau d'équipe, Slack","Services en ligne futurs : options payantes ou plafond d'usage équitable","Quantité limitée : 500 licences (à valider)","Une personne par licence, non transférable (à valider)"],c:"Réserver une licence (bientôt)",life:1}];
+const pct=(m,a)=>Math.round((1-a/m)*100);
 function plans(){$("#bm").setAttribute("aria-pressed",!annual);$("#ba").setAttribute("aria-pressed",annual);
- $("#planCards").innerHTML=PL.map(p=>{const v=annual?p.a:p.m;return `<div class="plan ${p.hot?"hot":""}">${p.hot?'<span class="ribbon">Populaire (exemple)</span>':""}<h3>${p.n}</h3><div class="sub" style="margin:0">${p.d}</div><div class="pr">${v?v+" $":"0 $"}<small style="font-size:14px;font-weight:400;color:var(--mut)"> CA${v?(p.seat?" / utilisateur":"")+" / mois":""}</small></div><div><span class="tag w">Prix à valider</span> ${annual&&v?'<span class="tag">facturé annuellement</span>':""}</div><ul>${p.f.map(x=>`<li>${x}</li>`).join("")}</ul><button class="btn ${p.hot?"p":""}" data-plan="${p.n}">${p.c}</button></div>`}).join("")}
-document.addEventListener("click",e=>{const b=e.target.closest("[data-plan]");if(b)toast("Démo : aucun paiement ni inscription réels. Forfait « "+b.dataset.plan+" » non disponible.")});
+ $("#planCards").innerHTML=PL.map(p=>{let price;
+  if(p.once)price=`<div class="pr">${p.once}${NB}$<small style="font-size:14px;font-weight:400;color:var(--mut)"> CA, une seule fois</small></div>`;
+  else{const v=annual?p.a:p.m;price=`<div class="pr">${v}${NB}$<small style="font-size:14px;font-weight:400;color:var(--mut)"> CA${v?(p.seat?" / utilisateur":"")+" / mois":""}</small></div>`}
+  const tags=p.once?`<span class="tag w">Prix à valider</span> <span class="tag">taxes en sus</span> <span class="tag">paiement unique</span>`:`<span class="tag w">Prix à valider</span> <span class="tag">taxes en sus</span>${p.m&&annual?` <span class="tag">facturé annuellement · économie d'environ ${pct(p.m,p.a)}${NB}%</span>`:p.m?` <span class="tag">annuel : ${p.a}${NB}$ / mois</span>`:""}`;
+  return `<div class="plan ${p.hot?"hot":""}">${p.hot?'<span class="ribbon">Le plus complet</span>':p.life?'<span class="ribbon">Quantité limitée</span>':""}<h3>${p.n}</h3><div class="sub" style="margin:0">${p.d}</div>${price}<div>${tags}</div><ul>${p.f.map(x=>`<li>${x}</li>`).join("")}</ul><button class="btn ${p.hot?"p":""}" data-plan="${p.n}">${p.c}</button></div>`}).join("")}
+document.addEventListener("click",e=>{const b=e.target.closest("[data-plan]");if(b)toast("Démo : aucun paiement ni inscription réels. Le forfait « "+b.dataset.plan+" » n'est pas encore offert.")});
 $("#bm").onclick=()=>{annual=false;plans()};$("#ba").onclick=()=>{annual=true;plans()};
-const CM=[["Liste du jour, agenda, projets","y","y","y","y"],["Habitudes, séries, objectifs et défis de la semaine","y","y","y","y"],["Thèmes de couleurs, mode sombre, accessibilité","y","y","y","y"],["Mode hors ligne et installation (PWA)","y","y","y","y"],["Widget d'écran d'accueil","Aperçu","y","y","y"],["Export des données","y","y","y","y"],["Assistant en français","Base","y","y","y"],["Commandes enchaînées, annuler et rétablir","n","y","y","y"],["Boîte zéro (balayage)","Limité","y","y","y"],["Ma journée parfaite et « et si »","n","y","y","y"],["Rédacteur de courriels (tons)","n","y","y","y"],["Réponses rapides","5","y","Illimitées","Illimitées"],["Récap audio","n","y","y","y"],["Notes de réunion et tâches","n","y","y","y"],["Rappels intelligents contextuels","n","10 actifs","Illimités","Illimités"],["Mode vacances et réponse automatique","n","y","y","y"],["Santé, sommeil et énergie","n","y","y","y"],["Rapport hebdomadaire imprimable","n","y","y","y"],["Page de réservation publique","n","1 type","Personnalisable","Personnalisable"],["Copilote de réunion (transcription en direct)","n","n","y","y"],["Déplacements, trajets et arrêts","n","n","y","y"],["Abonnements et détection de doublons","n","n","y","y"],["Réunion en direct (minuteur d'ordre du jour)","n","n","y","y"],["Trouveur de plages horaires multi-fuseaux","n","n","y","y"],["Carte du réseau et relances","n","n","y","y"],["Budget, factures et graphiques","n","n","y","y"],["Analyse du temps et énergie","n","n","y","y"],["Automatisations configurables","n","Limité","y","y"],["Tableau de bord d'équipe et coût des réunions","n","n","n","y"],["Comptes courriel connectés","Aucun","1 (bientôt)","3 (bientôt)","Illimité (bientôt)"],["Projets, contacts et plages partagés","n","n","n","bientôt"],["Rôles, audit, Slack","n","n","n","bientôt"],["Soutien","Communauté","Courriel","Prioritaire","Dédié (à valider)"]];
-function cmpBuild(){$("#cmp").innerHTML=`<tr><th>Fonction</th>${PL.map(p=>`<th>${p.n}</th>`).join("")}</tr>`+CM.map(r=>`<tr><td>${r[0]}</td>${r.slice(1).map(v=>v==="y"?'<td class="y" aria-label="inclus">✓</td>':v==="n"?'<td class="n" aria-label="non inclus">—</td>':`<td>${v}</td>`).join("")}</tr>`).join("")}cmpBuild();
+const CM=[
+["Liste du jour, agenda et projets","y","y","y","y","y","y"],
+["Habitudes, séries, objectifs et défis de la semaine","y","y","y","y","y","y"],
+["Thèmes, mode sombre et accessibilité","y","y","y","y","y","y"],
+["Hors ligne et installation (PWA)","y","y","y","y","y","y"],
+["Export de tes données","y","y","y","y","y","y"],
+["Intro, progression, niveaux et succès","y","y","y","y","y","y"],
+["Raccourcis étendus et mode vim","y","y","y","y","y","y"],
+["Agendo Live (journée en vrac → plan)","3 par jour","Illimité","Illimité","Illimité","Illimité","Illimité"],
+["Assistant en français","Base","y","y","y","y","y"],
+["Commandes enchaînées, annuler et rétablir","n","y","y","y","y","y"],
+["Boîte zéro (balayage)","Limitée","y","y","y","y","y"],
+["Ma journée parfaite et « et si »","n","y","y","y","y","y"],
+["Rédacteur de courriels (tons)","n","y","y","y","y","y"],
+["Réponses rapides","5","20","Illimitées","Illimitées","Illimitées","Illimitées"],
+["Récap audio","n","y","y","y","y","y"],
+["Notes de réunion et tâches","n","y","y","y","y","y"],
+["Rappels intelligents contextuels","n","10 actifs","Illimités","Illimités","Illimités","Illimités"],
+["Mode vacances et réponse automatique","n","y","y","y","y","y"],
+["Santé, sommeil et énergie","n","y","y","y","y","y"],
+["Rapport hebdomadaire imprimable","n","y","y","y","y","y"],
+["Page de réservation publique","n","1 type","Personnalisable","Personnalisable","Personnalisable","Personnalisable"],
+["Centre de commande (widgets déplaçables)","4","12","Tous","Tous","Tous","Tous"],
+["Coach (règles locales) : bilan et défis","n","1 défi","3 défis","3 défis","3 défis","3 défis"],
+["Concentration immersive (sons générés)","n","4 sons","9 sons","9 sons","9 sons","9 sons"],
+["Studio de thèmes et fonds animés","n","3 fonds","y","y","y","y"],
+["Recherche sémantique (locale)","n","20 par jour","Illimitée","Illimitée","Illimitée","Illimitée"],
+["Carte de chaleur annuelle","90 jours","y","y","y","y","y"],
+["Copilote de réunion (transcription simulée)","n","n","y","y","y","y"],
+["Déplacements, trajets et arrêts","n","n","y","y","y","y"],
+["Abonnements et détection de doublons","n","n","y","y","y","y"],
+["Réunion en direct (minuteur d'ordre du jour)","n","n","y","y","y","y"],
+["Plages horaires multi-fuseaux","n","n","y","y","y","y"],
+["Carte du réseau et relances","n","n","y","y","y","y"],
+["Budget, factures et graphiques","n","n","y","y","y","y"],
+["Analyse du temps et énergie","n","n","y","y","y","y"],
+["Automatisations configurables","n","Limitées","y","y","y","y"],
+["Jumeau numérique","n","n","Prévision","Optimisation","Optimisation","Optimisation"],
+["Machine à remonter le temps","n","n","30 jours","1 an","1 an","1 an"],
+["Éditeur de flux visuel","n","n","10 blocs","Illimité","Illimité","Illimité"],
+["Marché d'extensions","n","n","y","Premium","Premium","Premium"],
+["Mode équipe en direct (simulé)","n","n","n","3 invités","Illimité (bientôt)","n"],
+["Tableau de bord d'équipe et coût des réunions","n","n","n","n","y","n"],
+["Comptes courriel connectés","Aucun","1 (bientôt)","3 (bientôt)","5 (bientôt)","Illimités (bientôt)","Non inclus"],
+["IA réelle (bientôt)","n","n","Usage équitable","Usage équitable élargi","Usage équitable élargi","Non inclus"],
+["Projets, contacts et plages partagés","n","n","n","n","Bientôt","n"],
+["Rôles, journal d'audit et Slack","n","n","n","n","Bientôt","n"],
+["Soutien","Communauté","Courriel","Prioritaire","Prioritaire","Dédié (à valider)","Courriel"],
+["Mises à jour","Correctifs","y","y","y","y","Fonctions locales"]];
+function cmpBuild(){$("#cmp").innerHTML=`<caption class="sr">Comparatif des forfaits</caption><tr><th scope="col">Fonction</th>${PL.map(p=>`<th scope="col">${p.n}</th>`).join("")}</tr>`+CM.map(r=>`<tr><th scope="row" class="rh">${r[0]}</th>${r.slice(1).map(v=>v==="y"?'<td class="y" aria-label="inclus">✓</td>':v==="n"?'<td class="n" aria-label="non inclus">—</td>':`<td>${v}</td>`).join("")}</tr>`).join("")}cmpBuild();
+const FAQ=[["Puis-je payer dès maintenant?","Non. Agendo est un prototype de démonstration : aucun paiement, aucune inscription et aucune donnée collectée. Les boutons des forfaits n'ouvrent rien."],["Les prix sont-ils définitifs?","Non. Tous les prix sont à valider. Ils seront confirmés avant tout lancement, taxes en sus."],["Que veut dire « À vie »?","Une licence personnelle à paiement unique (399 $ CA, à valider) pour toutes les fonctions locales du forfait Épique, pendant la durée de vie du produit. Les mises à jour des fonctions locales sont incluses. Ce n'est pas une garantie éternelle : si le produit cessait d'exister, la durée serait celle du produit."],["Qu'est-ce que le forfait « À vie » n'inclut pas?","Les services qui coûtent à chaque utilisation : IA réelle, comptes Gmail ou Outlook connectés, synchronisation en ligne, ainsi que les fonctions d'équipe. Ces services, s'ils sont offerts, seront en option payante ou soumis à un plafond d'usage équitable."],["Pourquoi un plafond d'usage équitable?","Une IA réelle et des serveurs ont un coût variable. Un plafond mensuel (à valider) protège le service et évite que quelques gros usages fassent grimper le prix pour tous."],["Pourquoi la quantité de licences À vie est-elle limitée?","Pour garder le modèle viable : on limite le nombre de paiements uniques tant que les coûts futurs ne sont pas connus. La limite proposée est de 500 licences (à valider)."],["Quelle est la politique de remboursement?","À définir. Elle sera publiée avant tout paiement réel."],["Les taxes sont-elles incluses?","Non. Les prix sont affichés avant taxes (TPS et TVQ, ou taxes de ta province, s'il y a lieu)."],["Mes données sont-elles en sécurité?","Dans ce prototype, tout reste dans ton navigateur (stockage local) et rien n'est envoyé à un serveur. Tu peux exporter ou réinitialiser tes données à tout moment. Agendo est pensé pour respecter la Loi 25, sans garantie juridique à ce stade."],["Les intégrations (Gmail, IA, Slack) fonctionnent-elles?","Pas encore. Elles sont simulées dans la démo, et marquées « bientôt » dans les forfaits. L'assistant et Agendo Live fonctionnent par règles locales, pas avec une vraie IA."],["Puis-je changer de forfait?","Le fonctionnement du changement de forfait et des crédits sera défini avant le lancement."],["Quel est le minimum pour le forfait Équipe?","Le nombre minimum de sièges est à valider."]];
+$("#faqList").innerHTML=FAQ.map(q=>`<details class="card faq"><summary>${esc(q[0])}</summary><p class="sub">${esc(q[1])}</p></details>`).join("");
 let rz;window.addEventListener("resize",()=>{clearTimeout(rz);rz=setTimeout(()=>{if(S.tab==="time")timeInit();else if(S.tab==="fin")finInit();else if(S.tab==="crm")graphInit();else if(["subs","health","report","team","trip"].includes(S.tab)&&INIT[S.tab])INIT[S.tab]()},200)});
 plans();applyLook();(()=>{const h=location.hash.slice(1);if(h&&TABS.some(t=>t[0]===h))S.tab=h})();render();bell();
 setTimeout(()=>{if(!S.tour&&tourI<0)toast("Nouveau ici? Clique « 🧭 Visite guidée » en haut de page.")},2500);
@@ -1420,5 +1487,6 @@ window.__agendo={chat,runCmd,S:()=>S,go,doPerfect,dbg:{zoned,parts,localOf,slotC
 })();
 </script>
 <script src="epic.js"></script>
+<script src="live.js"></script>
 </body>
 </html>
